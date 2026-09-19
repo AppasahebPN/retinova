@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import { NavigationContainer } from "@react-navigation/native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { AuthContext, useAuthProvider } from "./src/hooks/useAuth";
+import { LoadingOverlay } from "./src/components";
+import RootNavigator from "./src/navigation/RootNavigator";
+import { COLORS } from "./src/utils/constants";
 
 export default function App() {
+  const auth = useAuthProvider();
+
+  if (auth.isLoading) {
+    return (
+      <SafeAreaProvider>
+        <LoadingOverlay message="Loading RETINOVA..." />
+      </SafeAreaProvider>
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <AuthContext.Provider value={auth}>
+        <NavigationContainer>
+          <StatusBar style="dark" />
+          <RootNavigator />
+        </NavigationContainer>
+      </AuthContext.Provider>
+    </SafeAreaProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

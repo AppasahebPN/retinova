@@ -1,0 +1,777 @@
+{
+  "safe_development_config": [
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\.env",
+      "line_num": 1,
+      "pattern": "10\\.\\d+\\.\\d+\\.\\d+",
+      "line_content": "EXPO_PUBLIC_API_BASE_URL=http://10.220.179.58:5000"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\.env.example",
+      "line_num": 9,
+      "pattern": "localhost",
+      "line_content": "# EXPO_PUBLIC_API_BASE_URL=http://localhost:5000"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\.env.example",
+      "line_num": 12,
+      "pattern": "192\\.168\\.\\d+\\.\\d+",
+      "line_content": "# EXPO_PUBLIC_API_BASE_URL=http://192.168.1.100:5000"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\audit_report_visual_structure.py",
+      "line_num": 4,
+      "pattern": "localhost",
+      "line_content": "url = \"http://localhost:5000/api/reports/606dc003-3a84-4bb1-a34a-e16fd61425a0/html\""
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\classify_scan.py",
+      "line_num": 20,
+      "pattern": "JWT_SECRET",
+      "line_content": "if any(os.path.basename(fpath) == s for s in [\"harden_jwt_secret.py\", \"create_backend_env_example.py\", \"update_backend_security.py\"]):"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\classify_scan.py",
+      "line_num": 32,
+      "pattern": "localhost",
+      "line_content": "# 4. Frontend checking or warning about localhost/127.0.0.1"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\classify_scan.py",
+      "line_num": 32,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "# 4. Frontend checking or warning about localhost/127.0.0.1"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\classify_scan.py",
+      "line_num": 33,
+      "pattern": "localhost",
+      "line_content": "elif \"mobile-app\\\\src\" in fpath and (\"localhost\" in line or \"127.0.0.1\" in line):"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\classify_scan.py",
+      "line_num": 33,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "elif \"mobile-app\\\\src\" in fpath and (\"localhost\" in line or \"127.0.0.1\" in line):"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\classify_scan.py",
+      "line_num": 46,
+      "pattern": "JWT_SECRET",
+      "line_content": "if \"JWT_SECRET\" in line or \"TOKEN=\" in line or \"password\" in line:"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\classify_scan.py",
+      "line_num": 46,
+      "pattern": "TOKEN=",
+      "line_content": "if \"JWT_SECRET\" in line or \"TOKEN=\" in line or \"password\" in line:"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\README.md",
+      "line_num": 43,
+      "pattern": "192\\.168\\.\\d+\\.\\d+",
+      "line_content": "EXPO_PUBLIC_API_BASE_URL=http://192.168.1.100:5000"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\README.md",
+      "line_num": 45,
+      "pattern": "192\\.168\\.\\d+\\.\\d+",
+      "line_content": "Replace `192.168.1.100` with the actual IP address of the machine running the NetraAI backend."
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\run-smoke-test.ps1",
+      "line_num": 5,
+      "pattern": "localhost",
+      "line_content": "$baseUrl = \"http://localhost:5000\""
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\run_acceptance_test.py",
+      "line_num": 9,
+      "pattern": "localhost",
+      "line_content": "BASE_URL = \"http://localhost:5000/api\""
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\run_deployment_readiness_audit.py",
+      "line_num": 53,
+      "pattern": "localhost",
+      "line_content": "# Check 4: Search for hardcoded localhost, 127.0.0.1, old LAN IPs"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\run_deployment_readiness_audit.py",
+      "line_num": 53,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "# Check 4: Search for hardcoded localhost, 127.0.0.1, old LAN IPs"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\run_deployment_readiness_audit.py",
+      "line_num": 54,
+      "pattern": "localhost",
+      "line_content": "print(\"\\n[Check 4] Searching for hardcoded localhost, 127.0.0.1, old LAN IP addresses...\")"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\run_deployment_readiness_audit.py",
+      "line_num": 54,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "print(\"\\n[Check 4] Searching for hardcoded localhost, 127.0.0.1, old LAN IP addresses...\")"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\run_deployment_readiness_audit.py",
+      "line_num": 90,
+      "pattern": "localhost",
+      "line_content": "login_res = requests.post(\"http://localhost:5000/api/auth/login\", json={\"email\": \"asha.worker@netra-ai.org\", \"password\": \"demo1234\"})"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\run_deployment_readiness_audit.py",
+      "line_num": 96,
+      "pattern": "localhost",
+      "line_content": "up_res = requests.post(\"http://localhost:5000/api/screenings/upload\", headers=headers, files=files)"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\run_deployment_readiness_audit.py",
+      "line_num": 110,
+      "pattern": "localhost",
+      "line_content": "rep_res = requests.get(\"http://localhost:5000/api/reports/606dc003-3a84-4bb1-a34a-e16fd61425a0/html\")"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\run_deployment_readiness_audit.py",
+      "line_num": 156,
+      "pattern": "localhost",
+      "line_content": "res = requests.post(\"http://localhost:5000/api/auth/login\", json={\"email\": email, \"password\": pw})"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\run_deployment_readiness_audit.py",
+      "line_num": 237,
+      "pattern": "localhost",
+      "line_content": "rep_html = requests.get(\"http://localhost:5000/api/reports/606dc003-3a84-4bb1-a34a-e16fd61425a0/html\").text"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\run_deployment_readiness_audit.py",
+      "line_num": 258,
+      "pattern": "localhost",
+      "line_content": "rep_html = requests.get(\"http://localhost:5000/api/reports/606dc003-3a84-4bb1-a34a-e16fd61425a0/html\").text"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\smoke-test.js",
+      "line_num": 4,
+      "pattern": "localhost",
+      "line_content": "const BASE_URL = 'http://localhost:5000';"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\test-api.ps1",
+      "line_num": 2,
+      "pattern": "localhost",
+      "line_content": "$loginRes = Invoke-RestMethod -Uri 'http://localhost:5000/api/auth/login' -Method Post -Body $loginBody -ContentType 'application/json'"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\test-api.ps1",
+      "line_num": 6,
+      "pattern": "localhost",
+      "line_content": "$pat = (Invoke-RestMethod -Uri 'http://localhost:5000/api/patients?limit=1' -Headers $headers).patients[0]"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\test-api.ps1",
+      "line_num": 10,
+      "pattern": "localhost",
+      "line_content": "$scr = (Invoke-RestMethod -Uri 'http://localhost:5000/api/screenings?limit=1' -Headers $headers).screenings[0]"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\test_screening_m3.py",
+      "line_num": 7,
+      "pattern": "localhost",
+      "line_content": "BASE_URL = \"http://localhost:5000/api\""
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\verify_final_functional_flow.py",
+      "line_num": 5,
+      "pattern": "localhost",
+      "line_content": "BASE_URL = \"http://localhost:5000/api\""
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\src\\config\\index.ts",
+      "line_num": 8,
+      "pattern": "JWT_SECRET",
+      "line_content": "// In production, JWT_SECRET must be explicitly provided in environment and meet minimum entropy"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\src\\config\\index.ts",
+      "line_num": 10,
+      "pattern": "JWT_SECRET",
+      "line_content": "if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\src\\config\\index.ts",
+      "line_num": 11,
+      "pattern": "JWT_SECRET",
+      "line_content": "throw new Error('[FATAL SECURITY] Production deployment requires a secure, cryptographically random JWT_SECRET configured in environment variables.');"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\src\\config\\index.ts",
+      "line_num": 18,
+      "pattern": "JWT_SECRET",
+      "line_content": "jwtSecret: process.env.JWT_SECRET || (nodeEnv === 'production' ? '' : 'dev-insecure-secret-for-local-testing-only'),"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\.env",
+      "line_num": 4,
+      "pattern": "JWT_SECRET",
+      "line_content": "JWT_SECRET=7e7e7bc5f8be81a904c5134c95602ddd06ca78bf0b162dcc632a0caa982e37c051f275e312a56e85ffc85d1de092ad5deebed6b26ad7d6a5df04921dca9885c3"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\.env",
+      "line_num": 4,
+      "pattern": "SECRET=",
+      "line_content": "JWT_SECRET=7e7e7bc5f8be81a904c5134c95602ddd06ca78bf0b162dcc632a0caa982e37c051f275e312a56e85ffc85d1de092ad5deebed6b26ad7d6a5df04921dca9885c3"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\.env.example",
+      "line_num": 10,
+      "pattern": "JWT_SECRET",
+      "line_content": "JWT_SECRET=<GENERATE_A_RANDOM_SECRET>"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\.env.example",
+      "line_num": 10,
+      "pattern": "SECRET=",
+      "line_content": "JWT_SECRET=<GENERATE_A_RANDOM_SECRET>"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\check_endpoints.py",
+      "line_num": 6,
+      "pattern": "localhost",
+      "line_content": "'http://localhost:5000/api/auth/demo-users',"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\check_endpoints.py",
+      "line_num": 7,
+      "pattern": "localhost",
+      "line_content": "'http://localhost:5000/api/facilities',"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\check_endpoints.py",
+      "line_num": 8,
+      "pattern": "localhost",
+      "line_content": "'http://localhost:5000/api/patients',"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\check_endpoints.py",
+      "line_num": 9,
+      "pattern": "localhost",
+      "line_content": "'http://localhost:5000/api/screenings',"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\check_endpoints.py",
+      "line_num": 10,
+      "pattern": "localhost",
+      "line_content": "'http://localhost:5000/api/simulations/results',"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\generate_and_audit_reports.py",
+      "line_num": 34,
+      "pattern": "localhost",
+      "line_content": "req = urllib.request.Request(\"http://localhost:5000/api/auth/login\", data=login_data, headers={\"Content-Type\": \"application/json\"})"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\generate_and_audit_reports.py",
+      "line_num": 51,
+      "pattern": "localhost",
+      "line_content": "req_screen = urllib.request.Request(\"http://localhost:5000/api/screen\", data=body, headers=headers)"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\generate_and_audit_reports.py",
+      "line_num": 58,
+      "pattern": "localhost",
+      "line_content": "req_report = urllib.request.Request(f\"http://localhost:5000/api/reports/{screening_id}/html\", headers=headers)"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\matlab_bridge.py",
+      "line_num": 1580,
+      "pattern": "localhost",
+      "line_content": "print(f\"[MATLAB Bridge] Starting server on http://localhost:{port}\")"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\matlab_bridge.py.bak",
+      "line_num": 1214,
+      "pattern": "localhost",
+      "line_content": "print(f\"[MATLAB Bridge] Starting server on http://localhost:{port}\")"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_all_report_flows.js",
+      "line_num": 9,
+      "pattern": "localhost",
+      "line_content": "const loginRes = await fetch('http://localhost:5000/api/auth/login', {"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_all_report_flows.js",
+      "line_num": 20,
+      "pattern": "localhost",
+      "line_content": "const screenA = await fetch('http://localhost:5000/api/screen', {"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_all_report_flows.js",
+      "line_num": 37,
+      "pattern": "localhost",
+      "line_content": "const reportA = await fetch(`http://localhost:5000/api/reports/${idA}/html`, { headers });"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_all_report_flows.js",
+      "line_num": 55,
+      "pattern": "localhost",
+      "line_content": "const patRes = await fetch('http://localhost:5000/api/patients', { headers });"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_all_report_flows.js",
+      "line_num": 59,
+      "pattern": "localhost",
+      "line_content": "const createRes = await fetch('http://localhost:5000/api/screenings', {"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_all_report_flows.js",
+      "line_num": 75,
+      "pattern": "localhost",
+      "line_content": "const analyzeRes = await fetch(`http://localhost:5000/api/screenings/${idB}/analyze`, {"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_all_report_flows.js",
+      "line_num": 84,
+      "pattern": "localhost",
+      "line_content": "const reportB = await fetch(`http://localhost:5000/api/reports/${idB}/html`, { headers });"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_dataflow_verification.py",
+      "line_num": 22,
+      "pattern": "TOKEN=",
+      "line_content": "def post_json(url, data, token=None):"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_dataflow_verification.py",
+      "line_num": 37,
+      "pattern": "TOKEN=",
+      "line_content": "def get_json(url, token=None):"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_dataflow_verification.py",
+      "line_num": 45,
+      "pattern": "TOKEN=",
+      "line_content": "def get_text(url, token=None):"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_dataflow_verification.py",
+      "line_num": 59,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "login_res, _ = post_json(\"http://127.0.0.1:5000/api/auth/login\", {"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_dataflow_verification.py",
+      "line_num": 89,
+      "pattern": "TOKEN=",
+      "line_content": "node_data, node_duration = post_json(\"http://127.0.0.1:5000/api/screen\", {\"imagePath\": img_path}, token=token)"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_dataflow_verification.py",
+      "line_num": 89,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "node_data, node_duration = post_json(\"http://127.0.0.1:5000/api/screen\", {\"imagePath\": img_path}, token=token)"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_dataflow_verification.py",
+      "line_num": 97,
+      "pattern": "TOKEN=",
+      "line_content": "react_query = get_json(f\"http://127.0.0.1:5000/api/screenings/{screening_id}\", token=token)"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_dataflow_verification.py",
+      "line_num": 97,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "react_query = get_json(f\"http://127.0.0.1:5000/api/screenings/{screening_id}\", token=token)"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_dataflow_verification.py",
+      "line_num": 105,
+      "pattern": "TOKEN=",
+      "line_content": "report_html = get_text(f\"http://127.0.0.1:5000/api/reports/{screening_id}/html\", token=token)"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_dataflow_verification.py",
+      "line_num": 105,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "report_html = get_text(f\"http://127.0.0.1:5000/api/reports/{screening_id}/html\", token=token)"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_fresh_screening_and_report.js",
+      "line_num": 9,
+      "pattern": "localhost",
+      "line_content": "const loginRes = await fetch('http://localhost:5000/api/auth/login', {"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_fresh_screening_and_report.js",
+      "line_num": 18,
+      "pattern": "localhost",
+      "line_content": "const screenRes1 = await fetch('http://localhost:5000/api/screen', {"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_fresh_screening_and_report.js",
+      "line_num": 37,
+      "pattern": "localhost",
+      "line_content": "const reportRes1 = await fetch(`http://localhost:5000/api/reports/${sId1}/html`, { headers });"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_fresh_screening_and_report.js",
+      "line_num": 58,
+      "pattern": "localhost",
+      "line_content": "const screenRes2 = await fetch('http://localhost:5000/api/screen', {"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_fresh_screening_and_report.js",
+      "line_num": 77,
+      "pattern": "localhost",
+      "line_content": "const reportRes2 = await fetch(`http://localhost:5000/api/reports/${sId2}/html`, { headers });"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_screening_id_flow.py",
+      "line_num": 12,
+      "pattern": "localhost",
+      "line_content": "req = urllib.request.Request(\"http://localhost:5000/api/auth/login\", data=login_data, headers={\"Content-Type\": \"application/json\"})"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_screening_id_flow.py",
+      "line_num": 27,
+      "pattern": "localhost",
+      "line_content": "req_p = urllib.request.Request(\"http://localhost:5000/api/patients\", headers=headers)"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_screening_id_flow.py",
+      "line_num": 32,
+      "pattern": "localhost",
+      "line_content": "req_f = urllib.request.Request(\"http://localhost:5000/api/facilities\", headers=headers)"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_screening_id_flow.py",
+      "line_num": 45,
+      "pattern": "localhost",
+      "line_content": "req_create = urllib.request.Request(\"http://localhost:5000/api/screenings\", data=create_body, headers=headers)"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_screening_id_flow.py",
+      "line_num": 53,
+      "pattern": "localhost",
+      "line_content": "req_analyze = urllib.request.Request(f\"http://localhost:5000/api/screenings/{screening_id}/analyze\", data=b\"{}\", headers=headers)"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_screening_id_flow.py",
+      "line_num": 59,
+      "pattern": "localhost",
+      "line_content": "req_get = urllib.request.Request(f\"http://localhost:5000/api/screenings/{screening_id}\", headers=headers)"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\src\\config\\index.ts",
+      "line_num": 8,
+      "pattern": "JWT_SECRET",
+      "line_content": "// In production, JWT_SECRET must be explicitly provided in environment and meet minimum entropy"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\src\\config\\index.ts",
+      "line_num": 10,
+      "pattern": "JWT_SECRET",
+      "line_content": "if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\src\\config\\index.ts",
+      "line_num": 11,
+      "pattern": "JWT_SECRET",
+      "line_content": "throw new Error('[FATAL SECURITY] Production deployment requires a secure, cryptographically random JWT_SECRET configured in environment variables.');"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\src\\config\\index.ts",
+      "line_num": 18,
+      "pattern": "JWT_SECRET",
+      "line_content": "jwtSecret: process.env.JWT_SECRET || (nodeEnv === 'production' ? '' : 'dev-insecure-secret-for-local-testing-only'),"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\__pycache__\\matlab_bridge.cpython-313.pyc",
+      "line_num": 598,
+      "pattern": "localhost",
+      "line_content": "\u0000\u0000\u0000r\u0002\u0000\u0000r\u0013\u0000\u0000\u0000)\u0001r\u0002\u0000\u0000s\u0001\u0000\u0000\u0000 rB\u0000\u0000\u0000\u001fget_latest_report_html_endpointr\u0002\u0000\u0000\u0004\u0000\u0000s?\u0000\u0000\u0000\u0000\u0006\u0000\f\u001f\u000b\u001e\"5=T\"T\u000e\u001b\u00034Y\u000eZ\bZ\u000b\u001f 78K L\u000bMD\u000b\u0017\u0004#\u000b6\u00046rD\u0000\u0000\u0000\b__main__\u0004PORTi@\u001f\u0000\u0000z4[MATLAB Bridge] Starting server on http://localhost:z\u00070.0.0.0)\u0002\u0004host\u0004port)\u0003r(\u0000\u0000\u0000NN)ar>\u0000\u0000\u0000\u0003sysr\u0000\u0000\u0000r#\u0001\u0000\u0000r7\u0000\u0000\u0000\u0006typingr\u0003\u0000\u0000\u0000r\u0004\u0000\u0000\u0000r\u0005\u0000\u0000\u0000r\u0006\u0000\u0000\u0000r!\u0001\u0000\u0000\u0005numpyrf\u0000\u0000\u0000\u0003PILr\u0007\u0000\u0000\u0000\bscipy.io\u0002ior\u0001\u0000\u0000\u0010MATLAB_DIST_PATHr?\u0000\u0000\u0000r*\u0001\u0000\u0000"
+    }
+  ],
+  "public_frontend_reference": [
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 16,
+      "pattern": "localhost",
+      "line_content": "if (isNative && (envUrl.includes(\"localhost\") || envUrl.includes(\"127.0.0.1\"))) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 16,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "if (isNative && (envUrl.includes(\"localhost\") || envUrl.includes(\"127.0.0.1\"))) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 19,
+      "pattern": "localhost",
+      "line_content": "\"[RETINOVA NATIVE API] localhost is not reachable from physical devices. Please set server LAN IP in EXPO_PUBLIC_API_BASE_URL.\""
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 52,
+      "pattern": "localhost",
+      "line_content": "// Native execution warning if pointing to localhost"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 53,
+      "pattern": "localhost",
+      "line_content": "if (isNative && (_apiBaseUrl.includes(\"localhost\") || _apiBaseUrl.includes(\"127.0.0.1\"))) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 53,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "if (isNative && (_apiBaseUrl.includes(\"localhost\") || _apiBaseUrl.includes(\"127.0.0.1\"))) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 56,
+      "pattern": "localhost",
+      "line_content": "if (envUrl && !envUrl.includes(\"localhost\") && !envUrl.includes(\"127.0.0.1\")) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 56,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "if (envUrl && !envUrl.includes(\"localhost\") && !envUrl.includes(\"127.0.0.1\")) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 70,
+      "pattern": "localhost",
+      "line_content": "// On native: NEVER allow a stored localhost value to override the LAN IP."
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 71,
+      "pattern": "localhost",
+      "line_content": "if (isNative && (cleaned.includes(\"localhost\") || cleaned.includes(\"127.0.0.1\"))) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 71,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "if (isNative && (cleaned.includes(\"localhost\") || cleaned.includes(\"127.0.0.1\"))) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 73,
+      "pattern": "localhost",
+      "line_content": "console.warn(\"[RETINOVA NATIVE API] Ignoring stale stored localhost URL:\", cleaned);"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 16,
+      "pattern": "localhost",
+      "line_content": "if (isNative && (envUrl.includes(\"localhost\") || envUrl.includes(\"127.0.0.1\"))) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 16,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "if (isNative && (envUrl.includes(\"localhost\") || envUrl.includes(\"127.0.0.1\"))) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 19,
+      "pattern": "localhost",
+      "line_content": "\"[RETINOVA NATIVE API] localhost is not reachable from physical devices. Please set server LAN IP in EXPO_PUBLIC_API_BASE_URL.\""
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 52,
+      "pattern": "localhost",
+      "line_content": "// Native execution warning if pointing to localhost"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 53,
+      "pattern": "localhost",
+      "line_content": "if (isNative && (_apiBaseUrl.includes(\"localhost\") || _apiBaseUrl.includes(\"127.0.0.1\"))) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 53,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "if (isNative && (_apiBaseUrl.includes(\"localhost\") || _apiBaseUrl.includes(\"127.0.0.1\"))) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 56,
+      "pattern": "localhost",
+      "line_content": "if (envUrl && !envUrl.includes(\"localhost\") && !envUrl.includes(\"127.0.0.1\")) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 56,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "if (envUrl && !envUrl.includes(\"localhost\") && !envUrl.includes(\"127.0.0.1\")) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 70,
+      "pattern": "localhost",
+      "line_content": "// On native: NEVER allow a stored localhost value to override the LAN IP."
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 71,
+      "pattern": "localhost",
+      "line_content": "if (isNative && (cleaned.includes(\"localhost\") || cleaned.includes(\"127.0.0.1\"))) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 71,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "if (isNative && (cleaned.includes(\"localhost\") || cleaned.includes(\"127.0.0.1\"))) {"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\src\\services\\api.ts",
+      "line_num": 73,
+      "pattern": "localhost",
+      "line_content": "console.warn(\"[RETINOVA NATIVE API] Ignoring stale stored localhost URL:\", cleaned);"
+    }
+  ],
+  "secret_that_must_be_removed": [],
+  "intentionally_local_service_reference": [
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\classify_scan.py",
+      "line_num": 27,
+      "pattern": "localhost",
+      "line_content": "elif \"postgresql://postgres:postgres@localhost:5432\" in line or \"5432\" in line:"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\classify_scan.py",
+      "line_num": 30,
+      "pattern": "localhost",
+      "line_content": "elif \":8000\" in line or \"127.0.0.1:8000\" in line or \"localhost:8000\" in line:"
+    },
+    {
+      "file": "c:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\mobile-app\\classify_scan.py",
+      "line_num": 30,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "elif \":8000\" in line or \"127.0.0.1:8000\" in line or \"localhost:8000\" in line:"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\src\\config\\index.ts",
+      "line_num": 22,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "matlabAiServiceUrl: process.env.MATLAB_SERVICE_URL || 'http://127.0.0.1:8000',"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\src\\config\\index.ts",
+      "line_num": 24,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "matlabSimulinkServiceUrl: process.env.MATLAB_SIMULINK_URL || 'http://127.0.0.1:8000',"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\.env",
+      "line_num": 8,
+      "pattern": "localhost",
+      "line_content": "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/netra_ai"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\.env",
+      "line_num": 12,
+      "pattern": "localhost",
+      "line_content": "MATLAB_SERVICE_URL=http://localhost:8000"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\.env",
+      "line_num": 16,
+      "pattern": "localhost",
+      "line_content": "MATLAB_SIMULINK_URL=http://localhost:8000"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\.env.example",
+      "line_num": 14,
+      "pattern": "localhost",
+      "line_content": "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/netra_ai"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\.env.example",
+      "line_num": 18,
+      "pattern": "localhost",
+      "line_content": "MATLAB_SERVICE_URL=http://localhost:8000"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\.env.example",
+      "line_num": 22,
+      "pattern": "localhost",
+      "line_content": "MATLAB_SIMULINK_URL=http://localhost:8000"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\check_endpoints.py",
+      "line_num": 11,
+      "pattern": "localhost",
+      "line_content": "'http://localhost:8000/health',"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\check_endpoints.py",
+      "line_num": 12,
+      "pattern": "localhost",
+      "line_content": "'http://localhost:8000/model-status'"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_dataflow_verification.py",
+      "line_num": 81,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "fastapi_data, fastapi_duration = post_json(\"http://127.0.0.1:8000/api/screen\", {\"imagePath\": img_path})"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_verification.py",
+      "line_num": 37,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "health_resp = get_text(\"http://127.0.0.1:8000/api/health\")"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_verification.py",
+      "line_num": 46,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "data_good_1, api_time_1 = post_json(\"http://127.0.0.1:8000/api/screen\", {\"imagePath\": TEST_IMG_GOOD})"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_verification.py",
+      "line_num": 56,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "data_good_2, api_time_2 = post_json(\"http://127.0.0.1:8000/api/screen\", {\"imagePath\": TEST_IMG_GOOD})"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_verification.py",
+      "line_num": 66,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "good_report_html = get_text(f\"http://127.0.0.1:8000/api/reports/{screening_id_good}/html\")"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_verification.py",
+      "line_num": 73,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "data_reject, api_time_reject = post_json(\"http://127.0.0.1:8000/api/screen\", {\"imagePath\": TEST_IMG_REJECT})"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\test_verification.py",
+      "line_num": 83,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "reject_report_html = get_text(f\"http://127.0.0.1:8000/api/reports/{screening_id_reject}/html\")"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\src\\config\\index.ts",
+      "line_num": 22,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "matlabAiServiceUrl: process.env.MATLAB_SERVICE_URL || 'http://127.0.0.1:8000',"
+    },
+    {
+      "file": "C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR\\backend\\src\\config\\index.ts",
+      "line_num": 24,
+      "pattern": "127\\.0\\.0\\.1",
+      "line_content": "matlabSimulinkServiceUrl: process.env.MATLAB_SIMULINK_URL || 'http://127.0.0.1:8000',"
+    }
+  ]
+}

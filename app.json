@@ -1,25 +1,51 @@
 {
   "expo": {
-    "name": "mobile-app",
-    "slug": "mobile-app",
+    "name": "RETINOVA",
+    "slug": "retinova",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "monochromeImage": "./assets/android-icon-monochrome.png",
+        "backgroundColor": "#FFFFFF"
       },
-      "predictiveBackGestureEnabled": false
+      "package": "com.netraai.asha",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.netraai.asha",
+      "infoPlist": {
+        "NSCameraUsageDescription": "RETINOVA needs camera access to capture fundus images for diabetic retinopathy screening.",
+        "NSPhotoLibraryUsageDescription": "RETINOVA needs photo library access to select fundus images for screening."
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "RETINOVA needs access to your photo library to select fundus images.",
+          "cameraPermission": "RETINOVA needs camera access to capture fundus images for screening."
+        }
+      ]
+    ],
+    "extra": {
+      "apiBaseUrl": {},
+      "eas": {
+        "projectId": "90e008b7-012f-41f5-b45e-e943c8fe2fde"
+      }
     }
   }
 }
