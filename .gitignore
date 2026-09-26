@@ -1,41 +1,122 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+# ============================================================
+# RETINOVA — .gitignore
+# Explainable AI for Diabetic Retinopathy Screening
+# ============================================================
 
-# dependencies
+# --- Dependencies ---
 node_modules/
+*/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Expo
-.expo/
+# --- Build & Bundle Artifacts ---
 dist/
+*/dist/
+build/
+*/build/
 web-build/
-expo-env.d.ts
+*/web-build/
+.expo/
+*/.expo/
+*.apk
+*.aab
+*.ipa
+*.tsbuildinfo
+*/tsconfig.tsbuildinfo
 
-# Native
-.kotlin/
-*.orig.*
+# --- Python & Caches ---
+__pycache__/
+*/__pycache__/
+*/**/__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+*/.pytest_cache/
+.cache/
+*/.cache/
+.coverage
+htmlcov/
+*.egg-info/
+.venv/
+venv/
+env/
+ENV/
+
+# --- Environment & Secrets ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.secret
+*.pem
+*.key
 *.jks
 *.p8
 *.p12
-*.key
 *.mobileprovision
+credentials.json
+serviceAccountKey.json
 
-# Metro
-.metro-health-check*
+# --- Runtime Uploads, Patient Data & Generated Artifacts ---
+uploads/
+*/uploads/
+!backend/uploads/
+backend/uploads/*
+!backend/uploads/.gitkeep
+generated_reports/
+*/generated_reports/
+report_*.html
+*/report_*.html
+temp_report_*.html
+*/temp_report_*.html
+test_card_*.png
+*/test_card_*.png
 
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
+# --- Database & Local Dumps ---
+*.sqlite
+*.sqlite3
+*.db
+local_db/
+*.sql.gz
+*.dump
 
-# macOS
+# --- Logs ---
+logs/
+*/logs/
+*.log
+*.log.*
+
+# --- MATLAB Temporary & Cache Files ---
+*.asv
+*.m~
+*.slxc
+slprj/
+*/slprj/
+*.autosave
+*Features*Cache.mat
+*train_cache.mat
+*val_cache.mat
+
+# --- OS & Editor Files ---
 .DS_Store
-*.pem
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.bak
 
-# local env files
-.env*.local
+# --- One-off Scratch / Temp Testing Scripts ---
+scratch/
+*/scratch/
+test_*.png
+preview_*.png
 
-# typescript
-*.tsbuildinfo
-
-# generated native folders
-/ios
-/android
+# --- Design & Prototype Exports ---
+figma-source/

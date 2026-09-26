@@ -1,0 +1,10 @@
+{
+  "description": "Streamline healthcare workflows for district managers, doctors, and ASHA workers with a polished interface that enhances usability and visual clarity.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

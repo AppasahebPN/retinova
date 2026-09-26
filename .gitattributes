@@ -1,0 +1,7 @@
+# ============================================================
+# RETINOVA — Git LFS Configuration
+# Large model checkpoints and binary models
+# ============================================================
+*.pt filter=lfs diff=lfs merge=lfs -text
+*.pth filter=lfs diff=lfs merge=lfs -text
+*.onnx filter=lfs diff=lfs merge=lfs -text

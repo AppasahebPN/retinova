@@ -1,0 +1,230 @@
+{
+  "val_threshold": {
+    "name": "val_threshold (N=1655, Primary Held-Out Validation Split)",
+    "n_total": 1655,
+    "n_positive": 413,
+    "n_negative": 1242,
+    "baseline": {
+      "tp": 374,
+      "tn": 1118,
+      "fp": 124,
+      "fn": 39,
+      "sensitivity": 90.55690072639226,
+      "specificity": 90.01610305958133,
+      "ppv": 75.1004016064257,
+      "npv": 96.62921348314607,
+      "f1": 82.10757409440176,
+      "balanced_accuracy": 90.28650189298679,
+      "confusion_matrix": [
+        [
+          1118,
+          124
+        ],
+        [
+          39,
+          374
+        ]
+      ]
+    },
+    "rule": {
+      "tp": 372,
+      "tn": 1131,
+      "fp": 111,
+      "fn": 41,
+      "sensitivity": 90.07263922518159,
+      "specificity": 91.06280193236715,
+      "ppv": 77.01863354037268,
+      "npv": 96.50170648464163,
+      "f1": 83.03571428571429,
+      "balanced_accuracy": 90.56772057877438,
+      "confusion_matrix": [
+        [
+          1131,
+          111
+        ],
+        [
+          41,
+          372
+        ]
+      ]
+    },
+    "n_suppressed": 15,
+    "suppressed_tp": 2,
+    "suppressed_fp": 13,
+    "suppressed_grades": {
+      "0": 12,
+      "2": 2,
+      "1": 1
+    },
+    "tp_suppressed_details": [
+      {
+        "image_id": "6654_left",
+        "gt_grade": 2,
+        "p_ref": 0.3001183463927909,
+        "conf_g0": 0.7721123894659017
+      },
+      {
+        "image_id": "7947_left",
+        "gt_grade": 2,
+        "p_ref": 0.30308619613683757,
+        "conf_g0": 0.7546833690534696
+      }
+    ]
+  },
+  "val_calibration": {
+    "name": "val_calibration (N=1633, Independent Calibration Split)",
+    "n_total": 1633,
+    "n_positive": 410,
+    "n_negative": 1223,
+    "baseline": {
+      "tp": 361,
+      "tn": 1106,
+      "fp": 117,
+      "fn": 49,
+      "sensitivity": 88.04878048780488,
+      "specificity": 90.43336058871627,
+      "ppv": 75.52301255230127,
+      "npv": 95.75757575757575,
+      "f1": 81.30630630630631,
+      "balanced_accuracy": 89.24107053826059,
+      "confusion_matrix": [
+        [
+          1106,
+          117
+        ],
+        [
+          49,
+          361
+        ]
+      ]
+    },
+    "rule": {
+      "tp": 359,
+      "tn": 1119,
+      "fp": 104,
+      "fn": 51,
+      "sensitivity": 87.5609756097561,
+      "specificity": 91.49632052330335,
+      "ppv": 77.5377969762419,
+      "npv": 95.64102564102565,
+      "f1": 82.2451317296678,
+      "balanced_accuracy": 89.52864806652973,
+      "confusion_matrix": [
+        [
+          1119,
+          104
+        ],
+        [
+          51,
+          359
+        ]
+      ]
+    },
+    "n_suppressed": 15,
+    "suppressed_tp": 2,
+    "suppressed_fp": 13,
+    "suppressed_grades": {
+      "0": 12,
+      "2": 2,
+      "1": 1
+    },
+    "tp_suppressed_details": [
+      {
+        "image_id": "23702_right",
+        "gt_grade": 2,
+        "p_ref": 0.37505517481734063,
+        "conf_g0": 0.806752241182425
+      },
+      {
+        "image_id": "5437_right",
+        "gt_grade": 2,
+        "p_ref": 0.34606243584606994,
+        "conf_g0": 0.7498220628360344
+      }
+    ]
+  },
+  "val_combined": {
+    "name": "val_combined (N=3288, Full Validation Pool)",
+    "n_total": 3288,
+    "n_positive": 823,
+    "n_negative": 2465,
+    "baseline": {
+      "tp": 735,
+      "tn": 2224,
+      "fp": 241,
+      "fn": 88,
+      "sensitivity": 89.30741190765492,
+      "specificity": 90.22312373225152,
+      "ppv": 75.30737704918032,
+      "npv": 96.19377162629758,
+      "f1": 81.71206225680933,
+      "balanced_accuracy": 89.76526781995322,
+      "confusion_matrix": [
+        [
+          2224,
+          241
+        ],
+        [
+          88,
+          735
+        ]
+      ]
+    },
+    "rule": {
+      "tp": 731,
+      "tn": 2250,
+      "fp": 215,
+      "fn": 92,
+      "sensitivity": 88.82138517618469,
+      "specificity": 91.27789046653145,
+      "ppv": 77.27272727272727,
+      "npv": 96.07173356105892,
+      "f1": 82.64556246466931,
+      "balanced_accuracy": 90.04963782135806,
+      "confusion_matrix": [
+        [
+          2250,
+          215
+        ],
+        [
+          92,
+          731
+        ]
+      ]
+    },
+    "n_suppressed": 30,
+    "suppressed_tp": 4,
+    "suppressed_fp": 26,
+    "suppressed_grades": {
+      "0": 24,
+      "2": 4,
+      "1": 2
+    },
+    "tp_suppressed_details": [
+      {
+        "image_id": "6654_left",
+        "gt_grade": 2,
+        "p_ref": 0.3001183463927909,
+        "conf_g0": 0.7721123894659017
+      },
+      {
+        "image_id": "7947_left",
+        "gt_grade": 2,
+        "p_ref": 0.30308619613683757,
+        "conf_g0": 0.7546833690534696
+      },
+      {
+        "image_id": "23702_right",
+        "gt_grade": 2,
+        "p_ref": 0.37505517481734063,
+        "conf_g0": 0.806752241182425
+      },
+      {
+        "image_id": "5437_right",
+        "gt_grade": 2,
+        "p_ref": 0.34606243584606994,
+        "conf_g0": 0.7498220628360344
+      }
+    ]
+  }
+}

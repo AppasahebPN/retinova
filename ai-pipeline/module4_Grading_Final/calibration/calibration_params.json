@@ -1,0 +1,8 @@
+{
+  "temperature": 1.455536717426778,
+  "ece_before": 0.04531040948438028,
+  "ece_after": 0.05092399824081868,
+  "bce_loss_before": 0.2542129097706014,
+  "bce_loss_after": 0.23168757477905186,
+  "status": "SUCCESS"
+}

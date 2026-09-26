@@ -1,0 +1,17 @@
+{
+  "chosen_threshold": {
+    "threshold": 0.2993,
+    "sensitivity": 0.9056,
+    "specificity": 0.9002,
+    "precision": 0.751,
+    "f1_score": 0.8211,
+    "balanced_accuracy": 0.9029,
+    "satisfies_primary_gate": true
+  },
+  "target_constraints": {
+    "min_sensitivity": 0.9,
+    "min_specificity": 0.85
+  },
+  "primary_gate_met": true,
+  "threshold_grid_count": 990
+}

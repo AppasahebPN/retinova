@@ -1,43 +1,13 @@
 {
-  "name": "mobile-app",
+  "name": "retinova",
   "version": "1.0.0",
-  "main": "index.ts",
-  "dependencies": {
-    "@expo/metro-runtime": "~57.0.15",
-    "@react-native-async-storage/async-storage": "^3.1.1",
-    "@react-navigation/bottom-tabs": "^7.19.1",
-    "@react-navigation/native": "^7.4.1",
-    "@react-navigation/native-stack": "^7.19.1",
-    "expo": "~57.0.23",
-    "expo-constants": "^57.0.18",
-    "expo-image-picker": "^57.0.18",
-    "expo-status-bar": "~57.0.1",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "react-native": "0.86.3",
-    "react-native-safe-area-context": "^5.9.1",
-    "react-native-screens": "^4.28.0",
-    "react-native-web": "^0.21.2"
-  },
-  "devDependencies": {
-    "@types/react": "~19.2.2",
-    "typescript": "~6.0.3"
-  },
+  "private": true,
+  "description": "RETINOVA — Explainable AI for Diabetic Retinopathy Screening",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "build": "expo export -p web"
-  },
-  "expo": {
-    "install": {
-      "exclude": [
-        "@react-native-async-storage/async-storage",
-        "react-native-safe-area-context",
-        "react-native-screens"
-      ]
-    }
-  },
-  "private": true
+    "start:retinova": "powershell -ExecutionPolicy Bypass -File scripts/start-retinova.ps1",
+    "restart:retinova": "powershell -ExecutionPolicy Bypass -File scripts/start-retinova.ps1 -Restart",
+    "build:web": "cd mobile-app && npm run build",
+    "stop:retinova": "powershell -ExecutionPolicy Bypass -Command \"Write-Host 'Stopping RETINOVA services...' -ForegroundColor Yellow; $p5 = (Get-NetTCPConnection -LocalPort 5000 -ErrorAction SilentlyContinue | Where-Object { $_.State -eq 'Listen' }).OwningProcess | Select-Object -Unique; if ($p5) { Stop-Process -Id $p5 -Force -ErrorAction SilentlyContinue; Write-Host '  Express API (:5000) stopped.' -ForegroundColor Green }; $p8 = (Get-NetTCPConnection -LocalPort 8000 -ErrorAction SilentlyContinue | Where-Object { $_.State -eq 'Listen' }).OwningProcess | Select-Object -Unique; if ($p8) { Stop-Process -Id $p8 -Force -ErrorAction SilentlyContinue; Write-Host '  MATLAB Bridge (:8000) stopped.' -ForegroundColor Green }; Write-Host 'RETINOVA services stopped.' -ForegroundColor Green\"",
+    "status:retinova": "powershell -ExecutionPolicy Bypass -Command \"Write-Host ''; Write-Host '  RETINOVA Service Status' -ForegroundColor Cyan; Write-Host '  ========================'; $pg = Test-NetConnection -ComputerName 127.0.0.1 -Port 5432 -WarningAction SilentlyContinue -InformationLevel Quiet; Write-Host \\\"  [DB]  PostgreSQL :5432  $( if($pg){'OK'} else {'DOWN'} )\\\" -ForegroundColor $( if($pg){'Green'} else {'Red'} ); try { $r = Invoke-RestMethod -Uri 'http://127.0.0.1:8000/api/health' -TimeoutSec 3 -ErrorAction Stop; Write-Host \\\"  [AI]  MATLAB Bridge :8000  $($r.matlab_engine)\\\" -ForegroundColor Green } catch { Write-Host '  [AI]  MATLAB Bridge :8000  DOWN' -ForegroundColor Red }; try { $r = Invoke-RestMethod -Uri 'http://127.0.0.1:5000/api/health' -TimeoutSec 3 -ErrorAction Stop; Write-Host \\\"  [API] Express :5000  $($r.status)\\\" -ForegroundColor Green } catch { Write-Host '  [API] Express :5000  DOWN' -ForegroundColor Red }; Write-Host ''\""
+  }
 }

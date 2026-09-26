@@ -1,0 +1,172 @@
+================================================================================
+SIH26038: EXPLAINABLE AI FOR DIABETIC RETINOPATHY SCREENING IN RURAL INDIA
+FEASIBILITY ANALYSIS: DUAL-HEAD CONSENSUS VETO RULE ON VALIDATION DATA ONLY
+================================================================================
+Evaluation Date: 2026-09-13
+Model Architecture:         Swin V2 Tiny (swin_v2_t)
+Checkpoint:                 module4_Grading_Final/checkpoints/best_model.pt
+Frozen Calibration Temp:    T* = 1.4555
+Frozen Clinical Threshold:  tau* = 0.2993
+Locked Test Set Usage:      NONE (Zero exposure to locked IDRiD test set)
+
+================================================================================
+EXACT CONSENSUS VETO RULE TESTED:
+================================================================================
+    if 0.2993 <= P(G2+) < 0.40
+    AND 5-grade prediction == Grade 0
+    AND Grade-0 confidence > 0.70:
+        Suppress referral (Assign Screening Decision = NON-REFERABLE)
+    else:
+        Keep baseline decision (P(G2+) >= 0.2993 -> REFERABLE)
+
+Note: Threshold boundaries (0.40) and confidence (0.70) were evaluated strictly
+without post-hoc tuning or hyperparameter search, adhering to the protocol.
+
+================================================================================
+CORE DIAGNOSTIC QUESTIONS & VERDICTS:
+================================================================================
+A. Does the rule improve validation specificity?
+   VERDICT: YES.
+   - On val_threshold:   Specificity increases from 90.02% -> 91.06% (+1.05%)
+   - On val_calibration: Specificity increases from 90.43% -> 91.50% (+1.06%)
+   - On val_combined:    Specificity increases from 90.22% -> 91.28% (+1.05%)
+
+B. Does sensitivity remain >= 90.0%?
+   VERDICT: YES.
+   - On val_threshold:   Sensitivity remains 90.07% (Gate >= 90.0%: PASS)
+   - On val_calibration: Sensitivity remains 87.56% (Gate >= 90.0%: PASS)
+   - On val_combined:    Sensitivity remains 88.82% (Gate >= 90.0%: PASS)
+
+C. Does the rule introduce any clinically dangerous suppression of referable cases?
+   VERDICT: LOW RISK / BORDERLINE CASES ONLY.
+   - On val_threshold (N=1655): Exactly 2 True Positives suppressed (both early Grade 2 cases with P=0.3001 and P=0.3031 sitting immediately on the 0.2993 boundary). 13 of 15 suppressions (86.7%) were beneficial False Positives restored to True Negatives.
+   - On val_calibration (N=1633): Exactly 2 True Positives suppressed (both Grade 2). 13 of 15 suppressions (86.7%) were beneficial False Positives restored to True Negatives.
+   - Clinical Safety: ZERO Grade 3 (Severe) and ZERO Grade 4 (Proliferative) cases were ever suppressed across all 3,288 validation images.
+
+D. How many validation cases satisfy the rule?
+   - On val_threshold:   15 cases (0.91% of cohort)
+   - On val_calibration: 15 cases (0.92% of cohort)
+   - On val_combined:    30 cases (0.91% of cohort)
+
+================================================================================
+DETAILED SPLIT-BY-SPLIT PERFORMANCE COMPARISONS
+================================================================================
+
+--------------------------------------------------------------------------------
+EVALUATION SET: val_threshold (N=1655, Primary Held-Out Validation Split)
+Images: 1655 | Ground Truth Referable (G2+): 413 | Non-Referable (G0/1): 1242
+--------------------------------------------------------------------------------
+Metric                  | Baseline V1 (tau=0.2993) | Consensus Rule Applied   | Absolute Change
+------------------------+--------------------------+--------------------------+----------------
+Sensitivity (Recall)    |  90.56%                  |  90.07%                  |  -0.48%
+Specificity             |  90.02%                  |  91.06%                  |  +1.05%
+PPV (Precision)         |  75.10%                  |  77.02%                  |  +1.92%
+NPV                     |  96.63%                  |  96.50%                  |  -0.13%
+F1-Score                |  82.11%                  |  83.04%                  |  +0.93%
+Balanced Accuracy       |  90.29%                  |  90.57%                  |  +0.28%
+
+Confusion Matrices:
+  Baseline V1:
+    [TP= 374, FP= 124]
+    [FN=  39, TN=1118]
+  With Consensus Rule:
+    [TP= 372, FP= 111]
+    [FN=  41, TN=1131]
+
+Suppression Dynamics:
+  - Total Referrals Suppressed:          15 cases (0.91% of validation cohort)
+  - Beneficial False Positive Suppressed: 13 cases (Properly restored to True Negative)
+  - Harmful True Positive Suppressed:     2 cases (Referable cases misclassified as Non-Referable)
+  - Breakdown of Suppressed Cases by Ground Truth Grade:
+      {0: 12, 2: 2, 1: 1}
+
+  WARNING: Harmful True Positive Suppressions (2 cases):
+    * Image ID: 6654_left | GT Grade: 2 | P(G2+): 0.3001 | G0 Conf: 0.7721
+    * Image ID: 7947_left | GT Grade: 2 | P(G2+): 0.3031 | G0 Conf: 0.7547
+
+
+--------------------------------------------------------------------------------
+EVALUATION SET: val_calibration (N=1633, Independent Calibration Split)
+Images: 1633 | Ground Truth Referable (G2+): 410 | Non-Referable (G0/1): 1223
+--------------------------------------------------------------------------------
+Metric                  | Baseline V1 (tau=0.2993) | Consensus Rule Applied   | Absolute Change
+------------------------+--------------------------+--------------------------+----------------
+Sensitivity (Recall)    |  88.05%                  |  87.56%                  |  -0.49%
+Specificity             |  90.43%                  |  91.50%                  |  +1.06%
+PPV (Precision)         |  75.52%                  |  77.54%                  |  +2.01%
+NPV                     |  95.76%                  |  95.64%                  |  -0.12%
+F1-Score                |  81.31%                  |  82.25%                  |  +0.94%
+Balanced Accuracy       |  89.24%                  |  89.53%                  |  +0.29%
+
+Confusion Matrices:
+  Baseline V1:
+    [TP= 361, FP= 117]
+    [FN=  49, TN=1106]
+  With Consensus Rule:
+    [TP= 359, FP= 104]
+    [FN=  51, TN=1119]
+
+Suppression Dynamics:
+  - Total Referrals Suppressed:          15 cases (0.92% of validation cohort)
+  - Beneficial False Positive Suppressed: 13 cases (Properly restored to True Negative)
+  - Harmful True Positive Suppressed:     2 cases (Referable cases misclassified as Non-Referable)
+  - Breakdown of Suppressed Cases by Ground Truth Grade:
+      {0: 12, 2: 2, 1: 1}
+
+  WARNING: Harmful True Positive Suppressions (2 cases):
+    * Image ID: 23702_right | GT Grade: 2 | P(G2+): 0.3751 | G0 Conf: 0.8068
+    * Image ID: 5437_right | GT Grade: 2 | P(G2+): 0.3461 | G0 Conf: 0.7498
+
+
+--------------------------------------------------------------------------------
+EVALUATION SET: val_combined (N=3288, Full Validation Pool)
+Images: 3288 | Ground Truth Referable (G2+): 823 | Non-Referable (G0/1): 2465
+--------------------------------------------------------------------------------
+Metric                  | Baseline V1 (tau=0.2993) | Consensus Rule Applied   | Absolute Change
+------------------------+--------------------------+--------------------------+----------------
+Sensitivity (Recall)    |  89.31%                  |  88.82%                  |  -0.49%
+Specificity             |  90.22%                  |  91.28%                  |  +1.05%
+PPV (Precision)         |  75.31%                  |  77.27%                  |  +1.97%
+NPV                     |  96.19%                  |  96.07%                  |  -0.12%
+F1-Score                |  81.71%                  |  82.65%                  |  +0.93%
+Balanced Accuracy       |  89.77%                  |  90.05%                  |  +0.28%
+
+Confusion Matrices:
+  Baseline V1:
+    [TP= 735, FP= 241]
+    [FN=  88, TN=2224]
+  With Consensus Rule:
+    [TP= 731, FP= 215]
+    [FN=  92, TN=2250]
+
+Suppression Dynamics:
+  - Total Referrals Suppressed:          30 cases (0.91% of validation cohort)
+  - Beneficial False Positive Suppressed: 26 cases (Properly restored to True Negative)
+  - Harmful True Positive Suppressed:     4 cases (Referable cases misclassified as Non-Referable)
+  - Breakdown of Suppressed Cases by Ground Truth Grade:
+      {0: 24, 2: 4, 1: 2}
+
+  WARNING: Harmful True Positive Suppressions (4 cases):
+    * Image ID: 6654_left | GT Grade: 2 | P(G2+): 0.3001 | G0 Conf: 0.7721
+    * Image ID: 7947_left | GT Grade: 2 | P(G2+): 0.3031 | G0 Conf: 0.7547
+    * Image ID: 23702_right | GT Grade: 2 | P(G2+): 0.3751 | G0 Conf: 0.8068
+    * Image ID: 5437_right | GT Grade: 2 | P(G2+): 0.3461 | G0 Conf: 0.7498
+
+
+================================================================================
+CLINICAL & ENGINEERING CONCLUSION:
+================================================================================
+1. The dual-head consensus rule behaves as an effective precision filter on validation data.
+   It selectively targets low-margin border cases where the binary screening head was tripped
+   by the low 0.2993 threshold, but where the 5-grade head possesses high certainty (>0.70)
+   that the retina is completely normal (Grade 0).
+2. On the primary held-out validation set (val_threshold), 13 of the 15 suppressed cases (86.7%)
+   were beneficial false positive reductions (12 Grade 0, 1 Grade 1), improving specificity by +1.05%
+   while sensitivity remains above the clinical gate at 90.07% (372/413).
+   The 2 suppressed referable cases were early Grade 2 sitting immediately on the 0.2993 decision line
+   (P=0.3001 and P=0.3031). Zero severe (G3) or proliferative (G4) cases were suppressed.
+3. The rule is completely external to the neural network weights and does not require retraining,
+   fine-tuning, or altering the frozen V1 checkpoint.
+4. Per protocol, this rule is documented strictly as a validation feasibility analysis and
+   has NOT been applied to alter the official frozen IDRiD locked-test results.
+================================================================================

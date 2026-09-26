@@ -1,0 +1,203 @@
+================================================================================
+SIH26038: EXPLAINABLE AI FOR DIABETIC RETINOPATHY SCREENING IN RURAL INDIA
+FINAL PIPELINE AUDIT & PRE-TRAINING VERIFICATION REPORT (UPDATED)
+================================================================================
+Date/Time: 2026-09-13 01:12:00
+Target Environment: NVIDIA GeForce RTX 3050 A Laptop GPU (4 GB VRAM)
+Workspace Root: C:\Users\Appasaheb\OneDrive\Documents\MATLAB\DR_Screening_MATLAB
+Isolation Boundary: module4_Grading_Final/ (Zero modifications to production code)
+
+================================================================================
+1. HARDWARE AUDIT & PEAK VRAM MEASUREMENT (512x512)
+================================================================================
+GPU Model:             NVIDIA GeForce RTX 3050 A Laptop GPU
+Driver Version:        592.82
+Compute Capability:    8.9 (Ada Lovelace generation)
+CUDA Support:          CUDA 13.1 (Driver) / PyTorch CUDA 12.4
+Total VRAM:            4093.50 MB (4.00 GB)
+Backbone Architecture: Swin V2 TINY (Torchvision SwinTransformer V2-T)
+Pretrained Weights:    Official ImageNet-1K (Swin_V2_T_Weights.DEFAULT)
+Total Parameters:      27,587,184 (100% trainable)
+Input Resolution:      EXACTLY 512 x 512 x 3 (No downscaling permitted)
+
+ACTUAL MEASURED GPU BENCHMARK (AMP FP16 + AdamW + 512x512):
+--------------------------------------------------------------------------------
+Batch Size = 1:
+  - VRAM after Model + Input:  108.96 MB
+  - Forward Pass Time:         0.4304 s
+  - Backward + Optimizer Time: 0.1798 s
+  - PEAK VRAM:                 643.96 MB (Fits comfortably in 4 GB; Headroom: 3,449.54 MB)
+  
+Batch Size = 2:
+  - VRAM after Model + Input:  111.96 MB
+  - Forward Pass Time:         0.4480 s
+  - Backward + Optimizer Time: 0.2068 s
+  - PEAK VRAM:                 1085.94 MB (Fits comfortably in 4 GB; Headroom: 3,007.56 MB)
+
+Recommended Training Configuration on 4 GB RTX 3050:
+  - Per-device mini-batch size: 2
+  - Gradient accumulation steps: 8
+  - Effective batch size:       16
+  - Precision:                  AMP FP16 (torch.amp.autocast)
+  - Peak Memory Envelope:       ~1.09 GB (Leaves ~3.0 GB safety margin for OS/DWM)
+  - Gradient Checkpointing:     Available as optional toggle; NOT required for 512x512 at batch=2.
+
+================================================================================
+2. INSTALLED ENVIRONMENT & DEPENDENCY MANIFEST
+================================================================================
+Python Version:        3.13.5 (C:\Users\Appasaheb\AppData\Local\Programs\Python\Python313\python.exe)
+PyTorch:               2.6.0+cu124 (CUDA Enabled: True, Device: cuda:0)
+Torchvision:           0.21.0+cu124
+NumPy:                 2.4.6
+Pandas:                3.0.3
+SciPy:                 1.18.0
+Pillow:                12.2.0
+Transformers:          5.12.1
+MATLAB Version:        MATLAB 26.1 (R2026a) Update 5 (Deep Learning, Image Processing, Computer Vision)
+
+================================================================================
+3. DATASET AUDIT & PROVENANCE
+================================================================================
+Total Validated Images on Disk:  16,720 images (12,791 distinct patients/clusters)
+Included Datasets:
+  1. APTOS 2019:                 3,662 images (3,534 unique MD5 hash clusters)
+  2. EyeQ-Linked EyePACS:        12,543 images (8,845 genuine patient IDs)
+  3. IDRiD Training Set:         412 images (413 original - 1 excluded duplicate)
+  4. IDRiD Locked Testing Set:   103 images (Official competition test set, LOCKED)
+
+--------------------------------------------------------------------------------
+IDRiD EXACT DUPLICATE EXCLUSION RECORD:
+--------------------------------------------------------------------------------
+Excluded File:     data/IDRiD/B. Disease Grading/1. Original Images/a. Training Set/IDRiD_118.jpg
+Identical File:    data/IDRiD/B. Disease Grading/1. Original Images/b. Testing Set/IDRiD_064.jpg
+MD5 Hash:          2f72ef33ec56843d7425e8c599d73ab1
+File Size:         406,805 bytes
+Exclusion Rationale:
+  IDRiD_118 (in the training set) is an identical byte-level duplicate of IDRiD_064 
+  (in the official locked testing set). If IDRiD_118 were included in training or validation,
+  the model would memorize an evaluation sample, causing direct test data leakage.
+  IDRiD_118 is permanently excluded from all training, validation, and calibration splits.
+
+================================================================================
+4. SPLIT COUNTS & SPLIT TERMINOLOGY
+================================================================================
+Split Strategy Definitions:
+  - EyePACS: Genuine Patient-Level Splitting (grouped by patient ID prefix before '_left'/'_right')
+  - IDRiD:   Genuine Patient-Level Splitting & Image Cluster Grouping
+  - APTOS:   Duplicate-Aware Splitting (grouped by exact MD5 image hash clusters;
+             genuine patient IDs are unavailable for APTOS and NOT claimed).
+
+Split Allocation Matrix:
+--------------------------------------------------------------------------------
+Dataset           Train (80%)   Val-Calibration (10%)   Val-Threshold (10%)   Locked-Test   Total
+--------------------------------------------------------------------------------
+EyeQ               10,066             1,238                   1,239                 0      12,543
+APTOS               2,934               364                     364                 0       3,662
+IDRiD                 329                42                      41                 0         412
+IDRiD_Locked_Test       0                 0                       0               103         103
+--------------------------------------------------------------------------------
+Total              13,329             1,644                   1,644               103      16,720
+--------------------------------------------------------------------------------
+
+Calibration & Threshold Separation Rationale:
+  To prevent optimistic threshold bias and overfitting, the validation observations are
+  strictly split into two disjoint 50/50 subsets:
+    1. Val-Calibration (1,644 images): Used exclusively to fit Platt/Temperature scaling.
+    2. Val-Threshold (1,644 images):   Used exclusively to select and freeze the clinical
+                                       referable decision threshold targeting Sens >= 90%, Spec >= 85%.
+    3. Locked-Test (103 images):       Remains strictly untouched and locked until final audit.
+
+================================================================================
+5. SPLIT LEAKAGE AUDIT RESULTS
+================================================================================
+Verification Method: Pairwise intersection of patient IDs and MD5 hash clusters across all splits.
+  - Train / Val-Calibration Patient/Cluster Overlap:  0
+  - Train / Val-Threshold Patient/Cluster Overlap:    0
+  - Val-Calibration / Val-Threshold Overlap:          0
+  - Train / Locked-Test Overlap:                      0
+  - Val / Locked-Test Overlap:                        0
+Leakage Status: ZERO LEAKAGE DETECTED across all partitions.
+
+================================================================================
+6. CLASS WEIGHT CALCULATION (DERIVED FROM REAL TRAIN SPLIT)
+================================================================================
+Train Split Ground Truth Distribution (N = 13,329):
+  - Non-Referable DR (Grade 0 + Grade 1): 10,013 images (75.12%)
+  - Referable DR (Grade 2 + Grade 3 + 4):  3,316 images (24.88%)
+
+5-Grade Breakdown in Train Split:
+  - Grade 0 (No DR):         8,967 (67.27%)
+  - Grade 1 (Mild):          1,046 ( 7.85%)
+  - Grade 2 (Moderate):      2,360 (17.71%)
+  - Grade 3 (Severe):          477 ( 3.58%)
+  - Grade 4 (Proliferative):   479 ( 3.59%)
+
+Mathematical Calculation:
+  W_pos = N_negative / N_positive = 10,013 / 3,316 = 3.0196019...
+  Reported Positive Weight: 3.0196 (Replaces arbitrary hardcoded 2.5)
+  Implementation: nn.BCEWithLogitsLoss(pos_weight=torch.tensor([3.0196]))
+
+================================================================================
+7. DATASET-AWARE BALANCING STRATEGY
+================================================================================
+Observation: EyeQ has 10,066 training images (75.5%), while IDRiD has only 329 (2.5%).
+Standard random mini-batches would result in IDRiD appearing only once every 40 samples.
+
+Implemented Strategy: Square-Root Temperature Balancing
+  Sample Weight w_i for image in dataset d: w_i = 1 / sqrt(N_d)
+  Normalized so expected sum of sample weights equals N_train:
+
+  Dataset     Raw Count    Raw Proportion    Per-Sample Weight    Effective Sampling %
+  ------------------------------------------------------------------------------------
+  EyeQ          10,066          75.5%             0.7696                 58.1%
+  APTOS          2,934          22.0%             1.4254                 31.4%
+  IDRiD            329           2.5%             4.2567                 10.5%
+  ------------------------------------------------------------------------------------
+  Outcome: IDRiD representation is boosted from 2.5% to 10.5% (~4.2x effective boost),
+           ensuring rural clinical fundus features are actively learned without distortion.
+
+================================================================================
+8. PREPROCESSING & RESOLUTION VERIFICATION
+================================================================================
+Input Resolution:      512 x 512 RGB
+Clinical Preprocessing Pipeline:
+  1. Circular Retinal FOV Detection & Crop: Removes extraneous black camera borders.
+  2. Aspect-Preserving Padding: Equal black padding applied to square canvas.
+  3. High-Quality Bicubic Resampling: Exact 512 x 512 interpolation.
+  4. Standardized Intensity Normalization: Mean [0.485, 0.456, 0.406], Std [0.229, 0.224, 0.225].
+Preview Artifact:
+  Generated and verified at: module4_Grading_Final/preprocessing/preview_512.png
+  Contains side-by-side raw vs 512x512 preprocessed retinal panels for APTOS, EyeQ, and IDRiD.
+
+================================================================================
+9. SWIN V2 ARCHITECTURE & IMPORT STATUS
+================================================================================
+Model:                 Torchvision SwinTransformer V2 Tiny (swin_v2_t)
+Pretrained Weights:    Official PyTorch Swin_V2_T_Weights.DEFAULT (ImageNet-1K)
+512x512 Compatibility: Natively supported by Swin V2 continuous log-spaced relative position
+                       bias (Log-CPB) coordinates. No arbitrary architectural modifications.
+Dual Heads Configured:
+  - Primary Clinical Head:    Linear(768, 1) -> Binary logit for Referable DR (G2+ vs G0/1)
+  - Auxiliary Severity Head:  Linear(768, 5) -> 5-class logits for ICDR Grades G0-G4
+
+================================================================================
+10. ENGINEERING SANITY CHECK STATUS (PRE-TRAINING GATE)
+================================================================================
+[PASS] Dataset audit complete (16,720 validated images)
+[PASS] Master manifest generated (master_manifest.csv & master_manifest.mat)
+[PASS] Split leakage audit: 0 overlap verified
+[PASS] Preprocessing previews generated (preview_512.png)
+[PASS] Single forward pass at 512x512: Passed (0.43s, Loss 2.7962)
+[PASS] Single backward pass at 512x512: Passed
+[PASS] Single optimizer step: Passed (0.18s)
+[PASS] Peak VRAM measured: 643.96 MB (batch 1), 1085.94 MB (batch 2) (< 3600 MB threshold)
+[PASS] Checkpoint save & reload: Verified (Parameter equality match = True)
+
+================================================================================
+11. FINAL CLINICAL GATE & NEXT STEPS
+================================================================================
+Primary Target: Referable DR = G2 + G3 + G4
+Clinical Goal:  Sensitivity >= 90%, Specificity >= 85%
+Current State:  ALL 11 PRE-TRAINING AUDIT CORRECTIONS COMPLETED AND VERIFIED.
+                FULL TRAINING IS NOT STARTED (HELD FOR USER AUTHORIZATION).
+================================================================================
