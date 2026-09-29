@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-09-29T18:54:06.860Z",
+  "model": {
+    "fp32SizeBytes": 111980673,
+    "int8SizeBytes": 30134718,
+    "loadTimeMs": 1446
+  },
+  "calibration": {
+    "temperature": 1.341,
+    "threshold": 0.2993
+  },
+  "results": [
+    {
+      "filename": "working_001639a390f0_1024x680.png",
+      "expectedGrade": 4,
+      "predictedGrade": 4,
+      "expectedDecision": "REFER",
+      "decision": "REFER",
+      "pReferable": 99.83,
+      "prepTimeMs": 138,
+      "inferTimeMs": 523,
+      "totalTimeMs": 661,
+      "networkPass": true,
+      "gradeMatch": true,
+      "decisionMatch": true
+    },
+    {
+      "filename": "working_fundus_upload_a8903042-0378-41a3-be1c-cb4c7e598aca_1024x683.png",
+      "expectedGrade": 3,
+      "predictedGrade": 3,
+      "expectedDecision": "REFER",
+      "decision": "REFER",
+      "pReferable": 99.97,
+      "prepTimeMs": 152,
+      "inferTimeMs": 425,
+      "totalTimeMs": 577,
+      "networkPass": true,
+      "gradeMatch": true,
+      "decisionMatch": true
+    },
+    {
+      "filename": "working_panel_G0_Normal_1024x677.png",
+      "expectedGrade": 0,
+      "predictedGrade": 0,
+      "expectedDecision": "SCREEN",
+      "decision": "SCREEN",
+      "pReferable": 6.03,
+      "prepTimeMs": 120,
+      "inferTimeMs": 413,
+      "totalTimeMs": 533,
+      "networkPass": true,
+      "gradeMatch": true,
+      "decisionMatch": true
+    }
+  ],
+  "verdict": {
+    "allNetworkPassed": true,
+    "allDecisionsPassed": true,
+    "allGradesPassed": true,
+    "overallStatus": "SUCCESS"
+  }
+}

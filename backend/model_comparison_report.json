@@ -1,0 +1,92 @@
+[
+  {
+    "image": "working_001639a390f0_1024x680.png",
+    "expected": "G4 (Proliferative DR)",
+    "pytorch": {
+      "ref_logit": 9.3731,
+      "p_cal": 0.9991,
+      "decision": "REFER",
+      "grade": 4,
+      "confidence": 0.9602,
+      "latency_ms": 556.6
+    },
+    "onnx_fp32": {
+      "ref_logit": 9.3731,
+      "p_cal": 0.9991,
+      "decision": "REFER",
+      "grade": 4,
+      "confidence": 0.9602,
+      "latency_ms": 434.6,
+      "max_diff_logits": 2e-06
+    },
+    "onnx_int8": {
+      "ref_logit": 8.9871,
+      "p_cal": 0.9988,
+      "decision": "REFER",
+      "grade": 4,
+      "confidence": 0.959,
+      "latency_ms": 828.7,
+      "max_diff_logits": 0.193738
+    }
+  },
+  {
+    "image": "working_fundus_upload_a8903042-0378-41a3-be1c-cb4c7e598aca_1024x683.png",
+    "expected": "G3 (Severe NPDR)",
+    "pytorch": {
+      "ref_logit": 11.0185,
+      "p_cal": 0.9997,
+      "decision": "REFER",
+      "grade": 3,
+      "confidence": 0.6308,
+      "latency_ms": 505.9
+    },
+    "onnx_fp32": {
+      "ref_logit": 11.0185,
+      "p_cal": 0.9997,
+      "decision": "REFER",
+      "grade": 3,
+      "confidence": 0.6308,
+      "latency_ms": 477.9,
+      "max_diff_logits": 2e-06
+    },
+    "onnx_int8": {
+      "ref_logit": 11.1058,
+      "p_cal": 0.9997,
+      "decision": "REFER",
+      "grade": 3,
+      "confidence": 0.6567,
+      "latency_ms": 860.6,
+      "max_diff_logits": 0.100449
+    }
+  },
+  {
+    "image": "working_panel_G0_Normal_1024x677.png",
+    "expected": "G0 (Normal / No DR)",
+    "pytorch": {
+      "ref_logit": -3.367,
+      "p_cal": 0.0751,
+      "decision": "SCREEN",
+      "grade": 0,
+      "confidence": 0.9221,
+      "latency_ms": 501.6
+    },
+    "onnx_fp32": {
+      "ref_logit": -3.367,
+      "p_cal": 0.0751,
+      "decision": "SCREEN",
+      "grade": 0,
+      "confidence": 0.9221,
+      "latency_ms": 464.4,
+      "max_diff_logits": 3e-06
+    },
+    "onnx_int8": {
+      "ref_logit": -3.3954,
+      "p_cal": 0.0736,
+      "decision": "SCREEN",
+      "grade": 0,
+      "confidence": 0.9255,
+      "latency_ms": 874.3,
+      "max_diff_logits": 0.078094
+    }
+  }
+]

@@ -224,6 +224,18 @@ export default function EvidenceScreen() {
         {/* EVIDENCE ARTIFACTS GALLERY */}
         <SectionHeader title="Generated Evidence Artifacts" />
 
+        {/* Offline Status when Grad-CAM / Multi-modal artifacts are pending sync */}
+        {!gcUrl && !vesselUrl && (
+          <View style={styles.offlineEvidenceCard}>
+            <Text style={styles.offlineEvidenceTitle}>Offline Mode: Evidence Pending Cloud Synchronization</Text>
+            <Text style={styles.offlineEvidenceText}>
+              On-device Swin V2 Tiny classification and referral triage are complete. Detailed pixel-level
+              Grad-CAM saliency maps and vessel segmentations are generated upon cloud
+              synchronization. In accordance with clinical validation protocols, no simulated or fabricated heatmaps are displayed in offline mode.
+            </Text>
+          </View>
+        )}
+
         {/* 1. Composite */}
         {retinalEvidenceUrl ? (
           <EvidenceImage
@@ -412,6 +424,27 @@ const styles = StyleSheet.create({
     color: COLORS.slate500,
     lineHeight: 16,
     marginTop: 6,
+    fontFamily: FONT_FAMILY.body,
+  },
+  offlineEvidenceCard: {
+    backgroundColor: COLORS.teal50,
+    borderRadius: RADIUS.md,
+    borderWidth: 1.5,
+    borderColor: COLORS.teal100,
+    padding: SPACING.md,
+    marginBottom: SPACING.lg,
+  },
+  offlineEvidenceTitle: {
+    fontSize: 13,
+    fontWeight: FONTS.weightBold,
+    color: COLORS.teal800,
+    marginBottom: 4,
+    fontFamily: FONT_FAMILY.body,
+  },
+  offlineEvidenceText: {
+    fontSize: 12,
+    color: COLORS.slate700,
+    lineHeight: 18,
     fontFamily: FONT_FAMILY.body,
   },
   actions: { marginTop: SPACING.md },

@@ -265,10 +265,18 @@ export const screeningService = {
             predicted_grade: grade,
             grade_label: found.detectionType,
             calibrated_confidence: found.confidence,
+            g2plus_probability_calibrated: found.metadata?.referableProbability ?? (isRefer ? 0.95 : 0.08),
+            referable: isRefer,
             decision: isRefer ? "REFER" : "SCREEN",
             recommendation: found.metadata?.recommendation || (isRefer ? "Specialist referral recommended." : "Routine surveillance."),
             model_version: found.modelVersion,
+            raw_probabilities: found.metadata?.rawProbabilities,
           },
+          referral: isRefer ? {
+            status: "pending",
+            recommended_action: found.metadata?.recommendation || "Specialist referral recommended.",
+            priority: grade >= 3 ? "urgent" : "routine",
+          } : undefined,
           segmentation: found.metadata?.segmentation || undefined,
           explainability: found.metadata?.explainability || undefined,
         } as unknown as Screening;

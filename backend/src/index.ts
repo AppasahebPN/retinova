@@ -78,12 +78,25 @@ app.get(['/', '/landing', '/pitch'], (_req, res) => {
 });
 
 // Serve installable Android APK directly for instant over-the-air installation
-const apkPath = path.resolve(__dirname, '../../mobile-app/NetraAI_ASHA.apk');
+function getResolvedApkPath(): string {
+  const candidates = [
+    path.resolve(process.cwd(), 'NetraAI_ASHA.apk'),
+    path.resolve(process.cwd(), '../mobile-app/NetraAI_ASHA.apk'),
+    path.resolve(process.cwd(), 'mobile-app/NetraAI_ASHA.apk'),
+    path.resolve(__dirname, './NetraAI_ASHA.apk'),
+    path.resolve(__dirname, '../NetraAI_ASHA.apk'),
+    path.resolve(__dirname, '../../mobile-app/NetraAI_ASHA.apk'),
+    path.resolve(__dirname, '../../../mobile-app/NetraAI_ASHA.apk'),
+  ];
+  return candidates.find(p => fs.existsSync(p)) || '';
+}
+
 app.get(['/download/apk', '/mobile-app/NetraAI_ASHA.apk', '/apk'], (_req, res) => {
-  if (fs.existsSync(apkPath)) {
+  const resolvedApk = getResolvedApkPath();
+  if (resolvedApk && fs.existsSync(resolvedApk)) {
     res.setHeader('Content-Type', 'application/vnd.android.package-archive');
     res.setHeader('Content-Disposition', 'attachment; filename="NetraAI_ASHA_Edge.apk"');
-    return res.sendFile(apkPath);
+    return res.sendFile(resolvedApk);
   }
   return res.status(404).json({ error: 'APK package not found on server.' });
 });
@@ -93,6 +106,11 @@ app.get(['/install', '/download'], (req, res) => {
   const host = req.headers.host || req.hostname || 'localhost:5000';
   res.setHeader('Content-Type', 'text/html');
   res.send(getInstallHtml(host, config.port));
+});
+
+// Backward-compatible redirect: /app -> /install
+app.get('/app', (_req, res) => {
+  res.redirect(302, '/install');
 });
 
 // Real-Time Cloud Surveillance & Triage Command Center Dashboard

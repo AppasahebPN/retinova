@@ -21,10 +21,16 @@ web-build/
 .expo/
 */.expo/
 *.apk
+!mobile-app/NetraAI_ASHA.apk
+!backend/NetraAI_ASHA.apk
 *.aab
 *.ipa
 *.tsbuildinfo
 */tsconfig.tsbuildinfo
+
+# --- ONNX Models (>100MB exceeds GitHub hard limit; keep optimized INT8) ---
+*.onnx
+!*int8.onnx
 
 # --- Python & Caches ---
 __pycache__/

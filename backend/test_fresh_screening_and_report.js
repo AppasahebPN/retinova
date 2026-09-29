@@ -20,7 +20,7 @@ async function runFreshTest() {
     headers,
     body: JSON.stringify({
       imageUrl: '/uploads/001639a390f0.png',
-      imagePath: 'C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR_Screening_MATLAB\\data\\APTOS\\train_images\\001639a390f0.png',
+      imagePath: require('path').join(__dirname, 'uploads', '001639a390f0.png'),
       originalFilename: '001639a390f0.png'
     })
   });
@@ -60,7 +60,7 @@ async function runFreshTest() {
     headers,
     body: JSON.stringify({
       imageUrl: '/uploads/002c21358ce6.png',
-      imagePath: 'C:\\Users\\Appasaheb\\OneDrive\\Documents\\MATLAB\\NetraAI\\DR_Screening_MATLAB\\data\\APTOS\\train_images\\002c21358ce6.png',
+      imagePath: require('path').join(__dirname, 'uploads', '002c21358ce6.png'),
       originalFilename: '002c21358ce6.png'
     })
   });
