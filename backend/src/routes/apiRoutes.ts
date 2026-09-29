@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request } from 'express';
 import authRoutes from './authRoutes';
 import patientRoutes from './patientRoutes';
 import screeningRoutes from './screeningRoutes';
@@ -17,10 +17,10 @@ import { config } from '../config';
 const router = Router();
 
 const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => {
+  destination: (_req: Request, _file: Express.Multer.File, cb: (error: Error | null, destination: string) => void) => {
     cb(null, config.storagePath);
   },
-  filename: (_req, file, cb) => {
+  filename: (_req: Request, file: Express.Multer.File, cb: (error: Error | null, filename: string) => void) => {
     const ext = path.extname(file.originalname) || '.jpg';
     cb(null, `fundus_upload_${uuidv4()}${ext}`);
   }

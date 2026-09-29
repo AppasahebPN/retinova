@@ -4,7 +4,13 @@ import { config } from '../config';
 import { PlatformRole, PlatformUser } from '../types/platform';
 import { DatabaseStore } from '../db/store';
 
-export interface PlatformAuthenticatedRequest extends Request {
+export interface PlatformAuthenticatedRequest<
+  P = any,
+  ResBody = any,
+  ReqBody = any,
+  ReqQuery = any,
+  Locals extends Record<string, any> = Record<string, any>
+> extends Request<P, ResBody, ReqBody, ReqQuery, Locals> {
   platformUser?: PlatformUser;
   targetOrgId?: string;
 }
