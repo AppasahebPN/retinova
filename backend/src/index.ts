@@ -7,32 +7,44 @@ import apiRoutes from './routes/apiRoutes';
 import { errorHandler } from './middleware/errorHandler';
 import { ensureDirectoryExists, initializeSampleImages } from './utils/imageGenerator';
 import { seedDatabase } from './db/seedData';
+import { initPostgres } from './db/postgres';
 
 const app = express();
 
 // Middleware
 // Hardened CORS Configuration:
-// - Wildcard '*' is restricted in production
+// - Explicit origins supported via CORS_ORIGINS or CORS_ORIGIN
+// - Mobile APKs / curl without Origin header are explicitly allowed
 // - credentials: false (Application strictly uses Bearer header tokens, not cookies)
-const configuredOrigin = config.corsOrigin;
-let corsOrigin: boolean | string | RegExp | (string | RegExp)[] = configuredOrigin;
+const rawOrigins = config.corsOrigin;
+let allowedOrigins: string[] = [];
+let allowAll = false;
 
-if (configuredOrigin === '*') {
+if (rawOrigins === '*') {
   if (config.nodeEnv === 'production') {
-    console.warn('[SECURITY WARNING] Wildcard CORS (*) disallowed in production. Restricting origin.');
-    corsOrigin = false;
-  } else {
-    corsOrigin = '*';
+    console.warn('[SECURITY WARNING] Wildcard CORS (*) specified in production environment. For maximum security, configure explicit CORS_ORIGINS.');
   }
-} else if (configuredOrigin && configuredOrigin.includes(',')) {
-  corsOrigin = configuredOrigin.split(',').map(o => o.trim());
+  allowAll = true;
+} else if (rawOrigins) {
+  allowedOrigins = rawOrigins.split(',').map((o) => o.trim()).filter(Boolean);
 }
 
 app.use(cors({
-  origin: corsOrigin,
+  origin: (origin, callback) => {
+    // Mobile applications (Android/iOS APK fetch), curl, and server-to-server requests don't send an Origin header
+    if (!origin) return callback(null, true);
+    if (allowAll) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    // Allow localhost in non-production
+    if (config.nodeEnv !== 'production' && (origin.includes('localhost') || origin.includes('127.0.0.1'))) {
+      return callback(null, true);
+    }
+    console.warn(`[CORS] Blocked request from unauthorized origin: ${origin}`);
+    return callback(new Error(`Origin ${origin} not permitted by RETINOVA CORS policy`));
+  },
   credentials: false,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-device-id', 'x-organization-id']
 }));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
@@ -44,6 +56,51 @@ initializeSampleImages(config.storagePath);
 // Serve static images / uploads
 app.use('/uploads', express.static(config.storagePath));
 
+// Root health check endpoint for Render and mobile sync manager
+app.get('/health', (_req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'retinova-backend',
+    timestamp: new Date().toISOString(),
+    platform: 'Retinova Edge AI Cloud Gateway',
+    version: '1.0.4',
+  });
+});
+
+import { getDashboardHtml } from './dashboard/dashboardHtml';
+import { getInstallHtml } from './dashboard/installHtml';
+import { getLandingHtml } from './dashboard/landingHtml';
+
+// Public Commercial Landing Page & Product Pitch Portal
+app.get(['/', '/landing', '/pitch'], (_req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.send(getLandingHtml());
+});
+
+// Serve installable Android APK directly for instant over-the-air installation
+const apkPath = path.resolve(__dirname, '../../mobile-app/NetraAI_ASHA.apk');
+app.get(['/download/apk', '/mobile-app/NetraAI_ASHA.apk', '/apk'], (_req, res) => {
+  if (fs.existsSync(apkPath)) {
+    res.setHeader('Content-Type', 'application/vnd.android.package-archive');
+    res.setHeader('Content-Disposition', 'attachment; filename="NetraAI_ASHA_Edge.apk"');
+    return res.sendFile(apkPath);
+  }
+  return res.status(404).json({ error: 'APK package not found on server.' });
+});
+
+// Installation & Sideloading Portal (with QR Code)
+app.get(['/install', '/download'], (req, res) => {
+  const host = req.headers.host || req.hostname || 'localhost:5000';
+  res.setHeader('Content-Type', 'text/html');
+  res.send(getInstallHtml(host, config.port));
+});
+
+// Real-Time Cloud Surveillance & Triage Command Center Dashboard
+app.get(['/dashboard', '/command-center'], (_req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.send(getDashboardHtml());
+});
+
 // API Routes
 app.use('/api', apiRoutes);
 
@@ -53,12 +110,16 @@ app.use(errorHandler);
 // -- RETINOVA SPA Frontend Serving --
 // Serve the mobile-app production web build (Expo export).
 // The path is configurable via RETINOVA_WEB_DIST env var,
-const candidateLocalDist = path.resolve(__dirname, '../../mobile-app/dist');
-const candidateOldDist = path.resolve(__dirname, '../../../../mobile-app/dist');
-const defaultDist = fs.existsSync(candidateLocalDist) ? candidateLocalDist : candidateOldDist;
-const webDistPath = process.env.RETINOVA_WEB_DIST || defaultDist;
+const candidatePaths = [
+  process.env.RETINOVA_WEB_DIST ? path.resolve(process.cwd(), process.env.RETINOVA_WEB_DIST) : '',
+  path.resolve(process.cwd(), '../mobile-app/dist'),
+  path.resolve(process.cwd(), 'mobile-app/dist'),
+  path.resolve(__dirname, '../../mobile-app/dist'),
+  path.resolve(__dirname, '../../../mobile-app/dist'),
+].filter(Boolean);
+const webDistPath = candidatePaths.find(p => fs.existsSync(p)) || '';
 
-if (fs.existsSync(webDistPath)) {
+if (webDistPath && fs.existsSync(webDistPath)) {
   console.log(`[WEB] Serving RETINOVA frontend from: ${webDistPath}`);
 
   // Serve static assets (JS, CSS, images, fonts, _expo directory)
@@ -89,13 +150,21 @@ if (fs.existsSync(webDistPath)) {
 // Seed database with realistic rural screening data on startup
 seedDatabase(false);
 
-const server = app.listen(config.port, () => {
+// Initialize PostgreSQL connection pool if configured in environment
+initPostgres().catch((err) => {
+  console.warn('[RETINOVA] PostgreSQL init error:', err.message);
+});
+
+const server = app.listen(config.port, '0.0.0.0', () => {
+  console.log(`[RETINOVA] Server started on 0.0.0.0:${config.port}`);
   console.log(`
   =============================================================
    RETINOVA -- Explainable DR Screening Backend API
   -------------------------------------------------------------
    Status:        Online & Ready
+   Listen Host:   0.0.0.0 (Render Web Service Compatible)
    Port:          ${config.port}
+   Environment:   ${config.nodeEnv}
    Database:      PostgreSQL / DataStore Engine Active
    AI Pipeline:   ${config.aiServiceType.toUpperCase()} Engine (${config.aiServiceType === 'matlab' ? config.matlabAiServiceUrl : 'Model-Agnostic Heuristic Mock'})
    Simulink Sim:  ${config.simulationServiceType.toUpperCase()} SimEvents Engine

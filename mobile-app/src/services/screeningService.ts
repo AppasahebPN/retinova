@@ -152,40 +152,157 @@ export const screeningService = {
     limit?: number;
     offset?: number;
   }): Promise<PaginatedScreenings> {
-    const qs = new URLSearchParams();
-    if (params?.patientId) qs.set("patientId", params.patientId);
-    if (params?.facilityId) qs.set("facilityId", params.facilityId);
-    if (params?.status) qs.set("status", params.status);
-    if (params?.grade !== undefined) qs.set("grade", String(params.grade));
-    if (params?.referralStatus) qs.set("referralStatus", params.referralStatus);
-    if (params?.decision) qs.set("decision", params.decision);
-    if (params?.startDate) qs.set("startDate", params.startDate);
-    if (params?.endDate) qs.set("endDate", params.endDate);
-    qs.set("limit", String(params?.limit ?? 50));
-    qs.set("offset", String(params?.offset ?? 0));
-    const data = await api.get<PaginatedScreenings | Screening[]>(
-      `/screenings?${qs.toString()}`
-    );
-    if (Array.isArray(data)) {
-      return { screenings: data, total: data.length, limit: 50, offset: 0 };
+    try {
+      const qs = new URLSearchParams();
+      if (params?.patientId) qs.set("patientId", params.patientId);
+      if (params?.facilityId) qs.set("facilityId", params.facilityId);
+      if (params?.status) qs.set("status", params.status);
+      if (params?.grade !== undefined) qs.set("grade", String(params.grade));
+      if (params?.referralStatus) qs.set("referralStatus", params.referralStatus);
+      if (params?.decision) qs.set("decision", params.decision);
+      if (params?.startDate) qs.set("startDate", params.startDate);
+      if (params?.endDate) qs.set("endDate", params.endDate);
+      qs.set("limit", String(params?.limit ?? 50));
+      qs.set("offset", String(params?.offset ?? 0));
+      const data = await api.get<PaginatedScreenings | Screening[]>(
+        `/screenings?${qs.toString()}`
+      );
+      if (Array.isArray(data)) {
+        return { screenings: data, total: data.length, limit: 50, offset: 0 };
+      }
+      return data;
+    } catch {
+      // Offline fallback: load events from local database
+      const { localDatabase } = await import("./localDatabase");
+      const localEvents = await localDatabase.getAllEvents();
+      const localScreenings: Screening[] = localEvents.map((evt) => {
+        const isRefer = evt.severity === "HIGH" || evt.severity === "CRITICAL";
+        const grade = evt.metadata?.grade ?? (evt.severity === "CRITICAL" ? 4 : evt.severity === "HIGH" ? 2 : evt.severity === "MEDIUM" ? 1 : 0);
+        return {
+          id: evt.eventId,
+          patient_id: evt.metadata?.patientId || "LOCAL_PATIENT",
+          patient: {
+            id: evt.metadata?.patientId || "LOCAL_PATIENT",
+            name: evt.metadata?.patientName || "Field Screening Subject",
+            age: evt.metadata?.patientAge || 48,
+            gender: evt.metadata?.patientGender || "Other",
+            location: evt.metadata?.location || "Edge Field Node",
+            created_at: evt.createdAt,
+            facility_id: "FACILITY_LOCAL",
+          },
+          facility_id: "FACILITY_LOCAL",
+          eye: evt.metadata?.eye || "right",
+          status: "completed",
+          created_at: evt.createdAt,
+          image: {
+            id: `img_${evt.eventId}`,
+            screening_id: evt.eventId,
+            storage_url: evt.localImagePath,
+            original_filename: "edge_capture.jpg",
+            eye: evt.metadata?.eye || "right",
+            captured_at: evt.createdAt,
+          },
+          quality: {
+            accepted: true,
+            quality_score: evt.metadata?.features?.sharpnessScore ?? 0.88,
+            status: "accepted",
+          },
+          classification: {
+            predicted_grade: grade,
+            grade_label: evt.detectionType,
+            calibrated_confidence: evt.confidence,
+            decision: isRefer ? "REFER" : "SCREEN",
+            recommendation: evt.metadata?.recommendation || "Field screening record.",
+            model_version: evt.modelVersion,
+          },
+        } as unknown as Screening;
+      });
+      return { screenings: localScreenings, total: localScreenings.length, limit: 50, offset: 0 };
     }
-    return data;
   },
 
   async getById(id: string): Promise<Screening> {
-    const data = await api.get<{ screening: Screening }>(`/screenings/${id}`);
-    if (!data.screening) throw new Error("Screening record not found.");
-
-    if (__DEV__) {
-      const s = data.screening;
-      const cls = s.classification;
-      const xai = s.explainability;
-      const seg = s.segmentation;
-      console.log(`[RETINOVA RESULT] screeningId=${s.id} grade=${cls?.predicted_grade} risk=${cls?.g2plus_probability_calibrated ?? cls?.calibrated_confidence} decision=${cls?.decision || s.status}`);
-      console.log(`[RETINOVA EVIDENCE] screeningId=${s.id} gradcam=${xai?.gradcam_url} vessels=${seg?.vessel_mask_url} lesions=${seg?.lesion_mask_url}`);
+    // If it's a local edge event, read directly from localDatabase
+    if (id.startsWith("evt_")) {
+      const { localDatabase } = await import("./localDatabase");
+      const localEvents = await localDatabase.getAllEvents();
+      const found = localEvents.find((e) => e.eventId === id);
+      if (found) {
+        const isRefer = found.severity === "HIGH" || found.severity === "CRITICAL";
+        const grade = found.metadata?.grade ?? (found.severity === "CRITICAL" ? 4 : found.severity === "HIGH" ? 2 : found.severity === "MEDIUM" ? 1 : 0);
+        return {
+          id: found.eventId,
+          patient_id: found.metadata?.patientId || "LOCAL_PATIENT",
+          patient: {
+            id: found.metadata?.patientId || "LOCAL_PATIENT",
+            name: found.metadata?.patientName || "Field Screening Subject",
+            age: found.metadata?.patientAge || 48,
+            gender: found.metadata?.patientGender || "Other",
+            location: found.metadata?.location || "Edge Field Node",
+            created_at: found.createdAt,
+            facility_id: "FACILITY_LOCAL",
+          },
+          facility_id: "FACILITY_LOCAL",
+          eye: found.metadata?.eye || "right",
+          status: "completed",
+          created_at: found.createdAt,
+          image: {
+            id: `img_${found.eventId}`,
+            screening_id: found.eventId,
+            storage_url: found.localImagePath,
+            original_filename: "edge_capture.jpg",
+            eye: found.metadata?.eye || "right",
+            captured_at: found.createdAt,
+          },
+          quality: {
+            accepted: true,
+            quality_score: found.metadata?.features?.sharpnessScore ?? 0.88,
+            sharpness: found.metadata?.features?.sharpnessScore ?? 0.88,
+            illumination: found.metadata?.features?.illuminationScore ?? 0.92,
+            status: "accepted",
+          },
+          classification: {
+            predicted_grade: grade,
+            grade_label: found.detectionType,
+            calibrated_confidence: found.confidence,
+            decision: isRefer ? "REFER" : "SCREEN",
+            recommendation: found.metadata?.recommendation || (isRefer ? "Specialist referral recommended." : "Routine surveillance."),
+            model_version: found.modelVersion,
+          },
+          segmentation: found.metadata?.segmentation || undefined,
+          explainability: found.metadata?.explainability || undefined,
+        } as unknown as Screening;
+      }
     }
 
-    return data.screening;
+    try {
+      const data = await api.get<{ screening: Screening }>(`/screenings/${id}`);
+      if (!data.screening) throw new Error("Screening record not found.");
+      return data.screening;
+    } catch (e: any) {
+      // Fallback to local DB check
+      const { localDatabase } = await import("./localDatabase");
+      const localEvents = await localDatabase.getAllEvents();
+      const found = localEvents.find((evt) => evt.eventId === id);
+      if (found) {
+        const isRefer = found.severity === "HIGH" || found.severity === "CRITICAL";
+        const grade = found.metadata?.grade ?? 0;
+        return {
+          id: found.eventId,
+          patient_id: "LOCAL_PATIENT",
+          eye: "right",
+          status: "completed",
+          created_at: found.createdAt,
+          classification: {
+            predicted_grade: grade,
+            grade_label: found.detectionType,
+            calibrated_confidence: found.confidence,
+            decision: isRefer ? "REFER" : "SCREEN",
+          }
+        } as unknown as Screening;
+      }
+      throw e;
+    }
   },
 
   async create(body: {
@@ -265,10 +382,26 @@ export const screeningService = {
     return api.get<AnalyticsOverview>("/analytics/overview");
   },
 
-  fullImageUrl(relativePath?: string | null): string {
-    if (!relativePath) return "";
-    if (relativePath.startsWith("http")) return relativePath;
-    return `${getApiBaseUrl()}${relativePath}`;
+  fullImageUrl(urlOrPath?: string | null): string {
+    if (!urlOrPath) return "";
+    const trimmed = urlOrPath.trim();
+    if (!trimmed) return "";
+
+    // 1. Never prepend API base URL to browser blob, data, file, or absolute HTTP(S) URLs
+    if (
+      trimmed.startsWith("blob:") ||
+      trimmed.startsWith("data:") ||
+      trimmed.startsWith("file:") ||
+      trimmed.startsWith("http://") ||
+      trimmed.startsWith("https://")
+    ) {
+      return trimmed;
+    }
+
+    // 2. Resolve server-relative paths cleanly (e.g. "/uploads/img.png" -> "http://host:port/uploads/img.png")
+    const baseUrl = getApiBaseUrl().replace(/\/+$/, "");
+    const cleanPath = trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
+    return `${baseUrl}${cleanPath}`;
   },
 
   reportHtmlUrl(screeningId: string): string {

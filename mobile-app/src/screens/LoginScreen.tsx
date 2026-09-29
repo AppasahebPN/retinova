@@ -1,8 +1,9 @@
 // ============================================================
 // RETINOVA — Unified 3-Role Authentication Screen
 // Figma Make Source of Truth — Polished Healthcare UI System
+// Features: Online Auth, Offline Field Mode, Runtime Server IP Config
 // ============================================================
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -13,9 +14,13 @@ import {
   KeyboardAvoidingView,
   Platform,
   useWindowDimensions,
+  TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import { useAuth } from '../hooks/useAuth';
 import { FormInput, Button, RetinovaLogo } from '../components';
+import { storage } from '../services/storage';
+import { getApiBaseUrl, setApiBaseUrl, pingServer } from '../services/api';
 import {
   COLORS,
   FONTS,
@@ -23,12 +28,13 @@ import {
   RADIUS,
   SHADOWS,
   FONT_FAMILY,
+  STORAGE_KEYS,
 } from '../utils/constants';
 
 interface DemoUserCard {
   email: string;
   name: string;
-  role: string;
+  role: 'healthcare_worker' | 'doctor' | 'district_manager';
   roleTitle: string;
   icon: string;
   description: string;
@@ -62,13 +68,34 @@ const DEMO_ACCOUNTS: DemoUserCard[] = [
 ];
 
 export default function LoginScreen() {
-  const { login } = useAuth();
+  const { login, loginOffline } = useAuth();
   const { width } = useWindowDimensions();
   const isDesktop = width >= 800;
 
   const [email, setEmail] = useState('asha.worker@netra-ai.org');
   const [password, setPassword] = useState('demo1234');
   const [loading, setLoading] = useState(false);
+  const [offlineLoading, setOfflineLoading] = useState(false);
+
+  // Runtime Server Configuration State
+  const defaultApiUrl = getApiBaseUrl() || (process.env.EXPO_PUBLIC_API_BASE_URL && process.env.EXPO_PUBLIC_API_BASE_URL.startsWith('http') ? process.env.EXPO_PUBLIC_API_BASE_URL : 'https://retinova-backend.onrender.com');
+  const [showServerConfig, setShowServerConfig] = useState(false);
+  const [serverUrlInput, setServerUrlInput] = useState(defaultApiUrl);
+  const [pingStatus, setPingStatus] = useState<'idle' | 'testing' | 'success' | 'failed'>('idle');
+  const [pingMessage, setPingMessage] = useState<string>('');
+
+  useEffect(() => {
+    storage.getItem(STORAGE_KEYS.API_BASE_URL).then((stored) => {
+      if (stored && stored.startsWith('http')) {
+        setServerUrlInput(stored);
+      } else {
+        const current = getApiBaseUrl();
+        if (current && current.startsWith('http')) {
+          setServerUrlInput(current);
+        }
+      }
+    });
+  }, []);
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
@@ -79,9 +106,72 @@ export default function LoginScreen() {
     try {
       await login(email.trim(), password);
     } catch (err: any) {
-      Alert.alert('Login Failed', err.message || 'Invalid credentials. Please try again.');
+      const msg = err.message || '';
+      if (
+        msg.includes('Connection unavailable') ||
+        msg.includes('Cannot connect') ||
+        msg.includes('Network request failed') ||
+        msg.includes('timed out')
+      ) {
+        Alert.alert(
+          'Server Connection Unavailable',
+          `Cannot reach RETINOVA server at:\n${getApiBaseUrl()}\n\nTip: You can continue immediately in Offline Field Mode (no internet needed) or adjust the Server IP address.`,
+          [
+            {
+              text: '⚡ Continue in Offline Mode',
+              onPress: () => handleOfflineLogin(),
+            },
+            {
+              text: '⚙️ Configure Server IP',
+              onPress: () => setShowServerConfig(true),
+            },
+            { text: 'Cancel', style: 'cancel' },
+          ]
+        );
+      } else {
+        Alert.alert('Login Failed', msg || 'Invalid credentials. Please try again.');
+      }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleOfflineLogin = async () => {
+    const selectedDemo = DEMO_ACCOUNTS.find((d) => d.email === email);
+    const role = selectedDemo?.role || 'healthcare_worker';
+    setOfflineLoading(true);
+    try {
+      await loginOffline(role);
+    } catch (err: any) {
+      Alert.alert('Offline Mode Error', err.message || 'Unable to enter offline mode.');
+    } finally {
+      setOfflineLoading(false);
+    }
+  };
+
+  const handleTestAndSaveServer = async () => {
+    const trimmed = serverUrlInput.trim().replace(/\/$/, '');
+    if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
+      Alert.alert('Invalid URL', 'Server URL must start with http:// or https://');
+      return;
+    }
+    setPingStatus('testing');
+    setPingMessage('Testing connection...');
+    setApiBaseUrl(trimmed);
+    await storage.setItem(STORAGE_KEYS.API_BASE_URL, trimmed);
+
+    const res = await pingServer();
+    if (res.ok) {
+      setPingStatus('success');
+      setPingMessage(`Connected successfully (${res.latencyMs}ms)`);
+      Alert.alert('Connection Successful', `Connected to RETINOVA server at ${trimmed}`);
+    } else {
+      setPingStatus('failed');
+      setPingMessage(res.error || 'Server unreachable at this address');
+      Alert.alert(
+        'Server Unreachable',
+        `Could not reach ${trimmed}.\n\nPlease ensure your phone is on the same Wi-Fi network as your PC and the server is running.`
+      );
     }
   };
 
@@ -109,7 +199,7 @@ export default function LoginScreen() {
             <Text style={styles.brandSubtitle}>Tele-ophthalmology screening platform</Text>
             <View style={styles.facilityPill}>
               <View style={styles.dot} />
-              <Text style={styles.facilityText}>District Health Administration</Text>
+              <Text style={styles.facilityText}>District Health Administration · Edge AI</Text>
             </View>
           </View>
 
@@ -163,16 +253,117 @@ export default function LoginScreen() {
             />
 
             <Button
-              title={loading ? 'Authenticating...' : 'Sign In'}
+              title={loading ? 'Authenticating...' : 'Sign In with Server'}
               onPress={handleLogin}
               loading={loading}
               fullWidth
             />
+
+            {/* Offline-First Emergency Screening Bypass */}
+            <TouchableOpacity
+              style={styles.offlineButton}
+              onPress={handleOfflineLogin}
+              disabled={offlineLoading || loading}
+              activeOpacity={0.8}
+            >
+              {offlineLoading ? (
+                <ActivityIndicator size="small" color={COLORS.teal800} />
+              ) : (
+                <>
+                  <Text style={styles.offlineButtonIcon}>⚡</Text>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.offlineButtonTitle}>Continue in Offline Field Mode</Text>
+                    <Text style={styles.offlineButtonSubtitle}>
+                      Zero internet required · On-device Swin V2 AI & SQLite storage
+                    </Text>
+                  </View>
+                </>
+              )}
+            </TouchableOpacity>
           </View>
 
-          {/* Footer Without Unsupported Claims */}
+          {/* Collapsible Server Connection Bar */}
+          <View style={styles.serverCard}>
+            <TouchableOpacity
+              style={styles.serverHeaderRow}
+              onPress={() => setShowServerConfig(!showServerConfig)}
+              activeOpacity={0.7}
+            >
+              <View style={[styles.statusDot, styles[pingStatus]]} />
+              <View style={{ flex: 1 }}>
+                <Text style={styles.serverHeaderTitle}>Server Connection Settings</Text>
+                <Text style={styles.serverHeaderUrl} numberOfLines={1}>
+                  {serverUrlInput}
+                </Text>
+              </View>
+              <Text style={styles.serverChevron}>{showServerConfig ? '▲' : '▼'}</Text>
+            </TouchableOpacity>
+
+            {showServerConfig && (
+              <View style={styles.serverConfigBody}>
+                <Text style={styles.serverInputLabel}>RETINOVA Server Address</Text>
+                <TextInput
+                  style={styles.serverInput}
+                  value={serverUrlInput}
+                  onChangeText={setServerUrlInput}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  placeholder="https://your-service.onrender.com"
+                  placeholderTextColor={COLORS.slate400}
+                />
+
+                {/* Quick Server presets */}
+                <View style={styles.quickPresetRow}>
+                  <TouchableOpacity
+                    style={styles.presetChip}
+                    onPress={() => setServerUrlInput(process.env.EXPO_PUBLIC_API_BASE_URL || 'https://retinova-backend.onrender.com')}
+                  >
+                    <Text style={styles.presetChipText}>Cloud (Render Hosted)</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.presetChip}
+                    onPress={() => setServerUrlInput('http://10.0.2.2:5000')}
+                  >
+                    <Text style={styles.presetChipText}>Emulator (10.0.2.2)</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.presetChip}
+                    onPress={() => setServerUrlInput('http://localhost:5000')}
+                  >
+                    <Text style={styles.presetChipText}>Localhost (:5000)</Text>
+                  </TouchableOpacity>
+                </View>
+
+                {pingMessage ? (
+                  <Text
+                    style={[
+                      styles.pingMessage,
+                      { color: pingStatus === 'success' ? COLORS.green700 : COLORS.maroon700 },
+                    ]}
+                  >
+                    {pingStatus === 'success' ? '✓ ' : '✕ '}
+                    {pingMessage}
+                  </Text>
+                ) : null}
+
+                <TouchableOpacity
+                  style={styles.serverSaveButton}
+                  onPress={handleTestAndSaveServer}
+                  disabled={pingStatus === 'testing'}
+                >
+                  {pingStatus === 'testing' ? (
+                    <ActivityIndicator size="small" color="#fff" />
+                  ) : (
+                    <Text style={styles.serverSaveButtonText}>Save & Test Server Connection</Text>
+                  )}
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
+
+          {/* Footer */}
           <Text style={styles.footerNote}>
-            RETINOVA v2.4 · Autonomous Retinal Triage Platform · © 2026
+            RETINOVA v2.4 · Autonomous Retinal Triage Platform · Offline-First Architecture
           </Text>
         </View>
       </ScrollView>
@@ -190,13 +381,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   desktopContent: { paddingVertical: 48 },
-  containerBox: { width: '100%', maxWidth: 440 },
-  desktopBox: { maxWidth: 440 },
+  containerBox: { width: '100%', maxWidth: 460 },
+  desktopBox: { maxWidth: 460 },
 
   // Brand Area
   brandArea: {
     alignItems: 'center',
-    marginBottom: 28,
+    marginBottom: 24,
   },
   brandSubtitle: {
     fontSize: 15,
@@ -306,7 +497,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.borderSubtle,
     padding: 20,
-    marginBottom: 20,
+    marginBottom: 16,
     ...SHADOWS.card,
   },
   formTitle: {
@@ -323,11 +514,147 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.body,
   },
 
+  // Offline Button
+  offlineButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.teal50,
+    borderWidth: 1.5,
+    borderColor: COLORS.teal200,
+    borderRadius: RADIUS.md,
+    padding: 12,
+    marginTop: 14,
+    gap: 10,
+  },
+  offlineButtonIcon: {
+    fontSize: 20,
+  },
+  offlineButtonTitle: {
+    fontSize: 13,
+    fontWeight: FONTS.weightBold,
+    color: COLORS.teal900,
+    fontFamily: FONT_FAMILY.body,
+  },
+  offlineButtonSubtitle: {
+    fontSize: 11,
+    color: COLORS.teal700,
+    marginTop: 2,
+    lineHeight: 15,
+    fontFamily: FONT_FAMILY.body,
+  },
+
+  // Server Card
+  serverCard: {
+    backgroundColor: COLORS.surface,
+    borderRadius: RADIUS.md,
+    borderWidth: 1,
+    borderColor: COLORS.borderSubtle,
+    padding: 12,
+    marginBottom: 16,
+  },
+  serverHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  statusDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+  },
+  idle: {
+    backgroundColor: COLORS.slate400,
+  },
+  testing: {
+    backgroundColor: COLORS.amber700,
+  },
+  success: {
+    backgroundColor: COLORS.green700,
+  },
+  failed: {
+    backgroundColor: COLORS.maroon700,
+  },
+  serverHeaderTitle: {
+    fontSize: 12,
+    fontWeight: FONTS.weightSemiBold,
+    color: COLORS.navy800,
+    fontFamily: FONT_FAMILY.body,
+  },
+  serverHeaderUrl: {
+    fontSize: 11,
+    color: COLORS.slate500,
+    fontFamily: FONT_FAMILY.body,
+  },
+  serverChevron: {
+    fontSize: 10,
+    color: COLORS.slate400,
+  },
+  serverConfigBody: {
+    marginTop: 12,
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.borderSubtle,
+  },
+  serverInputLabel: {
+    fontSize: 11,
+    fontWeight: FONTS.weightSemiBold,
+    color: COLORS.slate700,
+    marginBottom: 6,
+    fontFamily: FONT_FAMILY.body,
+  },
+  serverInput: {
+    backgroundColor: COLORS.surfaceAlt,
+    borderWidth: 1,
+    borderColor: COLORS.borderSubtle,
+    borderRadius: RADIUS.sm,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    fontSize: 13,
+    color: COLORS.navy800,
+    fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
+    marginBottom: 8,
+  },
+  quickPresetRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+    marginBottom: 10,
+  },
+  presetChip: {
+    backgroundColor: COLORS.surfaceAlt,
+    borderWidth: 1,
+    borderColor: COLORS.borderSubtle,
+    borderRadius: RADIUS.full,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  },
+  presetChipText: {
+    fontSize: 10,
+    color: COLORS.slate700,
+  },
+  pingMessage: {
+    fontSize: 11,
+    fontWeight: FONTS.weightSemiBold,
+    marginBottom: 8,
+  },
+  serverSaveButton: {
+    backgroundColor: COLORS.navy800,
+    borderRadius: RADIUS.sm,
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  serverSaveButtonText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: FONTS.weightSemiBold,
+  },
+
   footerNote: {
     textAlign: 'center',
     fontSize: 11,
     color: COLORS.slate400,
-    marginTop: 8,
+    marginTop: 4,
     fontFamily: FONT_FAMILY.body,
   },
 });

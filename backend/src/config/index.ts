@@ -23,5 +23,11 @@ export const config = {
   simulationServiceType: (process.env.SIMULATION_SERVICE_TYPE || 'matlab') as 'mock' | 'matlab',
   matlabSimulinkServiceUrl: process.env.MATLAB_SIMULINK_URL || 'http://127.0.0.1:8000',
   storagePath: process.env.STORAGE_PATH || path.join(process.cwd(), 'uploads'),
-  corsOrigin: process.env.CORS_ORIGIN || '*'
+  corsOrigin: process.env.CORS_ORIGINS || process.env.CORS_ORIGIN || '*',
+  awsRegion: process.env.AWS_REGION || 'ap-south-1',
+  awsS3Bucket: process.env.AWS_S3_BUCKET || '',
+  awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+  awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+  awsDynamoTable: process.env.AWS_DYNAMODB_TABLE || 'RetinovaDetectionEvents',
+  awsSnsTopicArn: process.env.AWS_SNS_TOPIC_ARN || ''
 };

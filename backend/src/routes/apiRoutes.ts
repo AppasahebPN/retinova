@@ -320,6 +320,9 @@ router.post('/screen', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'f
   }
 });
 
+import detectionRoutes from './detectionRoutes';
+import platformRoutes from './platformRoutes';
+
 // Facilities listing
 router.get('/facilities', (_req, res) => {
   const store = DatabaseStore.getInstance();
@@ -334,5 +337,7 @@ router.use('/analytics', analyticsRoutes);
 router.use('/simulation', simulationRoutes);
 router.use('/model-status', modelStatusRoutes);
 router.use('/reports', reportRoutes);
+router.use('/detections', detectionRoutes);
+router.use('/platform', platformRoutes);
 
 export default router;

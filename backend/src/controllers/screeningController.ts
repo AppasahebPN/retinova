@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import { ScreeningService } from '../services/screeningService';
 import { AuthenticatedRequest } from '../middleware/auth';
+import { awsService } from '../services/awsService';
 
 const screeningService = new ScreeningService();
 
@@ -135,12 +136,28 @@ export class ScreeningController {
       return;
     }
 
-    const storageUrl = `/uploads/${file.filename}`;
-    res.json({
-      storageUrl,
-      originalFilename: file.originalname,
-      size: file.size,
-      mimetype: file.mimetype
-    });
+    try {
+      let storageUrl = `/uploads/${file.filename}`;
+      let s3Key: string | undefined = undefined;
+
+      if (awsService.isS3Configured()) {
+        const s3Upload = await awsService.uploadFileToS3(file.path, file.filename, file.mimetype);
+        storageUrl = s3Upload.location;
+        s3Key = s3Upload.s3Key;
+      }
+
+      console.log(`[RETINOVA] Upload received -> file: ${file.originalname} (${file.size} bytes)`);
+
+      res.json({
+        storageUrl,
+        s3Key,
+        originalFilename: file.originalname,
+        size: file.size,
+        mimetype: file.mimetype
+      });
+    } catch (err: any) {
+      console.error('[RETINOVA] Upload processing error:', err.message);
+      res.status(500).json({ error: 'Failed to persist uploaded evidence', details: err.message });
+    }
   }
 }

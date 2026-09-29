@@ -2,7 +2,7 @@
 // RETINOVA — ASHA Worker Home Screen
 // Figma Make Source of Truth — Polished Healthcare UI System
 // ============================================================
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -17,6 +17,8 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAuth } from '../hooks/useAuth';
 import { screeningService } from '../services/screeningService';
 import { analyticsService } from '../services/analyticsService';
+import { syncManager, SyncState } from '../services/syncManager';
+import { localDatabase } from '../services/localDatabase';
 import {
   SectionHeader,
   EmptyState,
@@ -67,6 +69,27 @@ export default function HomeScreen() {
   const [todayReferralsCount, setTodayReferralsCount] = useState(0);
   const [thisWeekCount, setThisWeekCount] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
+  const [syncState, setSyncState] = useState<SyncState>({
+    isOnline: true,
+    isSyncing: false,
+    pendingCount: 0,
+    syncedCount: 0,
+    failedCount: 0,
+    lastSyncTime: null,
+    lastError: null,
+  });
+
+  useEffect(() => {
+    syncManager.start();
+    const unsub = syncManager.subscribe((state) => {
+      setSyncState(state);
+    });
+    return () => unsub();
+  }, []);
+
+  const handleManualSync = async () => {
+    await syncManager.syncNow();
+  };
 
   const load = useCallback(async () => {
     try {
@@ -137,6 +160,45 @@ export default function HomeScreen() {
       />
 
       <View style={styles.body}>
+        {/* Edge AI & Cloud Sync Command Telemetry Card */}
+        <View style={styles.edgeStatusCard}>
+          <View style={styles.edgeStatusHeader}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              <View style={[styles.statusDot, { backgroundColor: syncState.isOnline ? '#10B981' : '#F59E0B' }]} />
+              <Text style={styles.edgeStatusTitle}>
+                {syncState.isOnline ? "CLOUD ONLINE" : "OFFLINE EDGE MODE"}
+              </Text>
+            </View>
+            <View style={styles.modelBadge}>
+              <Text style={styles.edgeModelVersion}>Swin V2 Tiny Edge</Text>
+            </View>
+          </View>
+
+          <View style={styles.edgeMetricsRow}>
+            <View style={styles.edgeMetricCol}>
+              <Text style={styles.edgeMetricNumber}>{syncState.pendingCount}</Text>
+              <Text style={styles.edgeMetricLabel}>Pending Sync</Text>
+            </View>
+            <View style={styles.edgeMetricDivider} />
+            <View style={styles.edgeMetricCol}>
+              <Text style={[styles.edgeMetricNumber, { color: '#10B981' }]}>{syncState.syncedCount}</Text>
+              <Text style={styles.edgeMetricLabel}>Synced to Cloud</Text>
+            </View>
+            <View style={styles.edgeMetricDivider} />
+            <View style={styles.edgeMetricCol}>
+              <TouchableOpacity
+                style={[styles.syncButton, syncState.isSyncing && { opacity: 0.6 }]}
+                onPress={handleManualSync}
+                disabled={syncState.isSyncing}
+              >
+                <Text style={styles.syncButtonText}>
+                  {syncState.isSyncing ? "Syncing..." : "Sync Now ⟳"}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+
         {/* 1. Today's Summary (Figma 3-column stat grid) */}
         <View style={styles.statsGrid}>
           <View style={styles.statCard}>
@@ -644,5 +706,83 @@ const styles = StyleSheet.create({
     marginTop: 2,
     lineHeight: 16,
     fontFamily: FONT_FAMILY.body,
+  },
+
+  // Edge AI & Cloud Sync Telemetry Widget Styles
+  edgeStatusCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: RADIUS.lg,
+    padding: SPACING.md,
+    marginBottom: SPACING.md,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    ...SHADOWS.card,
+  },
+  edgeStatusHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: SPACING.sm,
+    paddingBottom: SPACING.xs,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F1F5F9',
+  },
+  statusDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+  },
+  edgeStatusTitle: {
+    fontSize: FONTS.sizeXS,
+    fontWeight: FONTS.weightBold,
+    color: COLORS.navy800,
+    letterSpacing: 0.5,
+  },
+  modelBadge: {
+    backgroundColor: '#F1F5F9',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 12,
+  },
+  edgeModelVersion: {
+    fontSize: 10,
+    fontWeight: FONTS.weightSemiBold,
+    color: COLORS.slate700,
+  },
+  edgeMetricsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  edgeMetricCol: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  edgeMetricNumber: {
+    fontSize: 18,
+    fontWeight: FONTS.weightBold,
+    color: COLORS.navy800,
+    fontFamily: FONT_FAMILY.display,
+  },
+  edgeMetricLabel: {
+    fontSize: 10,
+    color: COLORS.slate500,
+    marginTop: 2,
+  },
+  edgeMetricDivider: {
+    width: 1,
+    height: 24,
+    backgroundColor: '#E2E8F0',
+  },
+  syncButton: {
+    backgroundColor: COLORS.teal800,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: RADIUS.sm,
+  },
+  syncButtonText: {
+    color: '#FFFFFF',
+    fontSize: 11,
+    fontWeight: FONTS.weightBold,
   },
 });

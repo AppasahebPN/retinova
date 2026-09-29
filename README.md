@@ -1,17 +1,44 @@
-# RETINOVA
+# RETINOVA Enterprise Edge AI Platform
+**Offline-First Multi-Tenant Edge AI Platform for B2B & B2G Deployments**
 
-**Explainable AI for Diabetic Retinopathy Screening in Rural India**
+> **Core Philosophy:** Detect Locally • Store Locally • Sync Intelligently • Monitor Centrally
 
-**Problem Statement / Project Code**: SIH26038  
-**Team**: Career Crafters  
-**Institution**: Presidency University, Bengaluru  
-
-[![Status: Working Prototype](https://img.shields.io/badge/Status-Working%20Prototype-success.svg)](https://github.com/AppasahebPN/retinova)
-[![Architecture: Swin V2 Tiny + MATLAB Engine](https://img.shields.io/badge/Architecture-Swin%20V2%20Tiny%20%2B%20MATLAB-blue.svg)](https://github.com/AppasahebPN/retinova)
-[![Simulation: Simulink / SimEvents](https://img.shields.io/badge/Simulation-Simulink%20%2F%20SimEvents-orange.svg)](https://github.com/AppasahebPN/retinova)
-[![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
+[![Multi-Tenant Architecture](https://img.shields.io/badge/Architecture-Multi--Tenant%20Isolated-blue.svg)](docs/MULTI_TENANCY.md)
+[![Edge AI: Swin V2 Tiny (Offline)](https://img.shields.io/badge/Edge%20AI-Swin%20V2%20Tiny%20(Offline)-emerald.svg)](docs/AI_WORKFLOW_ARCHITECTURE.md)
+[![Cloud: AWS API Gateway + DynamoDB + S3](https://img.shields.io/badge/Cloud-AWS%20Multi--Tenant-orange.svg)](docs/PLATFORM_ARCHITECTURE.md)
+[![Android APK: Release Ready](https://img.shields.io/badge/Android%20APK-82.9%20MB%20Compiled-teal.svg)](http://localhost:5000/download/apk)
+[![Test Suite: 22/22 Passed](https://img.shields.io/badge/Platform%20Tests-22%2F22%20Passed-success.svg)](backend/src/test_platform.ts)
 
 ---
+
+### 🌐 Quick Access Portals & Live System
+* **Public Commercial Landing Page**: [http://localhost:5000/](http://localhost:5000/) (or [http://localhost:5000/landing](http://localhost:5000/landing))
+* **Dual-Level Command Center**: [http://localhost:5000/dashboard](http://localhost:5000/dashboard) (Platform Admin Console + Scoped Tenant Portals)
+* **Instant Mobile APK Sideload & QR Portal**: [http://localhost:5000/install](http://localhost:5000/install)
+* **Direct Binary APK Download**: [http://localhost:5000/download/apk](http://localhost:5000/download/apk) (`NetraAI_ASHA.apk` — 82.9 MB)
+* **Platform REST API**: [http://localhost:5000/api/platform/organizations](http://localhost:5000/api/platform/organizations)
+* **Cloud Health Gateway**: [http://localhost:5000/health](http://localhost:5000/health)
+
+---
+
+### 📚 Enterprise Platform Documentation Suite
+1. **[Production Readiness Audit](docs/PRODUCTION_READINESS.md)**: Objective categorization into Ready, Needs Configuration, and Not Production Ready.
+2. **[Platformization Audit](docs/PLATFORMIZATION_AUDIT.md)**: Baseline inventory of existing features, APIs, and platform gaps.
+3. **[Platform Architecture](docs/PLATFORM_ARCHITECTURE.md)**: End-to-end edge-to-cloud B2B/B2G platform architecture.
+4. **[Multi-Tenancy & Data Isolation](docs/MULTI_TENANCY.md)**: Data-access layer isolation mechanisms and verification.
+5. **[Role-Based Access Control (RBAC)](docs/RBAC.md)**: 5 platform roles, permissions matrix, and middleware enforcement.
+6. **[Modular AI Workflow Architecture](docs/AI_WORKFLOW_ARCHITECTURE.md)**: Pluggable AI engine (Healthcare, Insurance, Government, Security).
+7. **[Device Fleet Management](docs/DEVICE_MANAGEMENT.md)**: Edge device telemetry, heartbeat tracking, and remote control.
+8. **[Model Lifecycle & OTA Management](docs/MODEL_MANAGEMENT.md)**: Model version registry, SHA-256 integrity check, and safe rollback.
+9. **[B2B / B2G Business Model](docs/B2B_B2G_BUSINESS_MODEL.md)**: 7 commercial revenue streams, customer value, and facts vs. assumptions.
+10. **[Commercial Pricing Framework](docs/PRICING_FRAMEWORK.md)**: Basic, Pro, and Enterprise subscription tiers (Proposed / To Be Validated).
+11. **[Pricing Assumptions & Validation Plan](docs/PRICING_ASSUMPTIONS.md)**: Assumptions to validate during pilot discovery interviews.
+12. **[Pilot Evaluation Framework](docs/PILOT_FRAMEWORK.md)**: 60-day trial technical and business measurement framework.
+13. **[Customer Lifecycle & Expansion](docs/CUSTOMER_LIFECYCLE.md)**: B2B/B2G sales, onboarding, renewal, and expansion pipeline.
+14. **[Annual Maintenance Contract (AMC)](docs/MAINTENANCE_MODEL.md)**: Ongoing fleet maintenance, SLA tiers, and warranty tracking.
+15. **[Security Architecture](docs/SECURITY.md)**: Defense-in-depth security, audit trails, and regulatory disclaimers.
+16. **[REST API Reference](docs/API.md)**: Complete endpoint documentation with request/response schemas.
+17. **[Customer Deployment & Demo Flow](docs/CUSTOMER_DEPLOYMENT.md)**: 15-step script for live customer pitches and jury demos.
 
 ## Project Overview
 

@@ -99,7 +99,6 @@ export default function AshaNavigator() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        detachInactiveScreens: true,
         tabBarStyle: {
           backgroundColor: COLORS.surface,
           borderTopWidth: 1,

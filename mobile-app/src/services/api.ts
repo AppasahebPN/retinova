@@ -26,13 +26,26 @@ function resolveInitialApiBaseUrl(): string {
     return envUrl;
   }
 
-  // 2. Web browser context: derive backend port 5000 from current hostname
+  // 2. Web browser context: derive backend URL
   if (typeof window !== "undefined" && window.location?.hostname) {
     const host = window.location.hostname;
+    const port = window.location.port;
+    const isCloudHost = host.includes('.onrender.com') || host.includes('herokuapp.com') || host.includes('.railway.app');
+
+    // Hosted on Render or standard ports: use current origin directly (e.g. https://retinova-backend.onrender.com)
+    if (isCloudHost || port === '' || port === '443' || port === '80' || port === '5000') {
+      const derived = window.location.origin;
+      if (__DEV__) {
+        console.log(`[RETINOVA WEB API]\nplatform=web\nbaseUrl=${derived}`);
+      }
+      return derived;
+    }
+
+    // Local dev web server (e.g. Expo web on 8081 / 19006) pointing to backend on 5000
     const proto = window.location.protocol || "http:";
     const derived = `${proto}//${host}:5000`;
     if (__DEV__) {
-      console.log(`[RETINOVA WEB API]\nplatform=web\nbaseUrl=${derived}`);
+      console.log(`[RETINOVA WEB API]\nplatform=web (local dev)\nbaseUrl=${derived}`);
     }
     return derived;
   }

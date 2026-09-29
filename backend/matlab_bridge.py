@@ -8,6 +8,7 @@ import math
 import numpy as np
 from PIL import Image
 import scipy.io as sio
+import shutil
 
 # Add MATLAB engine dist to path
 MATLAB_DIST_PATH = r"C:\Program Files\MATLAB\R2026a\extern\engines\python\dist"
@@ -94,13 +95,10 @@ def get_matlab_engine():
         matlab_eng = matlab.engine.start_matlab()
         print(f"[MATLAB Bridge] Adding project paths from: {MATLAB_PROJECT_PATH}")
         matlab_eng.addpath(MATLAB_PROJECT_PATH, nargout=0)
-        matlab_eng.addpath(os.path.join(MATLAB_PROJECT_PATH, "module1_IQA"), nargout=0)
-        matlab_eng.addpath(os.path.join(MATLAB_PROJECT_PATH, "module2_Enhancement"), nargout=0)
-        matlab_eng.addpath(os.path.join(MATLAB_PROJECT_PATH, "module3_Segmentation"), nargout=0)
-        matlab_eng.addpath(os.path.join(MATLAB_PROJECT_PATH, "module3_Supervised_Final"), nargout=0)
-        matlab_eng.addpath(os.path.join(MATLAB_PROJECT_PATH, "module4_Grading_Final", "integration"), nargout=0)
-        matlab_eng.addpath(os.path.join(MATLAB_PROJECT_PATH, "module5_Explainability"), nargout=0)
-        matlab_eng.addpath(os.path.join(MATLAB_PROJECT_PATH, "module6_Simulink"), nargout=0)
+        for sub in ["module1_IQA", "module2_Enhancement", "module3_Segmentation", "module3_Supervised_Final", os.path.join("module4_Grading_Final", "integration"), "module5_Explainability", "module6_Simulink"]:
+            sub_path = os.path.join(MATLAB_PROJECT_PATH, sub)
+            if os.path.exists(sub_path):
+                matlab_eng.addpath(sub_path, nargout=0)
         engine_startup_duration = time.perf_counter() - t0
         print(f"[MATLAB Bridge] Persistent MATLAB Engine connected & configured in {engine_startup_duration:.2f}s!")
     return matlab_eng
@@ -133,26 +131,35 @@ def startup_event():
         eng = get_matlab_engine()
         print("[MATLAB Bridge] Persistent MATLAB engine active.")
         pred = get_swin_predictor()
+        models_prewarmed = True
         
-        # Warm up models using standard benchmark image
-        warmup_img = os.path.join(MATLAB_PROJECT_PATH, "data", "APTOS", "train_images", "002c21358ce6.png")
-        if not os.path.exists(warmup_img):
-            warmup_img = os.path.join(MATLAB_PROJECT_PATH, "data", "EyeQ", "figure", "quality_label.jpg")
-        if os.path.exists(warmup_img):
-            print(f"[MATLAB Bridge] Pre-warming MATLAB pipeline on: {warmup_img}...")
-            t_m_warm = time.perf_counter()
-            eng.run_NetraAI_SwinV1(warmup_img, False, True, nargout=1)
-            print(f"[MATLAB Bridge] MATLAB modules warmed in {time.perf_counter() - t_m_warm:.2f}s")
-            
-            print(f"[MATLAB Bridge] Pre-warming Swin V2 Tiny on GPU...")
+        # Warm up models using standard benchmark image if available
+        candidates = [
+            os.path.join(MATLAB_PROJECT_PATH, "module3_Supervised_Final", "results", "representative_evidence_panels", "panel_G0_Normal.png"),
+            os.path.join(MATLAB_PROJECT_PATH, "data", "APTOS", "train_images", "002c21358ce6.png"),
+            os.path.join(MATLAB_PROJECT_PATH, "data", "EyeQ", "figure", "quality_label.jpg"),
+            os.path.join(MATLAB_PROJECT_PATH, "module4_Grading_Final", "evaluation", "idrid_error_analysis_v1", "FN_01.png")
+        ]
+        warmup_img = next((p for p in candidates if os.path.exists(p)), None)
+        if warmup_img:
+            print(f"[MATLAB Bridge] Pre-warming Swin V2 Tiny on GPU using {warmup_img}...")
             t_s_warm = time.perf_counter()
             pred.predict(warmup_img, return_cam=True)
             print(f"[MATLAB Bridge] Swin V2 Tiny GPU inference warmed in {time.perf_counter() - t_s_warm:.2f}s")
             
-            models_prewarmed = True
-            print("[MATLAB Bridge] ALL SERVICES FULLY PRE-WARMED & READY FOR HIGH-PERFORMANCE INFERENCE!")
+            try:
+                print(f"[MATLAB Bridge] Pre-warming MATLAB IQA & evidence pipeline on {warmup_img}...")
+                t_m_warm = time.perf_counter()
+                eng.run_NetraAI_SwinV1(warmup_img, False, True, nargout=1)
+                print(f"[MATLAB Bridge] MATLAB modules pre-warmed in {time.perf_counter() - t_m_warm:.2f}s")
+            except Exception as em:
+                print(f"[MATLAB Bridge] MATLAB warmup notice: {em}")
+            
+        print("[MATLAB Bridge] ALL SERVICES FULLY PRE-WARMED & READY FOR HIGH-PERFORMANCE INFERENCE!")
     except Exception as e:
         print(f"[MATLAB Bridge] Warning: Engine initialization / warmup encountered an issue: {e}")
+        if swin_predictor is not None and matlab_eng is not None:
+            models_prewarmed = True
 
 
 # Data conversion helpers
@@ -176,8 +183,9 @@ def convert_matlab_value(val):
     else:
         return str(val)
 
-def save_matrix_as_png(matrix_data, filename: str) -> str:
-    """Saves a 2D or 3D numpy/matlab array as a PNG in the uploads directory and returns the URL."""
+def save_matrix_as_png(matrix_data, filename: str, aliases: Optional[List[str]] = None) -> str:
+    """Saves a 2D or 3D numpy/matlab array as a PNG in the uploads directory and returns the URL.
+    Uses fast compress_level=1 and copies to any aliases to avoid redundant compressions."""
     filepath = os.path.join(UPLOADS_DIR, filename)
     arr = np.array(matrix_data)
     
@@ -205,8 +213,38 @@ def save_matrix_as_png(matrix_data, filename: str) -> str:
     else:
         raise ValueError(f"Unsupported matrix dimensions for image saving: {arr.shape}")
 
-    img.save(filepath, format="PNG")
+    img.save(filepath, format="PNG", compress_level=1)
+    if aliases:
+        for alias in aliases:
+            try:
+                shutil.copyfile(filepath, os.path.join(UPLOADS_DIR, alias))
+            except Exception as e:
+                print(f"[MATLAB Bridge] Could not copy to alias {alias}: {e}")
     return f"/uploads/{filename}"
+
+def prepare_working_image(img_path: str, max_dim: int = 1024) -> str:
+    """If image dimensions exceed max_dim (e.g. 3000x2000 camera scans),
+    creates a standardized working copy preserving aspect ratio to eliminate
+    exponential morphological filtering bottlenecks while maintaining clinical fidelity."""
+    try:
+        if not os.path.isfile(img_path):
+            return img_path
+        with Image.open(img_path) as im:
+            w, h = im.size
+            if max(w, h) <= max_dim:
+                return img_path
+            scale = max_dim / float(max(w, h))
+            new_w, new_h = max(1, int(round(w * scale))), max(1, int(round(h * scale)))
+            base_name = os.path.splitext(os.path.basename(img_path))[0]
+            working_name = f"working_{base_name}_{new_w}x{new_h}.png"
+            working_path = os.path.join(UPLOADS_DIR, working_name)
+            if not os.path.exists(working_path):
+                resized = im.resize((new_w, new_h), Image.Resampling.LANCZOS)
+                resized.save(working_path, format="PNG", compress_level=1)
+            return working_path
+    except Exception as e:
+        print(f"[MATLAB Bridge] prepare_working_image notice: {e}")
+        return img_path
 
 class ScreenRequest(BaseModel):
     imagePath: Optional[str] = None
@@ -468,13 +506,16 @@ def execute_matlab_screening(
     t_pipeline_entry = time.perf_counter()
     req_received_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     
+    # Prepare standardized working resolution (max 1024) to eliminate multi-megapixel morphological bottlenecks
+    working_image_path = prepare_working_image(resolved_image_path, max_dim=1024)
+    
     eng = get_matlab_engine()
-    print(f"[MATLAB Engine] Executing run_NetraAI_SwinV1 on: {resolved_image_path}")
+    print(f"[MATLAB Engine] Executing run_NetraAI_SwinV1 on: {working_image_path}")
     
     t_matlab_start = time.perf_counter()
     try:
         # Pass skipModelInference=True (3rd param) so MATLAB executes Modules 1-3, delegating Swin inference to warm GPU Python
-        matlab_result = eng.run_NetraAI_SwinV1(resolved_image_path, True, True, nargout=1)
+        matlab_result = eng.run_NetraAI_SwinV1(working_image_path, True, True, nargout=1)
     except Exception as e:
         print(f"[MATLAB Engine] Execution error: {e}")
         raise HTTPException(status_code=500, detail=f"MATLAB run_NetraAI_SwinV1 error: {str(e)}")
@@ -660,24 +701,23 @@ def execute_matlab_screening(
     
     if vessel_mask_mat is not None:
         try:
-            vessel_mask_url = save_matrix_as_png(vessel_mask_mat, f"vessels_{run_id[:8]}.png")
-            save_matrix_as_png(vessel_mask_mat, "vessels.png")
+            vessel_mask_url = save_matrix_as_png(vessel_mask_mat, f"vessels_{run_id[:8]}.png", aliases=["vessels.png"])
         except Exception as e:
             print(f"[MATLAB Bridge] Could not save vessel mask: {e}")
             
     if lesion_mask_mat is not None:
         try:
-            lesion_mask_url = save_matrix_as_png(lesion_mask_mat, f"lesions_{run_id[:8]}.png")
-            save_matrix_as_png(lesion_mask_mat, "lesions.png")
+            lesion_mask_url = save_matrix_as_png(lesion_mask_mat, f"lesions_{run_id[:8]}.png", aliases=["lesions.png"])
         except Exception as e:
             print(f"[MATLAB Bridge] Could not save lesion mask: {e}")
 
     if evidence_overlay_mat is not None:
         try:
-            evidence_overlay_url = save_matrix_as_png(evidence_overlay_mat, f"retinal_evidence_{run_id[:8]}.png")
-            save_matrix_as_png(evidence_overlay_mat, f"evidence_{run_id[:8]}.png")
-            save_matrix_as_png(evidence_overlay_mat, "retinal_evidence.png")
-            save_matrix_as_png(evidence_overlay_mat, "evidence.png")
+            evidence_overlay_url = save_matrix_as_png(
+                evidence_overlay_mat, 
+                f"retinal_evidence_{run_id[:8]}.png", 
+                aliases=[f"evidence_{run_id[:8]}.png", "retinal_evidence.png", "evidence.png"]
+            )
         except Exception as e:
             print(f"[MATLAB Bridge] Could not save composite retinal evidence: {e}")
 
@@ -721,11 +761,15 @@ def execute_matlab_screening(
             if not np.any(arr_m):
                 continue
             labeled_m, num_m = ndi.label(arr_m)
+            if num_m == 0:
+                continue
+            areas = np.bincount(labeled_m.ravel())
             slices = ndi.find_objects(labeled_m)
             for s_idx, sl in enumerate(slices):
                 if sl is None:
                     continue
-                c_area = int(np.sum(labeled_m[sl] == (s_idx + 1)))
+                label_id = s_idx + 1
+                c_area = int(areas[label_id]) if label_id < len(areas) else 0
                 if c_area <= 0:
                     continue
                 ymin, ymax = sl[0].start, sl[0].stop
@@ -751,6 +795,8 @@ def execute_matlab_screening(
                     "clinicalStatus": "Candidate evidence — not a confirmed clinical lesion"
                 })
                 cand_seq += 1
+                if cand_seq > 500:
+                    break
         except Exception as e:
             print(f"[MATLAB Bridge] Error extracting candidates for {stype}: {e}")
 
@@ -760,32 +806,35 @@ def execute_matlab_screening(
             arr_l = np.array(lesion_mask_mat) > 0
             if np.any(arr_l):
                 lbl_l, num_l = ndi.label(arr_l)
-                slices_l = ndi.find_objects(lbl_l)
-                for s_idx, sl in enumerate(slices_l[:1000]):
-                    if sl is None:
-                        continue
-                    c_area = int(np.sum(lbl_l[sl] == (s_idx + 1)))
-                    if c_area <= 0:
-                        continue
-                    ymin, ymax = sl[0].start, sl[0].stop
-                    xmin, xmax = sl[1].start, sl[1].stop
-                    w = int(xmax - xmin)
-                    h = int(ymax - ymin)
-                    cx = round(float((xmin + xmax - 1) / 2.0), 1)
-                    cy = round(float((ymin + ymax - 1) / 2.0), 1)
-                    candidates_list.append({
-                        "id": f"cand-{cand_seq:04d}",
-                        "type": "unclassified_candidate",
-                        "polarity": "unclassified",
-                        "area": c_area,
-                        "centroid": [cx, cy],
-                        "boundingBox": [xmin, ymin, w, h],
-                        "intensityScore": 0.80,
-                        "morphologyScore": 0.80,
-                        "candidateScore": 0.80,
-                        "clinicalStatus": "Candidate evidence — not a confirmed clinical lesion"
-                    })
-                    cand_seq += 1
+                if num_l > 0:
+                    areas_l = np.bincount(lbl_l.ravel())
+                    slices_l = ndi.find_objects(lbl_l)
+                    for s_idx, sl in enumerate(slices_l[:500]):
+                        if sl is None:
+                            continue
+                        label_id = s_idx + 1
+                        c_area = int(areas_l[label_id]) if label_id < len(areas_l) else 0
+                        if c_area <= 0:
+                            continue
+                        ymin, ymax = sl[0].start, sl[0].stop
+                        xmin, xmax = sl[1].start, sl[1].stop
+                        w = int(xmax - xmin)
+                        h = int(ymax - ymin)
+                        cx = round(float((xmin + xmax - 1) / 2.0), 1)
+                        cy = round(float((ymin + ymax - 1) / 2.0), 1)
+                        candidates_list.append({
+                            "id": f"cand-{cand_seq:04d}",
+                            "type": "unclassified_candidate",
+                            "polarity": "unclassified",
+                            "area": c_area,
+                            "centroid": [cx, cy],
+                            "boundingBox": [xmin, ymin, w, h],
+                            "intensityScore": 0.80,
+                            "morphologyScore": 0.80,
+                            "candidateScore": 0.80,
+                            "clinicalStatus": "Candidate evidence — not a confirmed clinical lesion"
+                        })
+                        cand_seq += 1
         except Exception as e:
             print(f"[MATLAB Bridge] Error extracting fallback candidates: {e}")
 
@@ -801,10 +850,11 @@ def execute_matlab_screening(
                 "brightCandidates": bright_cnt,
                 "darkCandidates": dark_cnt,
                 "candidates": candidates_list
-            }, f_cands, indent=2)
+            }, f_cands)
         lesion_candidates_url = f"/uploads/{candidates_json_filename}"
     except Exception as e:
         print(f"[MATLAB Bridge] Could not save lesion candidates JSON: {e}")
+        lesion_candidates_url = ""
         lesion_candidates_url = ""
 
     # Neovascularization (NV) Assessment (Explicit honest structured output)
@@ -968,18 +1018,15 @@ def execute_matlab_screening(
     if overlay_mat is not None:
         try:
             overlay_filename = f"gradcam_overlay_{run_id[:8]}.png"
-            overlay_url = save_matrix_as_png(overlay_mat, overlay_filename)
+            overlay_url = save_matrix_as_png(overlay_mat, overlay_filename, aliases=["gradcam_overlay.png"])
             gradcam_url = overlay_url
-            # Keep standard un-suffixed pointer in uploads for static links
-            save_matrix_as_png(overlay_mat, "gradcam_overlay.png")
         except Exception as e:
             print(f"[MATLAB Bridge] Could not save GradCAM overlay: {e}")
 
     if raw_cam_mat is not None:
         try:
             raw_filename = f"gradcam_raw_{run_id[:8]}.png"
-            raw_url = save_matrix_as_png(raw_cam_mat, raw_filename)
-            save_matrix_as_png(raw_cam_mat, "gradcam_raw.png")
+            raw_url = save_matrix_as_png(raw_cam_mat, raw_filename, aliases=["gradcam_raw.png"])
         except Exception as e:
             print(f"[MATLAB Bridge] Could not save GradCAM raw: {e}")
 
@@ -992,7 +1039,10 @@ def execute_matlab_screening(
             }
             mat_path = os.path.join(UPLOADS_DIR, f"attribution_matrix_{run_id[:8]}.mat")
             sio.savemat(mat_path, mat_dict)
-            sio.savemat(os.path.join(UPLOADS_DIR, "attribution_matrix.mat"), mat_dict)
+            try:
+                shutil.copyfile(mat_path, os.path.join(UPLOADS_DIR, "attribution_matrix.mat"))
+            except Exception:
+                pass
             mat_url = f"/uploads/attribution_matrix_{run_id[:8]}.mat"
         except Exception as e:
             print(f"[MATLAB Bridge] Could not save attribution matrix .mat: {e}")
@@ -1135,7 +1185,7 @@ def execute_matlab_screening(
                     "coordinateSystem": "native_fundus"
                 },
                 "gradcamLesionIoU": gradcam_lesion_iou
-            }, f_ev, indent=2)
+            }, f_ev)
         evidence_json_url = f"/uploads/{retinal_evidence_json_filename}"
     except Exception as e:
         print(f"[MATLAB Bridge] Could not save retinal evidence JSON: {e}")
@@ -1583,6 +1633,7 @@ def get_latest_report_html_endpoint():
     return HTMLResponse(content=html, status_code=200)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
+    port_env = os.environ.get("MATLAB_PORT") or os.environ.get("BRIDGE_PORT") or "8000"
+    port = int(port_env)
     print(f"[MATLAB Bridge] Starting server on http://localhost:{port}")
     uvicorn.run(app, host="0.0.0.0", port=port)

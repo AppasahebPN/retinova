@@ -5,17 +5,23 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
+    "postbuild": "node -e \"const fs=require('fs'); fs.mkdirSync('dist/dashboard',{recursive:true}); fs.copyFileSync('src/dashboard/dashboard.html','dist/dashboard/dashboard.html');\"",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "seed": "ts-node-dev src/db/seed.ts"
+    "seed": "ts-node-dev src/db/seed.ts",
+    "seed:demo": "ts-node src/db/demoTenants.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1142.0",
+    "@aws-sdk/s3-request-presigner": "^3.1142.0",
+    "@types/pg": "^8.23.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
+    "pg": "^8.23.0",
     "uuid": "^11.1.0",
     "zod": "^3.24.2"
   },

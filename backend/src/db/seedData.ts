@@ -3,12 +3,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { DatabaseStore } from './store';
 import { initializeSampleImages } from '../utils/imageGenerator';
 import { config } from '../config';
+import { seedDemoTenants } from './demoTenants';
 
 export function seedDatabase(force = false) {
   const store = DatabaseStore.getInstance();
   const existingUsers = store.getUsers();
 
   if (existingUsers.length > 0 && !force) {
+    seedDemoTenants(store);
     return;
   }
 
@@ -196,4 +198,8 @@ export function seedDatabase(force = false) {
     completed_at: new Date('2026-02-10T10:00:05Z').toISOString(),
     result: sim1Result
   });
+
+  // Seed isolated demonstration tenants and accounts
+  seedDemoTenants(store);
 }
+

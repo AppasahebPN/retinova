@@ -1,0 +1,164 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  RETINOVA Edge AI Surveillance Platform - Production Cloud Infrastructure
+  Offline-First Event Ingestion, DynamoDB Storage, S3 Evidence Vault, and SNS Alerts
+
+Globals:
+  Function:
+    Timeout: 15
+    MemorySize: 256
+    Runtime: nodejs20.x
+    Architectures:
+      - arm64
+    Environment:
+      Variables:
+        DYNAMODB_TABLE: !Ref DetectionEventsTable
+        S3_BUCKET: !Ref EvidenceBucket
+        SNS_TOPIC_ARN: !Ref CriticalAlertsTopic
+        AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
+
+Resources:
+  # ==========================================================
+  # 1. API GATEWAY HTTP API
+  # ==========================================================
+  HttpApiGateway:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowMethods:
+          - GET
+          - POST
+          - OPTIONS
+        AllowHeaders:
+          - Content-Type
+          - Authorization
+          - x-device-id
+        AllowOrigins:
+          - '*'
+
+  # ==========================================================
+  # 2. DYNAMODB DETECTION EVENTS TABLE
+  # ==========================================================
+  DetectionEventsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: RetinovaDetectionEvents
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: device_id
+          AttributeType: S
+        - AttributeName: timestamp
+          AttributeType: S
+        - AttributeName: event_id
+          AttributeType: S
+        - AttributeName: severity
+          AttributeType: S
+      KeySchema:
+        - AttributeName: device_id
+          KeyType: HASH
+        - AttributeName: timestamp
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: EventIdIndex
+          KeySchema:
+            - AttributeName: event_id
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: SeverityIndex
+          KeySchema:
+            - AttributeName: severity
+              KeyType: HASH
+            - AttributeName: timestamp
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+
+  # ==========================================================
+  # 3. PRIVATE S3 EVIDENCE BUCKET
+  # ==========================================================
+  EvidenceBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'retinova-evidence-vault-${AWS::AccountId}'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      LifecycleConfiguration:
+        Rules:
+          - Id: TransitionOldEvidenceToGlacier
+            Status: Enabled
+            Transitions:
+              - TransitionInDays: 90
+                StorageClass: GLACIER
+
+  # ==========================================================
+  # 4. SNS CRITICAL ALERTS TOPIC
+  # ==========================================================
+  CriticalAlertsTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: RetinovaCriticalAlerts
+      DisplayName: RETINOVA Edge AI Surveillance Escalation
+
+  # ==========================================================
+  # 5. LAMBDA FUNCTIONS
+  # ==========================================================
+  SyncFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: syncHandler.handler
+      CodeUri: ./lambda/
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref DetectionEventsTable
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt CriticalAlertsTopic.TopicName
+      Events:
+        SyncApi:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApiGateway
+            Path: /api/detections/sync
+            Method: POST
+
+  EventsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: eventsHandler.handler
+      CodeUri: ./lambda/
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref DetectionEventsTable
+      Events:
+        EventsApi:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApiGateway
+            Path: /api/detections
+            Method: GET
+
+Outputs:
+  ApiUrl:
+    Description: HTTP API Gateway Production Endpoint
+    Value: !Sub 'https://${HttpApiGateway}.execute-api.${AWS::Region}.amazonaws.com'
+  DynamoDBTableName:
+    Description: DynamoDB Detection Events Table Name
+    Value: !Ref DetectionEventsTable
+  S3BucketName:
+    Description: Private S3 Evidence Bucket
+    Value: !Ref EvidenceBucket
+  SnsTopicArn:
+    Description: SNS Critical Alerts Topic ARN
+    Value: !Ref CriticalAlertsTopic

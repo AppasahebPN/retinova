@@ -14,6 +14,9 @@ import { setApiBaseUrl, getApiBaseUrl, pingServer } from "../services/api";
 import { useAuth } from "../hooks/useAuth";
 import { FormInput, Button, SectionHeader, InfoRow, RetinovaLogo } from "../components";
 import { useBackground } from "../context/BackgroundContext";
+import { localDatabase } from "../services/localDatabase";
+import { aiModel } from "../services/aiModel";
+import { syncManager, SyncState } from "../services/syncManager";
 import {
   COLORS,
   FONTS,
@@ -34,12 +37,19 @@ export default function SettingsScreen() {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [pingStatus, setPingStatus] = useState<PingStatus>("idle");
   const [pingInfo, setPingInfo] = useState("");
+  const [deviceId, setDeviceId] = useState("Loading...");
+  const [syncState, setSyncState] = useState<SyncState>(syncManager.getState());
 
   useEffect(() => {
     storage.getItem(STORAGE_KEYS.API_BASE_URL).then((v) => {
       if (v) setApiUrl(v);
     });
+    localDatabase.init().then(() => {
+      setDeviceId(localDatabase.getDeviceId());
+    });
+    const unsub = syncManager.subscribe((st) => setSyncState(st));
     checkConnection();
+    return () => unsub();
   }, []);
 
   const checkConnection = async () => {
@@ -154,6 +164,32 @@ export default function SettingsScreen() {
                   </TouchableOpacity>
                 );
               })}
+            </View>
+          </View>
+
+          {/* Edge AI & Device Telemetry Card */}
+          <View style={styles.card}>
+            <SectionHeader title="Device & Edge Telemetry" />
+            <InfoRow label="Device ID" value={deviceId} />
+            <InfoRow label="Model Version" value={aiModel.get_model_version()} />
+            <InfoRow
+              label="Sync Status"
+              value={`${syncState.pendingCount} Pending · ${syncState.syncedCount} Synced`}
+            />
+            <InfoRow label="App Version" value="v2.4.0 (Edge AI Release)" />
+            <InfoRow label="Offline Mode" value="Autonomous Edge Fallback Active" />
+            <InfoRow
+              label="Server Status"
+              value={syncState.isOnline ? "Connected to Cloud" : "Offline (Local Queueing)"}
+            />
+            <View style={{ marginTop: SPACING.md }}>
+              <Button
+                title={syncState.isSyncing ? "Syncing..." : "Sync Pending Events Now ⟳"}
+                onPress={() => syncManager.syncNow()}
+                variant="primary"
+                loading={syncState.isSyncing}
+                fullWidth
+              />
             </View>
           </View>
 

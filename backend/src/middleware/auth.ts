@@ -47,13 +47,26 @@ export function authenticateToken(req: AuthenticatedRequest, res: Response, next
   });
 }
 
-export function authorizeRoles(...allowedRoles: UserRole[]) {
+const platformRoleEquivalents: Record<string, string[]> = {
+  PLATFORM_ADMIN: ['admin', 'doctor', 'healthcare_worker', 'district_manager'],
+  ORG_ADMIN: ['admin', 'doctor', 'healthcare_worker', 'district_manager'],
+  REVIEWER: ['doctor'],
+  OPERATOR: ['healthcare_worker'],
+  VIEWER: ['district_manager']
+};
+
+export function authorizeRoles(...allowedRoles: (UserRole | string)[]) {
   return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     if (!req.user) {
       return res.status(401).json({ error: 'User is not authenticated' });
     }
 
-    if (!allowedRoles.includes(req.user.role)) {
+    const userRole = req.user.role;
+    const equivalentRoles = platformRoleEquivalents[userRole] || [userRole];
+
+    const hasAccess = allowedRoles.some(r => r === userRole || equivalentRoles.includes(r as string));
+
+    if (!hasAccess) {
       return res.status(403).json({
         error: `Access denied. Role '${req.user.role}' is not authorized for this operation.`
       });

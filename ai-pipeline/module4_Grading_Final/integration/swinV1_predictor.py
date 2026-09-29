@@ -23,9 +23,14 @@ import torch.nn.functional as F
 
 import scipy.ndimage as ndimage
 
-ROOT_DIR = r"C:\Users\Appasaheb\OneDrive\Documents\MATLAB\DR_Screening_MATLAB"
-if not os.path.exists(ROOT_DIR):
-    ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+DEFAULT_AI_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+env_matlab_path = os.environ.get("MATLAB_PROJECT_PATH")
+if env_matlab_path and os.path.exists(env_matlab_path):
+    ROOT_DIR = env_matlab_path
+elif os.path.exists(DEFAULT_AI_ROOT):
+    ROOT_DIR = DEFAULT_AI_ROOT
+else:
+    ROOT_DIR = r"C:\Users\Appasaheb\OneDrive\Documents\MATLAB\DR_Screening_MATLAB"
 
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
@@ -119,7 +124,10 @@ class SwinV1Predictor:
         """
         if isinstance(image_input, str):
             if not os.path.isabs(image_input):
-                image_input = os.path.join(ROOT_DIR, image_input)
+                if os.path.exists(image_input):
+                    image_input = os.path.abspath(image_input)
+                else:
+                    image_input = os.path.join(ROOT_DIR, image_input)
             img_pil = Image.open(image_input).convert('RGB')
         elif isinstance(image_input, Image.Image):
             img_pil = image_input.convert('RGB')

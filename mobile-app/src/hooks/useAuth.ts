@@ -8,6 +8,7 @@ interface AuthContextValue {
   token: string | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  loginOffline: (role?: 'healthcare_worker' | 'doctor' | 'district_manager') => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -18,6 +19,7 @@ export const AuthContext = createContext<AuthContextValue>({
   token: null,
   isLoading: true,
   login: async () => {},
+  loginOffline: async () => {},
   logout: async () => {},
 });
 
@@ -65,11 +67,18 @@ export function useAuthProvider(): AuthContextValue {
     setUser(data.user);
   };
 
+  const loginOffline = async (role: 'healthcare_worker' | 'doctor' | 'district_manager' = 'healthcare_worker') => {
+    if (__DEV__) console.log('[BOOT API] Starting Offline Field Mode login for role:', role);
+    const data = await authService.loginOffline(role);
+    setToken(data.token);
+    setUser(data.user);
+  };
+
   const logout = async () => {
     await authService.logout();
     setToken(null);
     setUser(null);
   };
 
-  return { user, token, isLoading, login, logout };
+  return { user, token, isLoading, login, loginOffline, logout };
 }

@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RETINOVA — AI-Powered Retinal Screening for Diabetic Retinopathy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --color-background: #F4EFE8;
+      --color-surface: #FFFFFF;
+      --color-surface-raised: #FDFAF7;
+      --color-border: #DDD5C8;
+      --color-border-subtle: #EDE8E0;
+      --color-navy-900: #0F1E36;
+      --color-navy-800: #152845;
+      --color-navy-700: #1A3254;
+      --color-teal-900: #0A4A4A;
+      --color-teal-800: #0D5E5E;
+      --color-teal-100: #D4EEEE;
+      --color-teal-50: #EAF6F6;
+      --color-maroon-700: #8B1A2B;
+      --color-maroon-50: #FDF0F2;
+      --color-amber-700: #B45309;
+      --color-amber-50: #FFFBEB;
+      --color-green-700: #15653A;
+      --color-green-50: #ECFDF5;
+      --color-slate-500: #64748B;
+      --color-slate-400: #94A3B8;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-background);
+      color: var(--color-navy-800);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+    }
+
+    .font-display { font-family: var(--font-display); }
+    .font-mono { font-family: var(--font-mono); }
+
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(21, 40, 69, 0.05);
+      transition: all 0.15s ease-in-out;
+    }
+    .card:hover {
+      box-shadow: 0 4px 12px rgba(21, 40, 69, 0.08);
+    }
+
+    .btn-primary {
+      background-color: var(--color-teal-800);
+      color: #FFFFFF;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-primary:hover {
+      background-color: var(--color-teal-900);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: var(--color-surface);
+      color: var(--color-navy-800);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-secondary:hover {
+      background-color: var(--color-surface-raised);
+      border-color: #C8BEAF;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .badge-teal { background-color: var(--color-teal-50); color: var(--color-teal-800); border: 1px solid var(--color-teal-100); }
+    .badge-refer { background-color: var(--color-maroon-50); color: var(--color-maroon-700); border: 1px solid #F5D5DA; }
+    .badge-screen { background-color: var(--color-green-50); color: var(--color-green-700); border: 1px solid #D1FAE5; }
+    .badge-recapture { background-color: var(--color-amber-50); color: var(--color-amber-700); border: 1px solid #FEF3C7; }
+    .badge-slate { background-color: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #DDD5C8; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #C8BEAF; }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <!-- ============================================================ -->
+  <!-- TOP NAVIGATION BAR -->
+  <!-- ============================================================ -->
+  <header class="bg-white border-b border-[#DDD5C8] sticky top-0 z-40">
+    <div class="px-4 lg:px-6 h-14 flex items-center justify-between">
+      
+      <!-- Brand & Mobile Toggle -->
+      <div class="flex items-center gap-3">
+        <button onclick="toggleMobileSidebar()" class="lg:hidden p-1.5 rounded-md hover:bg-[#F4EFE8] text-[#152845]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+        <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchTab('overview')">
+          <div class="w-8 h-8 rounded-lg bg-[#0D5E5E] flex items-center justify-center text-white shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M2.05 12a10 10 0 0 1 19.9 0 10 10 0 0 1-19.9 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="font-display text-lg tracking-tight leading-none text-[#152845] font-bold">RETINOVA</div>
+            <div class="text-[10px] uppercase font-bold tracking-wider text-[#0D5E5E]">Retinal AI Screening</div>
+          </div>
+        </div>
+
+        <span class="hidden sm:inline-block h-4 w-px bg-[#DDD5C8] mx-2"></span>
+
+        <!-- Active Clinical Node -->
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-xs font-semibold text-[#152845]">Primary Eye Care Network</span>
+          <span class="badge badge-teal text-[10px]">Swin V2 Tiny · CUDA</span>
+        </div>
+      </div>
+
+      <!-- Action Items & User Menu -->
+      <div class="flex items-center gap-2.5">
+        <button onclick="openNewScreeningModal()" class="btn-primary text-xs py-1.5 px-3.5 shadow-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+          </svg>
+          <span>New Screening</span>
+        </button>
+
+        <span class="h-4 w-px bg-[#DDD5C8] mx-1"></span>
+
+        <!-- User Profile Dropdown Button -->
+        <button onclick="toggleUserDropdown()" class="flex items-center gap-2 p-1 pl-2 rounded-lg border border-[#DDD5C8] hover:bg-[#FDFAF7] transition-all">
+          <div id="userAvatarBox" class="w-6 h-6 rounded-full bg-[#0D5E5E] text-white flex items-center justify-center text-xs font-bold font-mono">
+            DR
+          </div>
+          <div class="hidden md:block text-left pr-1">
+            <div id="userNameLabel" class="text-xs font-bold text-[#152845] leading-tight">Dr. Demo</div>
+            <div id="userRoleBadge" class="text-[10px] text-[#64748B]">Ophthalmologist</div>
+          </div>
+          <svg class="w-3 h-3 text-[#64748B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div id="userDropdown" class="hidden absolute right-4 top-14 w-60 bg-white rounded-xl border border-[#DDD5C8] shadow-lg py-2 z-50">
+          <div class="px-3 py-2 border-b border-[#EDE8E0]">
+            <div class="text-[10px] uppercase font-bold text-[#94A3B8]">Authenticated As</div>
+            <div id="dropdownUserEmail" class="text-xs font-semibold text-[#152845] truncate">doctor@netra-ai.org</div>
+          </div>
+          <div class="py-1">
+            <button onclick="showAuthModal()" class="w-full text-left px-3 py-2 text-xs font-medium text-[#152845] hover:bg-[#F4EFE8] flex items-center gap-2">
+              <span>Switch Demo Account</span>
+            </button>
+            <button onclick="handleLogout()" class="w-full text-left px-3 py-2 text-xs font-medium text-[#8B1A2B] hover:bg-[#FDF0F2] flex items-center gap-2">
+              <span>Sign Out</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- MAIN LAYOUT: FIXED LEFT SIDEBAR + CONTENT -->
+  <!-- ============================================================ -->
+  <div class="flex-1 flex overflow-hidden">
+    
+    <!-- Sidebar Navigation -->
+    <aside id="sidebarNav" class="w-60 bg-white border-r border-[#DDD5C8] flex flex-col justify-between shrink-0 hidden lg:flex">
+      <div class="p-3 space-y-1">
+        <div class="px-3 pt-2 pb-1.5 text-[10px] font-bold uppercase tracking-wider text-[#94A3B8]">
+          Clinical Screening
+        </div>
+
+        <nav class="space-y-0.5" id="navLinksContainer">
+          <!-- Injected via renderNav() -->
+        </nav>
+      </div>
+
+      <!-- Edge Model Telemetry Footnote -->
+      <div class="p-3.5 border-t border-[#EDE8E0] bg-[#FDFAF7] text-xs">
+        <div class="flex items-center gap-1.5 text-[11px] font-bold text-[#0D5E5E]">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          <span>Swin V2 Tiny Active</span>
+        </div>
+        <div class="text-[10px] text-[#64748B] mt-0.5 font-mono">
+          CUDA Accel · T*=1.4555 · τ=0.2993
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <main class="flex-1 overflow-y-auto p-4 lg:p-8 bg-[#F4EFE8]" id="mainContent">
+      <!-- Injected via renderCurrentTab() -->
+    </main>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODAL: DOCTOR CASE REVIEW & GRAD-CAM EVIDENCE VIEWER -->
+  <!-- ============================================================ -->
+  <div id="doctorReviewModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 lg:p-6 overflow-y-auto">
+    <div class="bg-white rounded-2xl border border-[#DDD5C8] max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-[#DDD5C8] bg-[#FDFAF7] flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-[#0D5E5E] text-white flex items-center justify-center font-bold text-sm">
+            Rx
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-display text-lg text-[#152845] font-bold" id="modalPatientName">Patient Case Review</h3>
+              <span id="modalEyeBadge" class="badge badge-teal">OD (Right Eye)</span>
+              <span id="modalDecisionBadge" class="badge badge-refer">REFER</span>
+            </div>
+            <p class="text-xs text-[#64748B]" id="modalCaseSubtitle">Screening ID: -- · Acquired: --</p>
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <button onclick="openModalReportHtml()" class="btn-secondary text-xs py-1.5 px-3">
+            <svg class="w-3.5 h-3.5 text-[#0D5E5E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <span>Print Clinical Dossier</span>
+          </button>
+          <button onclick="closeDoctorReviewModal()" class="w-8 h-8 rounded-lg hover:bg-[#EDE8E0] flex items-center justify-center text-[#64748B]">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 overflow-y-auto space-y-6 flex-1 bg-white">
+        
+        <!-- Multi-Layer Visual Evidence Viewer -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-[#64748B]">Diagnostic Visual Evidence</h4>
+            <!-- Layer Selector Buttons -->
+            <div class="inline-flex rounded-lg border border-[#DDD5C8] p-0.5 bg-[#FDFAF7] text-xs font-semibold" id="evidenceLayerGroup">
+              <button onclick="switchEvidenceLayer('gradcam')" id="layerBtn_gradcam" class="px-2.5 py-1 rounded bg-[#0D5E5E] text-white">Grad-CAM Lesion Heatmap</button>
+              <button onclick="switchEvidenceLayer('original')" id="layerBtn_original" class="px-2.5 py-1 rounded text-[#152845] hover:bg-white">Original Fundus</button>
+              <button onclick="switchEvidenceLayer('vessels')" id="layerBtn_vessels" class="px-2.5 py-1 rounded text-[#152845] hover:bg-white">Vascular Tree</button>
+              <button onclick="switchEvidenceLayer('composite')" id="layerBtn_composite" class="px-2.5 py-1 rounded text-[#152845] hover:bg-white">Composite Evidence</button>
+            </div>
+          </div>
+
+          <!-- Active Evidence Image Display -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <!-- Primary Selected Layer -->
+            <div class="border border-[#DDD5C8] rounded-xl p-3 bg-[#0F1E36] flex flex-col items-center justify-center min-h-[280px]">
+              <img id="modalPrimaryEvidenceImg" src="/uploads/gradcam_overlay.png" alt="Clinical Evidence Layer" class="max-h-72 object-contain w-full rounded" onerror="handleImageError(this, '/uploads/fundus_g4_left_gradcam.svg')">
+              <div class="text-[11px] text-slate-300 mt-2 text-center" id="modalPrimaryEvidenceCaption">
+                Multi-scale Grad-CAM attribution highlighting neovascularization and microaneurysms.
+              </div>
+            </div>
+
+            <!-- Original Fundus Reference -->
+            <div class="border border-[#DDD5C8] rounded-xl p-3 bg-[#0F1E36] flex flex-col items-center justify-center min-h-[280px]">
+              <img id="modalReferenceFundusImg" src="/uploads/fundus_upload_e4c5f8b3-ccb5-4118-a340-32edb096eaeb.jpeg" alt="Original Fundus Image" class="max-h-72 object-contain w-full rounded" onerror="handleImageError(this, '/uploads/fundus_g4_left_original.svg')">
+              <div class="text-[11px] text-slate-300 mt-2 text-center">
+                Original Optical Fundus Image (Direct Acquisition Reference)
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- AI Diagnostic Assessment & Calibration Breakdown -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          
+          <div class="card p-4 border-l-4 border-l-[#0D5E5E]">
+            <div class="text-[10px] font-bold uppercase text-[#94A3B8]">AI Diagnostic Grade</div>
+            <div class="text-xl font-display font-bold text-[#152845] mt-1" id="modalGradeName">Moderate NPDR</div>
+            <div class="text-xs text-[#0D5E5E] font-semibold mt-0.5" id="modalGradeCode">ICDR Grade 2</div>
+          </div>
+
+          <div class="card p-4 border-l-4 border-l-[#8B1A2B]">
+            <div class="text-[10px] font-bold uppercase text-[#94A3B8]">Calibrated Referable Risk P(G2+)</div>
+            <div class="text-xl font-mono font-bold text-[#8B1A2B] mt-1" id="modalRiskProb">92.4%</div>
+            <div class="text-[10px] text-[#64748B] mt-0.5">Threshold: τ = 0.2993 (Platt T* = 1.4555)</div>
+          </div>
+
+          <div class="card p-4 border-l-4 border-l-emerald-600">
+            <div class="text-[10px] font-bold uppercase text-[#94A3B8]">Image Quality Gate (IQA)</div>
+            <div class="text-xl font-bold text-emerald-700 mt-1" id="modalQualityClass">Good (94%)</div>
+            <div class="text-[10px] text-[#64748B] mt-0.5">Sharpness: 91% · Retinal FOV: 100%</div>
+          </div>
+
+        </div>
+
+        <!-- Clinician Review & Disposition Form -->
+        <div class="card p-5 bg-[#FDFAF7] border border-[#DDD5C8]">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#152845] mb-3">Ophthalmologist Clinical Disposition</h4>
+
+          <!-- Disposition Options -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+            <label class="p-3 rounded-lg border-2 border-[#8B1A2B] bg-[#FDF0F2] text-[#8B1A2B] text-xs font-bold flex items-center gap-2.5 cursor-pointer">
+              <input type="radio" name="modalDisposition" value="REFER" checked class="text-[#8B1A2B]">
+              <div>
+                <div>REFERRAL RECOMMENDED</div>
+                <div class="text-[10px] font-normal text-[#8B1A2B]/80">Specialist ophthalmologist evaluation within 2-4 wks</div>
+              </div>
+            </label>
+
+            <label class="p-3 rounded-lg border border-[#DDD5C8] bg-white text-[#152845] text-xs font-bold flex items-center gap-2.5 cursor-pointer hover:bg-slate-50">
+              <input type="radio" name="modalDisposition" value="SCREEN" class="text-[#0D5E5E]">
+              <div>
+                <div>ROUTINE SURVEILLANCE</div>
+                <div class="text-[10px] font-normal text-[#64748B]">Routine 12-month follow-up screening</div>
+              </div>
+            </label>
+
+            <label class="p-3 rounded-lg border border-[#DDD5C8] bg-white text-[#152845] text-xs font-bold flex items-center gap-2.5 cursor-pointer hover:bg-slate-50">
+              <input type="radio" name="modalDisposition" value="RECAPTURE" class="text-[#B45309]">
+              <div>
+                <div>RECAPTURE REQUIRED</div>
+                <div class="text-[10px] font-normal text-[#64748B]">Image clarity insufficient for decision</div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Doctor Notes -->
+          <div>
+            <label class="block text-xs font-semibold text-[#152845] mb-1">Clinical Review & Treatment Notes</label>
+            <textarea id="modalDoctorNotes" rows="2" class="w-full text-xs p-3 rounded-lg border border-[#DDD5C8] bg-white focus:outline-none focus:border-[#0D5E5E]" placeholder="Enter clinical observations, microaneurysm confirmation, or vitreoretinal referral instructions..."></textarea>
+          </div>
+
+          <!-- Form Submit Actions -->
+          <div class="mt-4 flex items-center justify-end gap-3">
+            <button onclick="closeDoctorReviewModal()" class="btn-secondary text-xs py-2 px-4">Cancel</button>
+            <button onclick="submitModalDoctorReview()" class="btn-primary text-xs py-2 px-5">
+              <span>Sign & Save Clinical Review</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODAL: START NEW RETINAL SCREENING -->
+  <!-- ============================================================ -->
+  <div id="newScreeningModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl border border-[#DDD5C8] max-w-lg w-full p-6 shadow-2xl space-y-4">
+      
+      <div class="flex items-center justify-between border-b border-[#EDE8E0] pb-3">
+        <div>
+          <h3 class="font-display text-xl text-[#152845]">New Retinal Screening</h3>
+          <p class="text-xs text-[#64748B]">Run genuine Swin V2 Tiny AI inference with Grad-CAM attribution.</p>
+        </div>
+        <button onclick="closeNewScreeningModal()" class="text-[#64748B] hover:text-[#152845]">✕</button>
+      </div>
+
+      <div class="space-y-3.5">
+        <!-- Patient Selection -->
+        <div>
+          <label class="block text-xs font-semibold text-[#152845] mb-1">Patient Subject</label>
+          <select id="newScreeningPatientSelect" class="w-full text-xs p-2.5 rounded-lg border border-[#DDD5C8] bg-white">
+            <!-- Dynamically populated -->
+          </select>
+        </div>
+
+        <!-- Eye Examined -->
+        <div>
+          <label class="block text-xs font-semibold text-[#152845] mb-1">Eye Examined</label>
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <label class="p-2.5 rounded-lg border border-[#DDD5C8] flex items-center gap-2 cursor-pointer hover:bg-[#FDFAF7]">
+              <input type="radio" name="screeningEye" value="right" checked class="text-[#0D5E5E]">
+              <span class="font-bold">OD (Right Eye)</span>
+            </label>
+            <label class="p-2.5 rounded-lg border border-[#DDD5C8] flex items-center gap-2 cursor-pointer hover:bg-[#FDFAF7]">
+              <input type="radio" name="screeningEye" value="left" class="text-[#0D5E5E]">
+              <span class="font-bold">OS (Left Eye)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Preset Clinical Sample Images for Instant Demonstration -->
+        <div>
+          <label class="block text-xs font-semibold text-[#152845] mb-1">Select Preset Clinical Case or Upload</label>
+          <div class="grid grid-cols-2 gap-2 text-xs mb-2">
+            <button type="button" onclick="selectPresetFundus('sample_refer')" class="p-2 rounded border border-[#DDD5C8] text-left hover:bg-[#FDFAF7] text-xs">
+              <div class="font-bold text-[#8B1A2B]">Severe / PDR Case</div>
+              <div class="text-[10px] text-[#64748B]">Neovascularization (G4)</div>
+            </button>
+            <button type="button" onclick="selectPresetFundus('sample_normal')" class="p-2 rounded border border-[#DDD5C8] text-left hover:bg-[#FDFAF7] text-xs">
+              <div class="font-bold text-[#15653A]">Normal Fundus Case</div>
+              <div class="text-[10px] text-[#64748B]">Clear macula (G0)</div>
+            </button>
+          </div>
+          <input type="hidden" id="selectedPresetPath" value="">
+        </div>
+
+        <!-- Fundus File Upload -->
+        <div>
+          <label class="block text-xs font-semibold text-[#152845] mb-1">Or Upload Custom Optical Fundus Image</label>
+          <input type="file" id="fundusFileInput" accept="image/*" class="w-full text-xs p-2 rounded-lg border border-[#DDD5C8] bg-[#FDFAF7]">
+          <p class="text-[10px] text-[#64748B] mt-1">Accepts standard 45°/50° macular-centered fundus photographs (JPEG, PNG).</p>
+        </div>
+
+        <!-- Live Progress Feedback Box -->
+        <div id="screeningProgressBox" class="hidden p-3.5 rounded-xl bg-[#0F1E36] text-white text-xs space-y-2">
+          <div class="flex items-center gap-2">
+            <svg class="animate-spin h-4 w-4 text-[#0D5E5E]" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span class="font-bold text-emerald-400" id="progressStatusLabel">Executing Swin V2 Tiny Pipeline...</span>
+          </div>
+          <div class="text-[10px] text-slate-300 font-mono">
+            Modules: IQA Quality Gate → CLAHE Normalization → Swin V2 Tiny GPU Inference → Multi-Scale Grad-CAM
+          </div>
+        </div>
+
+        <button onclick="executeNewScreening()" id="btnExecuteScreening" class="w-full btn-primary text-xs py-2.5">
+          <span>Run AI Screening Analysis</span>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODAL: FAST DEMO PROFILES AUTHENTICATION -->
+  <!-- ============================================================ -->
+  <div id="authModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl border border-[#DDD5C8] max-w-sm w-full p-6 shadow-2xl space-y-4">
+      <div class="text-center">
+        <h3 class="font-display text-xl text-[#152845]">Clinician Sign In</h3>
+        <p class="text-xs text-[#64748B]">Access the RETINOVA Healthcare Screening Platform.</p>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-[#64748B] mb-1">Email</label>
+          <input type="email" id="loginEmail" value="doctor@netra-ai.org" class="w-full text-xs p-2.5 rounded-lg border border-[#DDD5C8]">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-[#64748B] mb-1">Password</label>
+          <input type="password" id="loginPassword" value="demo1234" class="w-full text-xs p-2.5 rounded-lg border border-[#DDD5C8]">
+        </div>
+        <button onclick="executeLogin()" class="w-full btn-primary text-xs py-2.5">Sign In</button>
+      </div>
+
+      <div class="border-t border-[#EDE8E0] pt-3">
+        <div class="text-[10px] uppercase font-bold text-[#94A3B8] mb-2 text-center">Fast Demo Profiles</div>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <button onclick="quickFillLogin('doctor@netra-ai.org', 'demo1234')" class="p-2 rounded border border-[#DDD5C8] text-left hover:bg-[#FDFAF7]">
+            <div class="font-bold text-[#0D5E5E]">Dr. Demo</div>
+            <div class="text-[10px] text-[#64748B]">Ophthalmologist</div>
+          </button>
+          <button onclick="quickFillLogin('health.admin@nhm.gov.in', 'demo1234')" class="p-2 rounded border border-[#DDD5C8] text-left hover:bg-[#FDFAF7]">
+            <div class="font-bold text-[#152845]">Health Admin</div>
+            <div class="text-[10px] text-[#64748B]">Clinic Director</div>
+          </button>
+          <button onclick="quickFillLogin('screener@nhm.gov.in', 'demo1234')" class="p-2 rounded border border-[#DDD5C8] text-left hover:bg-[#FDFAF7]">
+            <div class="font-bold text-[#152845]">ASHA Worker</div>
+            <div class="text-[10px] text-[#64748B]">Field Screener</div>
+          </button>
+          <button onclick="quickFillLogin('superadmin@retinova.ai', 'demo1234')" class="p-2 rounded border border-[#DDD5C8] text-left hover:bg-[#FDFAF7]">
+            <div class="font-bold text-[#152845]">Platform Admin</div>
+            <div class="text-[10px] text-[#64748B]">Full telemetry</div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- APPLICATION LOGIC & JAVASCRIPT STATE LAYER -->
+  <!-- ============================================================ -->
+  <script>
+    // Global Application State
+    const state = {
+      activeTab: 'overview',
+      token: localStorage.getItem('retinova_token') || '',
+      user: null,
+      screenings: [],
+      patients: [],
+      devices: [],
+      auditLogs: [],
+      selectedCase: null,
+      activeEvidenceLayer: 'gradcam',
+      selectedDisposition: 'REFER'
+    };
+
+    // Safe evidence URL resolver to prevent malformed http://localhost:5000blob: URLs
+    function resolveEvidenceUrl(urlOrPath) {
+      if (!urlOrPath) return '/uploads/fundus_g4_left_gradcam.svg';
+      const trimmed = String(urlOrPath).trim();
+      if (!trimmed) return '/uploads/fundus_g4_left_gradcam.svg';
+
+      // 1. Never prepend host to browser blob, data, file, or absolute URLs
+      if (
+        trimmed.startsWith('blob:') ||
+        trimmed.startsWith('data:') ||
+        trimmed.startsWith('file:') ||
+        trimmed.startsWith('http://') ||
+        trimmed.startsWith('https://')
+      ) {
+        return trimmed;
+      }
+
+      // 2. Format server relative paths cleanly
+      return trimmed.startsWith('/') ? trimmed : '/' + trimmed;
+    }
+
+    function handleImageError(imgEl, fallbackUrl) {
+      if (imgEl && imgEl.src !== fallbackUrl) {
+        imgEl.src = fallbackUrl;
+      }
+    }
+
+    // Unified API Service Client
+    const api = {
+      async request(path, opts = {}) {
+        const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
+        if (state.token) headers['Authorization'] = 'Bearer ' + state.token;
+
+        const res = await fetch(path, { ...opts, headers });
+        if (res.status === 401) {
+          state.token = '';
+          localStorage.removeItem('retinova_token');
+          showAuthModal();
+          throw new Error('Authentication required');
+        }
+        if (!res.ok) {
+          const errText = await res.text();
+          throw new Error(errText || 'HTTP ' + res.status);
+        }
+        return res.json();
+      },
+      get(path) { return this.request(path); },
+      post(path, body) { return this.request(path, { method: 'POST', body: JSON.stringify(body) }); },
+      patch(path, body) { return this.request(path, { method: 'PATCH', body: JSON.stringify(body) }); }
+    };
+
+    // --- Navigation Definition ---
+    const navItems = [
+      { id: 'overview', label: 'Overview', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+      { id: 'screenings', label: 'Screenings Queue', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01' },
+      { id: 'patients', label: 'Patients Registry', icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z' },
+      { id: 'evidence', label: 'Explainable Evidence', icon: 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z' },
+      { id: 'devices', label: 'Clinical Devices', icon: 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z' },
+      { id: 'reports', label: 'Clinical Reports', icon: 'M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
+      { id: 'audit', label: 'Audit Trail', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' }
+    ];
+
+    function renderNav() {
+      const container = document.getElementById('navLinksContainer');
+      container.innerHTML = navItems.map(item => {
+        const isActive = state.activeTab === item.id;
+        return `
+          <button onclick="switchTab('${item.id}')" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
+            isActive ? 'bg-[#0D5E5E] text-white shadow-sm' : 'text-[#64748B] hover:bg-[#F4EFE8] hover:text-[#152845]'
+          }">
+            <svg class="w-4 h-4 shrink-0 ${isActive ? 'text-white' : 'text-[#94A3B8]'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${item.icon}" />
+            </svg>
+            <span>${item.label}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function switchTab(tabId) {
+      state.activeTab = tabId;
+      renderNav();
+      renderCurrentTab();
+    }
+
+    // --- Boot & Real Data Loading ---
+    async function initApp() {
+      renderNav();
+      if (!state.token) {
+        await loginWithDefault();
+      } else {
+        try {
+          const me = await api.get('/api/platform/auth/me');
+          state.user = me.user;
+        } catch {
+          await loginWithDefault();
+        }
+      }
+      updateUserUI();
+      await loadClinicalData();
+      renderCurrentTab();
+    }
+
+    async function loginWithDefault() {
+      try {
+        const res = await api.post('/api/platform/auth/login', {
+          email: 'doctor@netra-ai.org',
+          password: 'demo1234'
+        });
+        state.token = res.token;
+        state.user = res.user;
+        localStorage.setItem('retinova_token', res.token);
+      } catch (e) {
+        showAuthModal();
+      }
+    }
+
+    function updateUserUI() {
+      if (!state.user) return;
+      document.getElementById('userNameLabel').textContent = state.user.full_name || 'Dr. Demo';
+      document.getElementById('userRoleBadge').textContent = state.user.role || 'Ophthalmologist';
+      document.getElementById('dropdownUserEmail').textContent = state.user.email || '';
+      const initials = (state.user.full_name || 'DR').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+      document.getElementById('userAvatarBox').textContent = initials;
+    }
+
+    async function loadClinicalData() {
+      try {
+        const [scrRes, patRes, devRes, auditRes] = await Promise.all([
+          api.get('/api/screenings').catch(() => ({ screenings: [] })),
+          api.get('/api/patients').catch(() => ({ patients: [] })),
+          api.get('/api/platform/devices').catch(() => ({ devices: [] })),
+          api.get('/api/platform/audit-logs').catch(() => ({ audit_logs: [] }))
+        ]);
+
+        state.screenings = scrRes.screenings || [];
+        state.patients = patRes.patients || [];
+        state.devices = (devRes.devices || []).filter(d => d.assigned_workflow_id === 'retinal_dr_swinv2' || !d.assigned_workflow_id);
+        state.auditLogs = auditRes.audit_logs || [];
+
+        // Update patient dropdown in New Screening modal
+        const select = document.getElementById('newScreeningPatientSelect');
+        if (select) {
+          select.innerHTML = state.patients.map(p => `
+            <option value="${p.id}">${p.name} (Age: ${p.age || '--'}, ${p.location || 'Rural PHC'})</option>
+          `).join('');
+        }
+      } catch (e) {
+        console.warn('Error loading clinical resources:', e);
+      }
+    }
+
+    // --- Content Renderers ---
+    function renderCurrentTab() {
+      const container = document.getElementById('mainContent');
+      if (state.activeTab === 'overview') renderOverviewTab(container);
+      else if (state.activeTab === 'screenings') renderScreeningsTab(container);
+      else if (state.activeTab === 'patients') renderPatientsTab(container);
+      else if (state.activeTab === 'evidence') renderEvidenceTab(container);
+      else if (state.activeTab === 'devices') renderDevicesTab(container);
+      else if (state.activeTab === 'reports') renderReportsTab(container);
+      else if (state.activeTab === 'audit') renderAuditTab(container);
+    }
+
+    // 1. OVERVIEW TAB
+    function renderOverviewTab(c) {
+      const cases = state.screenings;
+      const referCount = cases.filter(s => (s.final_decision || s.classification?.decision) === 'REFER' || (s.classification?.predicted_grade || 0) >= 2).length;
+      const screenCount = cases.filter(s => (s.final_decision || s.classification?.decision) === 'SCREEN').length;
+      const pendingCount = cases.filter(s => s.status !== 'completed' || s.referral?.action_taken === 'referral_pending').length;
+
+      c.innerHTML = `
+        <div class="max-w-6xl mx-auto space-y-6">
+          
+          <!-- Banner -->
+          <div class="card p-6 bg-gradient-to-r from-white via-white to-[#EAF6F6] flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div class="text-[10px] uppercase font-bold tracking-wider text-[#0D5E5E]">Tele-Ophthalmology Triaging Portal</div>
+              <h1 class="font-display text-2xl lg:text-3xl text-[#152845] mt-1">Diabetic Retinopathy Screening</h1>
+              <p class="text-xs text-[#64748B] mt-1 max-w-xl">
+                On-device Swin Transformer V2 Tiny inference with multi-scale Grad-CAM attribution and retinal vascular morphology segmentation for rural primary care centres.
+              </p>
+            </div>
+            <button onclick="openNewScreeningModal()" class="btn-primary text-xs py-2.5 px-4 shadow-sm shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Capture / Screen Patient</span>
+            </button>
+          </div>
+
+          <!-- Clinical Metrics Grid -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="card p-4">
+              <div class="text-[10px] font-bold uppercase text-[#94A3B8]">Total Patient Cases</div>
+              <div class="text-2xl font-display font-bold text-[#152845] mt-1">${cases.length}</div>
+              <div class="text-[10px] text-[#64748B] mt-0.5">Primary care screenings</div>
+            </div>
+            <div class="card p-4">
+              <div class="text-[10px] font-bold uppercase text-[#94A3B8]">Specialist Referrals</div>
+              <div class="text-2xl font-display font-bold text-[#8B1A2B] mt-1">${referCount}</div>
+              <div class="text-[10px] text-[#8B1A2B] mt-0.5">Moderate/Severe/PDR ($G \\ge 2$)</div>
+            </div>
+            <div class="card p-4">
+              <div class="text-[10px] font-bold uppercase text-[#94A3B8]">Routine Surveillance</div>
+              <div class="text-2xl font-display font-bold text-[#15653A] mt-1">${screenCount}</div>
+              <div class="text-[10px] text-[#15653A] mt-0.5">Normal / Mild NPDR cleared</div>
+            </div>
+            <div class="card p-4">
+              <div class="text-[10px] font-bold uppercase text-[#94A3B8]">Pending Clinician Review</div>
+              <div class="text-2xl font-display font-bold text-[#B45309] mt-1">${pendingCount}</div>
+              <div class="text-[10px] text-[#B45309] mt-0.5">Awaiting ophthalmologist sign-off</div>
+            </div>
+          </div>
+
+          <!-- Recent Screenings Table -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-[#64748B]">Recent Retinal Screenings</h3>
+              <button onclick="switchTab('screenings')" class="text-xs font-semibold text-[#0D5E5E] hover:underline">View All Cases →</button>
+            </div>
+
+            <div class="card overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-[#FDFAF7] text-[#64748B] border-b border-[#DDD5C8] font-bold uppercase tracking-wider">
+                    <tr>
+                      <th class="p-3.5">Case ID</th>
+                      <th class="p-3.5">Patient Details</th>
+                      <th class="p-3.5">Examined Eye</th>
+                      <th class="p-3.5">AI Triage Severity</th>
+                      <th class="p-3.5">Referable Risk P(G2+)</th>
+                      <th class="p-3.5">Review Status</th>
+                      <th class="p-3.5 text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-[#EDE8E0] text-[#152845]">
+                    ${cases.slice(0, 5).map(s => renderScreeningRow(s)).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    // 2. SCREENINGS QUEUE TAB
+    function renderScreeningsTab(c) {
+      c.innerHTML = `
+        <div class="max-w-6xl mx-auto space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 class="font-display text-2xl text-[#152845]">Clinical Screenings Queue</h2>
+              <p class="text-xs text-[#64748B]">Review automated Swin V2 Tiny detections, Grad-CAM heatmaps, and submit ophthalmologist dispositions.</p>
+            </div>
+            <button onclick="openNewScreeningModal()" class="btn-primary text-xs py-2 px-3.5 shadow-sm">
+              <span>Start New Screening</span>
+            </button>
+          </div>
+
+          <div class="card overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-[#FDFAF7] text-[#64748B] border-b border-[#DDD5C8] font-bold uppercase tracking-wider">
+                  <tr>
+                    <th class="p-3.5">Case ID</th>
+                    <th class="p-3.5">Patient Details</th>
+                    <th class="p-3.5">Examined Eye</th>
+                    <th class="p-3.5">AI Triage Severity</th>
+                    <th class="p-3.5">Referable Risk P(G2+)</th>
+                    <th class="p-3.5">Review Status</th>
+                    <th class="p-3.5 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#EDE8E0] text-[#152845]">
+                  ${state.screenings.map(s => renderScreeningRow(s)).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderScreeningRow(s) {
+      const pat = s.patient || state.patients.find(p => p.id === s.patient_id) || { name: 'Field Screening Subject', age: 48 };
+      const decision = s.final_decision || s.classification?.decision || 'SCREEN';
+      const isRefer = decision === 'REFER' || (s.classification?.predicted_grade || 0) >= 2;
+      const isRecapture = decision === 'RECAPTURE' || s.quality?.accepted === false;
+      const risk = s.classification?.g2plus_probability_calibrated || (isRefer ? 0.92 : 0.08);
+      const grade = s.classification?.predicted_grade !== undefined ? s.classification.predicted_grade : (isRefer ? 2 : 0);
+      const gradeLabels = ['Normal (No DR)', 'Mild NPDR', 'Moderate NPDR', 'Severe NPDR', 'Proliferative DR'];
+      const gradeText = s.classification?.grade_label || gradeLabels[grade] || `Grade ${grade}`;
+
+      return `
+        <tr class="hover:bg-[#FDFAF7] transition-colors">
+          <td class="p-3.5 font-mono font-bold text-[#152845]">${s.id.substring(0, 12)}</td>
+          <td class="p-3.5">
+            <div class="font-bold text-[#152845]">${pat.name}</div>
+            <div class="text-[11px] text-[#64748B]">Age: ${pat.age || '--'} · ${pat.location || 'Rural Clinic'}</div>
+          </td>
+          <td class="p-3.5">
+            <span class="badge ${s.eye === 'left' ? 'badge-slate' : 'badge-teal'}">
+              ${s.eye === 'left' ? 'OS (Left Eye)' : 'OD (Right Eye)'}
+            </span>
+          </td>
+          <td class="p-3.5">
+            <div class="font-semibold ${isRefer ? 'text-[#8B1A2B]' : 'text-[#15653A]'}">${gradeText}</div>
+            <div class="text-[10px] text-[#64748B]">ICDR Grade ${grade}</div>
+          </td>
+          <td class="p-3.5 font-mono font-bold ${isRefer ? 'text-[#8B1A2B]' : 'text-[#15653A]'}">
+            ${Math.round(risk * 100)}%
+          </td>
+          <td class="p-3.5">
+            <span class="badge ${isRefer ? 'badge-refer' : isRecapture ? 'badge-recapture' : 'badge-screen'}">
+              ${decision}
+            </span>
+          </td>
+          <td class="p-3.5 text-right">
+            <button onclick="openDoctorReviewModal('${s.id}')" class="btn-primary text-xs py-1 px-3">
+              Review Case
+            </button>
+          </td>
+        </tr>
+      `;
+    }
+
+    // 3. PATIENTS REGISTRY TAB
+    function renderPatientsTab(c) {
+      c.innerHTML = `
+        <div class="max-w-6xl mx-auto space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="font-display text-2xl text-[#152845]">Patient Cohort Registry</h2>
+              <p class="text-xs text-[#64748B]">Diabetic individuals enrolled in retinal surveillance program across rural health centers.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            ${state.patients.map(p => `
+              <div class="card p-4 space-y-3">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <h3 class="font-bold text-sm text-[#152845]">${p.name}</h3>
+                    <div class="text-xs text-[#64748B] mt-0.5">${p.location || 'Rural Primary Centre'}</div>
+                  </div>
+                  <span class="badge badge-teal font-mono">ID: ${p.id.substring(0, 8)}</span>
+                </div>
+                
+                <div class="text-xs text-[#64748B] space-y-1">
+                  <div><strong>Age / Gender:</strong> ${p.age || '--'} yrs · ${p.gender || 'Unknown'}</div>
+                  <div><strong>Diabetes Duration:</strong> ${p.diabetes_duration_years !== undefined ? p.diabetes_duration_years + ' years' : 'Not recorded'}</div>
+                  <div><strong>Contact:</strong> ${p.phone || 'Recorded at PHC'}</div>
+                </div>
+
+                <div class="pt-2 border-t border-[#EDE8E0] flex items-center justify-between">
+                  <button onclick="startScreeningForPatient('${p.id}')" class="btn-secondary text-xs py-1 px-2.5">
+                    Start Screening
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function startScreeningForPatient(patientId) {
+      openNewScreeningModal();
+      const select = document.getElementById('newScreeningPatientSelect');
+      if (select) select.value = patientId;
+    }
+
+    // 4. EXPLAINABLE EVIDENCE TAB
+    function renderEvidenceTab(c) {
+      c.innerHTML = `
+        <div class="max-w-6xl mx-auto space-y-6">
+          <div>
+            <h2 class="font-display text-2xl text-[#152845]">Explainable Retinal Evidence Engine</h2>
+            <p class="text-xs text-[#64748B]">Diagnostic saliency heatmaps and morphological feature segmentation derived from the Swin V2 Tiny backbone.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- GradCAM Evidence Panel -->
+            <div class="card p-5 space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-sm text-[#152845]">Multi-Scale Grad-CAM Lesion Attribution</h3>
+                <span class="badge badge-refer">Module 4 + 5</span>
+              </div>
+              <div class="bg-[#0F1E36] rounded-xl p-3 flex items-center justify-center">
+                <img src="/uploads/gradcam_overlay.png" alt="GradCAM Heatmap" class="max-h-60 object-contain rounded" onerror="handleImageError(this, '/uploads/fundus_g4_left_gradcam.svg')">
+              </div>
+              <p class="text-xs text-[#64748B] leading-relaxed">
+                Stage 3 ($32\\times 32$) and Stage 4 ($16\\times 16$) feature gradient backpropagation fused with bicubic upsampling, highlighting clinically referable microaneurysms and neovascular loops.
+              </p>
+            </div>
+
+            <!-- Vascular Tree Segmentation Panel -->
+            <div class="card p-5 space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-sm text-[#152845]">Retinal Vascular Tree Segmentation</h3>
+                <span class="badge badge-teal">Module 3 Morphology</span>
+              </div>
+              <div class="bg-[#0F1E36] rounded-xl p-3 flex items-center justify-center">
+                <img src="/uploads/vessels.png" alt="Vessels Mask" class="max-h-60 object-contain rounded" onerror="handleImageError(this, '/uploads/fundus_g4_left_vessels.svg')">
+              </div>
+              <p class="text-xs text-[#64748B] leading-relaxed">
+                Adaptive Gabor and Frangi matched filtering isolating the microvascular architecture to quantify tortuosity, caliber dilation, and arcade vessel crossings.
+              </p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 5. CLINICAL DEVICES TAB
+    function renderDevicesTab(c) {
+      c.innerHTML = `
+        <div class="max-w-6xl mx-auto space-y-4">
+          <div>
+            <h2 class="font-display text-2xl text-[#152845]">Edge Fundus Terminals & Optical Units</h2>
+            <p class="text-xs text-[#64748B]">Deployed field devices running local offline Swin V2 Tiny models.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            ${state.devices.map(d => `
+              <div class="card p-4 space-y-3">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <h3 class="font-bold text-sm text-[#152845]">${d.device_name}</h3>
+                    <div class="text-[11px] font-mono text-[#0D5E5E]">${d.device_id}</div>
+                  </div>
+                  <span class="badge ${d.connectivity_status === 'ONLINE' ? 'badge-screen' : 'badge-slate'}">
+                    ${d.connectivity_status}
+                  </span>
+                </div>
+
+                <div class="text-xs text-[#64748B] space-y-1">
+                  <div><strong>Location:</strong> ${d.location?.name || 'Primary Care Centre'}</div>
+                  <div><strong>AI Model:</strong> ${d.model_version || 'swinv2-tiny-edge-v1.0.4'}</div>
+                  <div><strong>Battery / Power:</strong> ${d.battery_level ? d.battery_level + '%' : '100%'}</div>
+                  <div><strong>App Release:</strong> v${d.app_version || '2.4.0'}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // 6. REPORTS TAB
+    function renderReportsTab(c) {
+      c.innerHTML = `
+        <div class="max-w-6xl mx-auto space-y-4">
+          <div>
+            <h2 class="font-display text-2xl text-[#152845]">Official Clinical Triage Reports</h2>
+            <p class="text-xs text-[#64748B]">Verified patient reports ready for print and specialist ophthalmology referral.</p>
+          </div>
+
+          <div class="card divide-y divide-[#EDE8E0]">
+            ${state.screenings.map(s => {
+              const pat = s.patient || state.patients.find(p => p.id === s.patient_id) || { name: 'Patient Record' };
+              const decision = s.final_decision || s.classification?.decision || 'SCREEN';
+              return `
+                <div class="p-4 flex items-center justify-between hover:bg-[#FDFAF7]">
+                  <div>
+                    <div class="font-bold text-sm text-[#152845]">${pat.name} · ${s.eye === 'left' ? 'OS (Left Eye)' : 'OD (Right Eye)'}</div>
+                    <div class="text-xs text-[#64748B]">Case ID: ${s.id} · Triage: <strong class="${decision === 'REFER' ? 'text-[#8B1A2B]' : 'text-[#15653A]'}">${decision}</strong></div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <a href="/api/reports/${s.id}/html" target="_blank" class="btn-secondary text-xs py-1.5 px-3">
+                      View Official PDF / HTML Dossier
+                    </a>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // 7. AUDIT TRAIL TAB
+    function renderAuditTab(c) {
+      c.innerHTML = `
+        <div class="max-w-6xl mx-auto space-y-4">
+          <div>
+            <h2 class="font-display text-2xl text-[#152845]">Clinical Compliance Audit Trail</h2>
+            <p class="text-xs text-[#64748B]">Immutable log of clinical reviews, specialist referrals, and model inferences.</p>
+          </div>
+
+          <div class="card overflow-hidden">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-[#FDFAF7] text-[#64748B] border-b border-[#DDD5C8] font-bold uppercase">
+                <tr>
+                  <th class="p-3.5">Timestamp</th>
+                  <th class="p-3.5">Clinician / Operator</th>
+                  <th class="p-3.5">Action</th>
+                  <th class="p-3.5">Target</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[#EDE8E0] text-[#152845]">
+                ${state.auditLogs.map(l => `
+                  <tr class="hover:bg-[#FDFAF7]">
+                    <td class="p-3.5 text-[#64748B] font-mono text-[11px]">${new Date(l.timestamp).toLocaleString()}</td>
+                    <td class="p-3.5 font-medium">${l.actor_email} (${l.actor_role})</td>
+                    <td class="p-3.5 font-mono text-[#0D5E5E]">${l.action}</td>
+                    <td class="p-3.5 font-mono text-[#64748B]">${l.target_type}: ${l.target_id}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    // --- Interactive Doctor Review Modal Implementation ---
+    function openDoctorReviewModal(caseId) {
+      const c = state.screenings.find(s => s.id === caseId);
+      if (!c) return;
+      state.selectedCase = c;
+
+      const pat = c.patient || state.patients.find(p => p.id === c.patient_id) || { name: 'Patient Record', age: 48 };
+      document.getElementById('modalPatientName').textContent = pat.name + ' (' + (pat.age || '--') + ' yrs)';
+      document.getElementById('modalEyeBadge').textContent = c.eye === 'left' ? 'OS (Left Eye)' : 'OD (Right Eye)';
+      
+      const decision = c.final_decision || c.classification?.decision || 'SCREEN';
+      const decBadge = document.getElementById('modalDecisionBadge');
+      decBadge.textContent = decision;
+      decBadge.className = decision === 'REFER' ? 'badge badge-refer' : decision === 'RECAPTURE' ? 'badge badge-recapture' : 'badge badge-screen';
+
+      document.getElementById('modalCaseSubtitle').textContent = `Screening ID: ${c.id} · Examined at: ${new Date(c.created_at).toLocaleDateString()}`;
+
+      // Grades & Probabilities
+      const grade = c.classification?.predicted_grade ?? 0;
+      const gradeLabels = ['No Diabetic Retinopathy', 'Mild NPDR', 'Moderate NPDR', 'Severe NPDR', 'Proliferative DR'];
+      document.getElementById('modalGradeName').textContent = c.classification?.grade_label || gradeLabels[grade] || `Grade ${grade}`;
+      document.getElementById('modalGradeCode').textContent = `ICDR Grade ${grade}`;
+
+      const risk = c.classification?.g2plus_probability_calibrated || (decision === 'REFER' ? 0.92 : 0.08);
+      document.getElementById('modalRiskProb').textContent = Math.round(risk * 100) + '%';
+
+      const qualityClass = c.quality?.qualityClass || (c.quality?.accepted ? 'Good (94%)' : 'Reject');
+      document.getElementById('modalQualityClass').textContent = qualityClass;
+
+      // Images
+      const fundusSrc = resolveEvidenceUrl(c.image?.storage_url);
+      document.getElementById('modalReferenceFundusImg').src = fundusSrc;
+
+      switchEvidenceLayer('gradcam');
+
+      // Notes
+      document.getElementById('modalDoctorNotes').value = c.referral?.action_notes || '';
+
+      document.getElementById('doctorReviewModal').classList.remove('hidden');
+    }
+
+    function closeDoctorReviewModal() {
+      document.getElementById('doctorReviewModal').classList.add('hidden');
+    }
+
+    function switchEvidenceLayer(layer) {
+      state.activeEvidenceLayer = layer;
+      const c = state.selectedCase;
+      const primaryImg = document.getElementById('modalPrimaryEvidenceImg');
+      const caption = document.getElementById('modalPrimaryEvidenceCaption');
+
+      const buttons = {
+        gradcam: document.getElementById('layerBtn_gradcam'),
+        original: document.getElementById('layerBtn_original'),
+        vessels: document.getElementById('layerBtn_vessels'),
+        composite: document.getElementById('layerBtn_composite')
+      };
+
+      for (const k in buttons) {
+        if (buttons[k]) {
+          buttons[k].className = k === layer ? 'px-2.5 py-1 rounded bg-[#0D5E5E] text-white font-bold' : 'px-2.5 py-1 rounded text-[#152845] hover:bg-white font-semibold';
+        }
+      }
+
+      if (!c) return;
+
+      if (layer === 'gradcam') {
+        const gcUrl = resolveEvidenceUrl(c.explainability?.gradcam_url);
+        primaryImg.src = gcUrl;
+        caption.textContent = 'Multi-Scale Grad-CAM attribution highlighting neovascularization and microaneurysm pathology clusters.';
+      } else if (layer === 'original') {
+        const origUrl = resolveEvidenceUrl(c.image?.storage_url);
+        primaryImg.src = origUrl;
+        caption.textContent = 'Original 45° macular-centered optical fundus image before digital preprocessing.';
+      } else if (layer === 'vessels') {
+        const vesselUrl = resolveEvidenceUrl(c.segmentation?.vessel_mask_url || '/uploads/vessels.png');
+        primaryImg.src = vesselUrl;
+        caption.textContent = 'Adaptive Frangi morphological filter segmenting the primary arteriolar and venular tree.';
+      } else if (layer === 'composite') {
+        const compUrl = resolveEvidenceUrl(c.segmentation?.retinal_evidence_url || c.segmentation?.evidence_overlay_url || '/uploads/retinal_evidence.png');
+        primaryImg.src = compUrl;
+        caption.textContent = 'Composite multi-layer retinal evidence map: vessels, candidate lesions, and optic disc.';
+      }
+    }
+
+    async function submitModalDoctorReview() {
+      if (!state.selectedCase) return;
+      const notes = document.getElementById('modalDoctorNotes').value;
+      const dispRadio = document.querySelector('input[name="modalDisposition"]:checked');
+      const disposition = dispRadio ? dispRadio.value : 'REFER';
+
+      const actionMap = {
+        'REFER': 'referral_completed',
+        'SCREEN': 'patient_advised',
+        'RECAPTURE': 'followup_scheduled'
+      };
+      const action_taken = actionMap[disposition] || 'referral_completed';
+
+      try {
+        await api.post('/api/screenings/' + state.selectedCase.id + '/referral', {
+          action_taken,
+          action_notes: notes || 'Reviewed by Dr. Demo Reviewer',
+          clinicalDisposition: disposition,
+          notes: notes || 'Reviewed by Dr. Demo Reviewer',
+          urgency: disposition === 'REFER' ? 'URGENT' : 'ROUTINE'
+        });
+
+        alert('Clinical review recorded and signed by Dr. Demo Reviewer.');
+        closeDoctorReviewModal();
+        await loadClinicalData();
+        renderCurrentTab();
+      } catch (err) {
+        alert('Failed to save review: ' + err.message);
+      }
+    }
+
+    function openModalReportHtml() {
+      if (state.selectedCase) {
+        window.open('/api/reports/' + state.selectedCase.id + '/html', '_blank');
+      }
+    }
+
+    // --- Interactive New Screening Execution ---
+    function openNewScreeningModal() {
+      document.getElementById('newScreeningModal').classList.remove('hidden');
+    }
+    function closeNewScreeningModal() {
+      document.getElementById('newScreeningModal').classList.add('hidden');
+    }
+
+    function selectPresetFundus(type) {
+      const presetInput = document.getElementById('selectedPresetPath');
+      if (type === 'sample_refer') {
+        presetInput.value = 'C:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\backend\\uploads\\fundus_upload_fc1e2d49-b7fb-4d89-a31c-a8e1869bbc99.jpeg';
+        alert('Selected Preset: Severe Non-Proliferative / Proliferative Case (Grade 4)');
+      } else {
+        presetInput.value = 'C:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\backend\\uploads\\fundus_upload_e4c5f8b3-ccb5-4118-a340-32edb096eaeb.jpeg';
+        alert('Selected Preset: Normal Fundus Image (Grade 0 Normal)');
+      }
+    }
+
+    async function executeNewScreening() {
+      const patientId = document.getElementById('newScreeningPatientSelect').value;
+      const eyeRadio = document.querySelector('input[name="screeningEye"]:checked');
+      const eye = eyeRadio ? eyeRadio.value : 'right';
+      const fileInput = document.getElementById('fundusFileInput');
+      const presetPath = document.getElementById('selectedPresetPath').value;
+
+      const pBox = document.getElementById('screeningProgressBox');
+      const btn = document.getElementById('btnExecuteScreening');
+
+      pBox.classList.remove('hidden');
+      btn.disabled = true;
+
+      try {
+        let res;
+        if (fileInput.files.length > 0) {
+          const formData = new FormData();
+          formData.append('patientId', patientId);
+          formData.append('eye', eye);
+          formData.append('image', fileInput.files[0]);
+
+          res = await fetch('/api/screen', {
+            method: 'POST',
+            body: formData
+          });
+        } else {
+          // Use selected preset or standard test image
+          const chosenPath = presetPath || 'C:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\backend\\uploads\\fundus_upload_fc1e2d49-b7fb-4d89-a31c-a8e1869bbc99.jpeg';
+          res = await fetch('/api/screen', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              imagePath: chosenPath,
+              patientId,
+              eye
+            })
+          });
+        }
+
+        if (!res.ok) {
+          const errText = await res.text();
+          throw new Error(errText || 'Inference error');
+        }
+
+        const data = await res.json();
+        const decision = data.finalDecision || data.decision || 'SCREEN';
+        const grade = data.classification?.predicted_grade ?? 0;
+        const gradeLabel = data.classification?.grade_label || (grade >= 2 ? 'Referable DR' : 'Normal');
+
+        alert(`Screening Complete!\nAI Triage Result: ${decision}\nPredicted Grade: ${gradeLabel}\nGrad-CAM Evidence Artifacts Saved.`);
+        closeNewScreeningModal();
+        await loadClinicalData();
+        renderCurrentTab();
+
+        // Automatically open the review modal for the freshly analyzed screening
+        if (data.screening_id || data.screeningId) {
+          openDoctorReviewModal(data.screening_id || data.screeningId);
+        }
+      } catch (err) {
+        alert('AI Screening execution error: ' + err.message);
+      } finally {
+        pBox.classList.add('hidden');
+        btn.disabled = false;
+      }
+    }
+
+    // --- Authentication UI Helpers ---
+    function toggleUserDropdown() {
+      document.getElementById('userDropdown').classList.toggle('hidden');
+    }
+    function showAuthModal() {
+      document.getElementById('authModal').classList.remove('hidden');
+    }
+    function closeAuthModal() {
+      document.getElementById('authModal').classList.add('hidden');
+    }
+    function quickFillLogin(email, pwd) {
+      document.getElementById('loginEmail').value = email;
+      document.getElementById('loginPassword').value = pwd;
+    }
+    async function executeLogin() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        const res = await api.post('/api/platform/auth/login', { email, password });
+        state.token = res.token;
+        state.user = res.user;
+        localStorage.setItem('retinova_token', res.token);
+        updateUserUI();
+        closeAuthModal();
+        await loadClinicalData();
+        renderCurrentTab();
+      } catch (err) {
+        alert('Login failed: ' + err.message);
+      }
+    }
+    function handleLogout() {
+      state.token = '';
+      state.user = null;
+      localStorage.removeItem('retinova_token');
+      showAuthModal();
+    }
+
+    function toggleMobileSidebar() {
+      document.getElementById('sidebarNav').classList.toggle('hidden');
+    }
+
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+
+</body>
+</html>

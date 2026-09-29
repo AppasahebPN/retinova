@@ -1,0 +1,55 @@
+# ============================================================
+# RETINOVA Cloud Platform — Render Blueprint Specification
+# Infrastructure as Code (IaC) for Render Free Tier Web Service
+# ============================================================
+services:
+  - type: web
+    name: retinova-backend
+    env: node
+    plan: free
+    region: oregon
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # Application Environment
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+
+      # JWT Authentication & Cryptographic Security
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+
+      # PostgreSQL Relational Database (Render Managed PostgreSQL)
+      - key: DATABASE_URL
+        fromDatabase:
+          name: retinova-db
+          property: connectionString
+
+      # CORS Origin Whitelist (Allowed frontend origins)
+      - key: CORS_ORIGINS
+        value: "*"
+
+      # AWS S3 Persistent Retinal Evidence Storage (Free filesystem is ephemeral)
+      - key: AWS_REGION
+        value: ap-south-1
+      - key: AWS_S3_BUCKET
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_DYNAMODB_TABLE
+        value: RetinovaDetectionEvents
+
+databases:
+  - name: retinova-db
+    plan: free
+    databaseName: retinova
+    user: retinova_user

@@ -78,13 +78,26 @@ try
         vesselConnectivity = ccV.NumObjects;
     end
     
-    dt = bwdist(~vesselMask);
-    skelFull = bwmorph(vesselMask, 'skel', Inf);
-    skelVals = dt(skelFull);
-    if ~isempty(skelVals)
-        meanCaliber = 2.0 * mean(skelVals);
+    scaleFactor = 800.0 / max(size(vesselMask, 2), 1);
+    if isfield(evidence.vessels, 'maskStd')
+        vStd = evidence.vessels.maskStd;
+        dtStd = bwdist(~vStd);
+        skelTarget = bwmorph(vStd, 'skel', Inf);
+        skelVals = dtStd(skelTarget);
+        if ~isempty(skelVals)
+            meanCaliber = (2.0 * mean(skelVals)) / scaleFactor;
+        else
+            meanCaliber = 0.0;
+        end
     else
-        meanCaliber = 0.0;
+        dt = bwdist(~vesselMask);
+        skelFull = bwmorph(vesselMask, 'skel', Inf);
+        skelVals = dt(skelFull);
+        if ~isempty(skelVals)
+            meanCaliber = 2.0 * mean(skelVals);
+        else
+            meanCaliber = 0.0;
+        end
     end
 catch
     branchingComplexity = 0;

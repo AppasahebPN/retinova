@@ -1,0 +1,5111 @@
+{
+  "users": [
+    {
+      "id": "b3d5f79f-596b-4d3e-8eb7-9f0d9c4bbbbb",
+      "email": "admin@netra-ai.org",
+      "password_hash": "$2a$10$QR3p9ZVgRXvHDeL1bwwPC.DGk6hzg9VAmkVMTZ5S9Ns4W4V9ox6Ze",
+      "full_name": "Lead System Administrator",
+      "role": "admin",
+      "facility_id": "48931743-f3fc-4eee-9467-fdeb984b8129",
+      "phone": "+91 98230 11223",
+      "is_active": true,
+      "created_at": "2026-01-10T08:00:00.000Z",
+      "updated_at": "2026-01-10T08:00:00.000Z"
+    },
+    {
+      "id": "c82f26f5-0f77-451b-af9b-4bd85f22250e",
+      "email": "asha.worker@netra-ai.org",
+      "password_hash": "$2a$10$QR3p9ZVgRXvHDeL1bwwPC.DGk6hzg9VAmkVMTZ5S9Ns4W4V9ox6Ze",
+      "full_name": "Primary Health Screener / ASHA",
+      "role": "healthcare_worker",
+      "facility_id": "48931743-f3fc-4eee-9467-fdeb984b8129",
+      "phone": "+91 97654 44321",
+      "is_active": true,
+      "created_at": "2026-01-11T08:00:00.000Z",
+      "updated_at": "2026-01-11T08:00:00.000Z"
+    },
+    {
+      "id": "44930d59-0a1c-4868-aa1e-27021ebf490e",
+      "email": "doctor@netra-ai.org",
+      "password_hash": "$2a$10$QR3p9ZVgRXvHDeL1bwwPC.DGk6hzg9VAmkVMTZ5S9Ns4W4V9ox6Ze",
+      "full_name": "District Reviewing Ophthalmologist",
+      "role": "doctor",
+      "facility_id": "aaed8c1e-b695-4ba4-b9a5-a0497af544b5",
+      "phone": "+91 94221 88990",
+      "is_active": true,
+      "created_at": "2026-01-11T08:00:00.000Z",
+      "updated_at": "2026-01-11T08:00:00.000Z"
+    },
+    {
+      "id": "5238b522-6767-4ed3-9815-174283297fdb",
+      "email": "manager@netra-ai.org",
+      "password_hash": "$2a$10$QR3p9ZVgRXvHDeL1bwwPC.DGk6hzg9VAmkVMTZ5S9Ns4W4V9ox6Ze",
+      "full_name": "District Health Officer",
+      "role": "district_manager",
+      "facility_id": "48931743-f3fc-4eee-9467-fdeb984b8129",
+      "phone": "+91 99220 55667",
+      "is_active": true,
+      "created_at": "2026-01-11T08:00:00.000Z",
+      "updated_at": "2026-01-11T08:00:00.000Z"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "48931743-f3fc-4eee-9467-fdeb984b8129",
+      "name": "Primary Health Centre",
+      "district": "District-Central",
+      "state": "Maharashtra",
+      "type": "Primary Health Centre",
+      "latitude": 19.1383,
+      "longitude": 77.321,
+      "active_cameras": 2,
+      "contact_phone": "+91 2462 234891",
+      "created_at": "2026-01-10T08:00:00.000Z",
+      "updated_at": "2026-01-10T08:00:00.000Z"
+    },
+    {
+      "id": "aaed8c1e-b695-4ba4-b9a5-a0497af544b5",
+      "name": "Community Health Centre",
+      "district": "District-South",
+      "state": "Maharashtra",
+      "type": "Community Health Centre",
+      "latitude": 18.4088,
+      "longitude": 76.5604,
+      "active_cameras": 3,
+      "contact_phone": "+91 2382 245678",
+      "created_at": "2026-01-12T08:00:00.000Z",
+      "updated_at": "2026-01-12T08:00:00.000Z"
+    },
+    {
+      "id": "d43321ef-c359-496f-9ff4-c37660b118ae",
+      "name": "Mobile Eye Screening Unit",
+      "district": "District-West",
+      "state": "Maharashtra",
+      "type": "Mobile Screening Unit",
+      "latitude": 18.1856,
+      "longitude": 76.0416,
+      "active_cameras": 1,
+      "contact_phone": "+91 2472 222134",
+      "created_at": "2026-01-15T08:00:00.000Z",
+      "updated_at": "2026-01-15T08:00:00.000Z"
+    }
+  ],
+  "patients": [
+    {
+      "id": "8a679449-21b2-4f06-8b1f-226ebff4b62c",
+      "patient_code": "DR-MH-2026-0001",
+      "name": "hemanth",
+      "age": 20,
+      "gender": "male",
+      "phone": "88768",
+      "location": "076763",
+      "diabetes_duration_years": 9,
+      "facility_id": "48931743-f3fc-4eee-9467-fdeb984b8129",
+      "created_at": "2026-09-29T10:38:17.602Z",
+      "updated_at": "2026-09-29T10:38:17.602Z"
+    },
+    {
+      "id": "pat_demo_001",
+      "patient_code": "PAT-001",
+      "name": "Sakshi",
+      "age": 68,
+      "gender": "Other",
+      "location": "Hubli",
+      "diabetes_duration_years": 14,
+      "phone": "+91 98221 00112",
+      "facility_id": "f1Id",
+      "created_at": "2026-09-19T08:30:00.000Z",
+      "updated_at": "2026-09-29T15:47:45.999Z",
+      "latest_dr_grade": 4,
+      "latest_referral_status": "REFER"
+    },
+    {
+      "id": "pat_demo_002",
+      "patient_code": "PAT-002",
+      "name": "Ramesh Kumar",
+      "age": 71,
+      "gender": "Male",
+      "location": "Naregal",
+      "diabetes_duration_years": 16,
+      "phone": "+91 94220 33445",
+      "facility_id": "f1Id",
+      "created_at": "2026-09-19T09:15:00.000Z",
+      "updated_at": "2026-09-29T15:47:46.001Z",
+      "latest_dr_grade": 4,
+      "latest_referral_status": "REFER"
+    },
+    {
+      "id": "pat_demo_003",
+      "patient_code": "PAT-003",
+      "name": "Meena Devi",
+      "age": 55,
+      "gender": "Female",
+      "location": "Gadag",
+      "diabetes_duration_years": 8,
+      "phone": "+91 97651 88990",
+      "facility_id": "f2Id",
+      "created_at": "2026-09-18T11:00:00.000Z",
+      "updated_at": "2026-09-29T15:47:46.004Z",
+      "latest_dr_grade": 3,
+      "latest_referral_status": "REFER"
+    },
+    {
+      "id": "pat_demo_004",
+      "patient_code": "PAT-004",
+      "name": "Basavaiah",
+      "age": 63,
+      "gender": "Male",
+      "location": "Shirhatti",
+      "diabetes_duration_years": 10,
+      "phone": "+91 99231 44556",
+      "facility_id": "f1Id",
+      "created_at": "2026-09-17T14:20:00.000Z",
+      "updated_at": "2026-09-29T15:47:46.007Z",
+      "latest_dr_grade": 2,
+      "latest_referral_status": "SCREEN"
+    },
+    {
+      "id": "pat_demo_005",
+      "patient_code": "PAT-005",
+      "name": "Lakshmi Bai",
+      "age": 59,
+      "gender": "Female",
+      "location": "Lakshmeshwar",
+      "diabetes_duration_years": 5,
+      "phone": "+91 98902 66778",
+      "facility_id": "f2Id",
+      "created_at": "2026-09-17T16:00:00.000Z",
+      "updated_at": "2026-09-29T15:47:46.010Z",
+      "latest_dr_grade": 1,
+      "latest_referral_status": "SCREEN"
+    },
+    {
+      "id": "bfe2b186-d3e1-463d-9a1d-f29195dc69ef",
+      "patient_code": "DR-MH-2026-0007",
+      "name": "hemanth",
+      "age": 20,
+      "gender": "male",
+      "phone": "88768",
+      "location": "076763",
+      "diabetes_duration_years": 9,
+      "facility_id": "48931743-f3fc-4eee-9467-fdeb984b8129",
+      "created_at": "2026-09-29T11:51:52.479Z",
+      "updated_at": "2026-09-29T15:49:14.368Z",
+      "last_screening_date": "2026-09-29T15:49:14.368Z",
+      "latest_dr_grade": 4,
+      "latest_referral_status": "Referral Recommended"
+    }
+  ],
+  "screenings": [
+    {
+      "id": "scr_demo_001",
+      "patient_id": "pat_demo_001",
+      "facility_id": "f1Id",
+      "status": "completed",
+      "final_decision": "REFER",
+      "created_at": "2026-09-19T08:35:00.000Z",
+      "updated_at": "2026-09-19T08:40:00.000Z",
+      "reviewed_by": "usr_health_doctor",
+      "reviewed_at": "2026-09-19T09:00:00.000Z",
+      "notes": "Proliferative DR signs evident. Priority laser photocoagulation referral issued.",
+      "device_id": "DEV-EDGE-001",
+      "organization_id": "org_retinova_health",
+      "isDemo": true
+    },
+    {
+      "id": "scr_demo_002",
+      "patient_id": "pat_demo_002",
+      "facility_id": "f1Id",
+      "status": "completed",
+      "final_decision": "REFER",
+      "created_at": "2026-09-19T09:20:00.000Z",
+      "updated_at": "2026-09-19T09:22:00.000Z",
+      "notes": "Severe neovascularization detected. Pending ophthalmologist clinical sign-off.",
+      "device_id": "DEV-EDGE-001",
+      "organization_id": "org_retinova_health",
+      "isDemo": true
+    },
+    {
+      "id": "scr_demo_003",
+      "patient_id": "pat_demo_003",
+      "facility_id": "f2Id",
+      "status": "completed",
+      "final_decision": "REFER",
+      "created_at": "2026-09-18T11:05:00.000Z",
+      "updated_at": "2026-09-18T11:07:00.000Z",
+      "notes": "Grade 3 severe NPDR with significant blot hemorrhages.",
+      "device_id": "DEV-EDGE-002",
+      "organization_id": "org_retinova_health",
+      "isDemo": true
+    },
+    {
+      "id": "scr_demo_004",
+      "patient_id": "pat_demo_004",
+      "facility_id": "f1Id",
+      "status": "completed",
+      "final_decision": "SCREEN",
+      "created_at": "2026-09-17T14:25:00.000Z",
+      "updated_at": "2026-09-17T14:26:00.000Z",
+      "notes": "Moderate NPDR changes. Review within 4 weeks recommended.",
+      "device_id": "DEV-EDGE-001",
+      "organization_id": "org_retinova_health",
+      "isDemo": true
+    },
+    {
+      "id": "scr_demo_005",
+      "patient_id": "pat_demo_005",
+      "facility_id": "f2Id",
+      "status": "completed",
+      "final_decision": "SCREEN",
+      "created_at": "2026-09-17T16:05:00.000Z",
+      "updated_at": "2026-09-17T16:15:00.000Z",
+      "reviewed_by": "usr_health_doctor",
+      "reviewed_at": "2026-09-17T16:20:00.000Z",
+      "notes": "Mild background changes only. Routine 12-month follow-up sufficient.",
+      "device_id": "DEV-EDGE-002",
+      "organization_id": "org_retinova_health",
+      "isDemo": true
+    },
+    {
+      "id": "ba04ce94-65aa-4477-b0c9-93d160108def",
+      "patient_id": "pat_demo_001",
+      "facility_id": "",
+      "status": "completed",
+      "final_decision": "SCREEN",
+      "eye": "right",
+      "created_at": "2026-09-29T12:14:38.950Z",
+      "completed_at": "2026-09-29T12:14:38.950Z",
+      "processing_time_ms": 3360,
+      "patient": {
+        "id": "pat_demo_001",
+        "patient_code": "PAT-001",
+        "name": "Sakshi",
+        "age": 68,
+        "gender": "Other",
+        "location": "Hubli",
+        "diabetes_duration_years": 14,
+        "phone": "+91 98221 00112",
+        "facility_id": "f1Id",
+        "created_at": "2026-09-19T08:30:00.000Z",
+        "updated_at": "2026-09-29T11:48:45.580Z",
+        "latest_dr_grade": 4,
+        "latest_referral_status": "REFER"
+      },
+      "timings": {
+        "iqaTime": 0,
+        "enhancementTime": 0.4970877,
+        "segmentationTime": 1.7255482,
+        "gradingTime": 0.5952923000004375,
+        "gradCAMTime": 0.5952923000004375,
+        "totalTime": 3.359968500000832
+      },
+      "quality": {
+        "id": "iqa-ba04ce94",
+        "image_id": "e7b2992f-cba7-4d4e-a19b-58c70cd71d64",
+        "qualityClass": "Usable",
+        "quality_score": 89,
+        "confidence": 0.8895997405052185,
+        "decision": "ACCEPT_FLAG",
+        "sharpness": 0.02,
+        "illumination": 82.35,
+        "fov_coverage": 75.36,
+        "artifact_area": 0,
+        "artifact_type": "No Major Artifact",
+        "status": "accepted",
+        "quality_gate": "good",
+        "quality_flags": [
+          "EyeQ Quality Classification: Usable (89.0%)",
+          "FOV Retinal Coverage: 75.4%",
+          "Artifact Area: 0.0% (No Major Artifact)"
+        ],
+        "rejection_reason": "Image is usable for screening but has reduced image-quality margin. Review the quality flag with the result.",
+        "created_at": "2026-09-29T12:14:38.950Z"
+      },
+      "enhancement": {
+        "id": "enh-ba04ce94",
+        "image_id": "e7b2992f-cba7-4d4e-a19b-58c70cd71d64",
+        "enhanced_image_url": "/uploads/enhanced_ba04ce94.png",
+        "method": "Adaptive CLAHE with Green-Channel Luminance Normalization",
+        "originalContrast": 0.10054137202884357,
+        "enhancedContrast": 0.08776795004265857,
+        "contrastGain": 0.87,
+        "fovCoverage": 75.31384402452416,
+        "processing_time_ms": 497,
+        "created_at": "2026-09-29T12:14:38.950Z"
+      },
+      "classification": {
+        "id": "clf-ba04ce94",
+        "screening_id": "ba04ce94-65aa-4477-b0c9-93d160108def",
+        "predicted_grade": 0,
+        "grade_label": "No Diabetic Retinopathy",
+        "predictedClass": "Grade 0 - No DR",
+        "raw_probability": 0.12259595101567189,
+        "calibrated_confidence": 20.55,
+        "classProbabilities": [
+          0.7883217930793762,
+          0.1260119080543518,
+          0.06198214367032051,
+          0.012139984406530857,
+          0.011544110253453255
+        ],
+        "grade_probabilities": [
+          0.7883217930793762,
+          0.1260119080543518,
+          0.06198214367032051,
+          0.012139984406530857,
+          0.011544110253453255
+        ],
+        "confidence_method": "Platt Scaling (Temperature T*=1.4555)",
+        "confidence_threshold": 0.2993,
+        "threshold": 0.2993,
+        "temperature": 1.4555,
+        "g2plus_probability_raw": 0.12259595101567189,
+        "g2plus_probability_calibrated": 0.20551693235901564,
+        "referable": false,
+        "decision": "SCREEN",
+        "model_name": "Swin V2 Tiny (Torchvision swin_v2_t)",
+        "model_version": "v1.0-frozen",
+        "dataset_benchmark": "IDRiD / APTOS / EyePACS Multi-Domain Frozen Benchmark",
+        "processing_time_ms": 595,
+        "created_at": "2026-09-29T12:14:38.950Z"
+      },
+      "segmentation": {
+        "id": "seg-ba04ce94",
+        "image_id": "e7b2992f-cba7-4d4e-a19b-58c70cd71d64",
+        "vessel_coverage": 16.34,
+        "vesselCoverage": 16.34,
+        "vessel_pixels": 86068,
+        "vesselPixelCount": 86068,
+        "vessel_density": 0.12306117313323572,
+        "vesselDensity": 0.12306117313323572,
+        "vessel_metrics": {
+          "coveragePercent": 16.34,
+          "pixelCount": 86068,
+          "density": 0.1231,
+          "branchingComplexity": 386,
+          "junctionClusters": 386,
+          "vesselEndpoints": 366,
+          "skeletonLength": 8684,
+          "meanCaliber": 6.62,
+          "connectivity": 68,
+          "topologyScale": "800x600 (native matched filter)",
+          "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+        },
+        "vesselMetrics": {
+          "coveragePercent": 16.34,
+          "pixelCount": 86068,
+          "density": 0.1231,
+          "branchingComplexity": 386,
+          "junctionClusters": 386,
+          "vesselEndpoints": 366,
+          "skeletonLength": 8684,
+          "meanCaliber": 6.62,
+          "connectivity": 68,
+          "topologyScale": "800x600 (native matched filter)",
+          "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+        },
+        "lesion_coverage": 1.03,
+        "lesionCoverage": 1.03,
+        "candidate_count": 603,
+        "candidateCount": 603,
+        "totalCandidates": 603,
+        "bright_lesion_count": 89,
+        "brightCandidates": 89,
+        "dark_lesion_count": 514,
+        "darkCandidates": 514,
+        "candidateBreakdown": {
+          "microaneurysmCandidates": 514,
+          "hemorrhageCandidates": 0,
+          "quadrantDistribution": [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "hardExudateCandidates": 82,
+          "macularProximityExudates": 1,
+          "csmeRiskCandidateFlag": false,
+          "softExudateCandidates": 7
+        },
+        "candidate_breakdown": {
+          "microaneurysmCandidates": 514,
+          "hemorrhageCandidates": 0,
+          "quadrantDistribution": [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "hardExudateCandidates": 82,
+          "macularProximityExudates": 1,
+          "csmeRiskCandidateFlag": false,
+          "softExudateCandidates": 7
+        },
+        "neovascularization": {
+          "status": "unavailable",
+          "confidence": null,
+          "regions": [],
+          "artifact": null,
+          "method": "No dedicated validated NV detector available",
+          "candidateEvidence": "NV CANDIDATE EVIDENCE — NOT A CONFIRMED FINDING: No validated pixel-level detector in repository"
+        },
+        "vessel_mask_url": "/uploads/vessels_ba04ce94.png",
+        "lesion_mask_url": "/uploads/lesions_ba04ce94.png",
+        "evidence_overlay_url": "/uploads/retinal_evidence_ba04ce94.png",
+        "retinal_evidence_url": "/uploads/retinal_evidence_ba04ce94.png",
+        "lesion_candidates_url": "/uploads/lesion_candidates_ba04ce94.json",
+        "evidence_json_url": "/uploads/retinal_evidence_ba04ce94.json",
+        "evidenceJsonUrl": "/uploads/retinal_evidence_ba04ce94.json",
+        "gradcam_lesion_iou": 0.0085,
+        "gradcamLesionIoU": 0.0085,
+        "disclaimer": "Candidate regions segmented by MATLAB Module 3 represent morphological patterns for clinician review and do not constitute independent diagnostic proof.",
+        "processing_time_ms": 1726,
+        "created_at": "2026-09-29T12:14:38.951Z"
+      },
+      "explainability": {
+        "id": "xai-ba04ce94",
+        "screening_id": "ba04ce94-65aa-4477-b0c9-93d160108def",
+        "gradcam_url": "/uploads/gradcam_overlay_ba04ce94.png",
+        "status": "SUCCESS",
+        "featureLayer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+        "executionEnvironment": "PyTorch AMP FP16",
+        "evidence_summary": "Swin V2 Tiny Grad-CAM visualizes spatial attention over salient retinal features for Non-Referable screening.",
+        "evidence_regions": [],
+        "attention_focus": "Layer backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM) activation concentrated across salient retinal regions.",
+        "created_at": "2026-09-29T12:14:38.951Z"
+      },
+      "referral": {
+        "id": "ref-ba04ce94",
+        "screening_id": "ba04ce94-65aa-4477-b0c9-93d160108def",
+        "status": "Routine Screening Complete",
+        "priority": "none",
+        "reason": "No referable Diabetic Retinopathy detected (Grade 0, Calibrated P(G2+) = 0.2055 < 0.2993). Routine annual screening recommended.",
+        "action_taken": "referral_pending",
+        "recommended_action": "Annual Tele-Screening Review",
+        "created_at": "2026-09-29T12:14:38.951Z"
+      },
+      "image": {
+        "id": "e7b2992f-cba7-4d4e-a19b-58c70cd71d64",
+        "screening_id": "ba04ce94-65aa-4477-b0c9-93d160108def",
+        "storage_url": "/uploads/fundus_upload_e4c5f8b3-ccb5-4118-a340-32edb096eaeb.jpeg",
+        "original_filename": "fundus_upload_e4c5f8b3-ccb5-4118-a340-32edb096eaeb.jpeg",
+        "eye": "right",
+        "device_id": "",
+        "captured_at": "2026-09-29T12:14:38.951Z",
+        "width": 512,
+        "height": 512,
+        "format": "jpeg"
+      }
+    },
+    {
+      "id": "c9046cf5-439c-41ad-8f71-6ef4f4b3d81f",
+      "patient_id": "pat_demo_001",
+      "facility_id": "",
+      "status": "completed",
+      "final_decision": "SCREEN",
+      "eye": "right",
+      "created_at": "2026-09-29T12:14:54.313Z",
+      "completed_at": "2026-09-29T12:14:54.314Z",
+      "processing_time_ms": 1775,
+      "patient": {
+        "id": "pat_demo_001",
+        "patient_code": "PAT-001",
+        "name": "Sakshi",
+        "age": 68,
+        "gender": "Other",
+        "location": "Hubli",
+        "diabetes_duration_years": 14,
+        "phone": "+91 98221 00112",
+        "facility_id": "f1Id",
+        "created_at": "2026-09-19T08:30:00.000Z",
+        "updated_at": "2026-09-29T11:48:45.580Z",
+        "latest_dr_grade": 4,
+        "latest_referral_status": "REFER"
+      },
+      "timings": {
+        "iqaTime": 0,
+        "enhancementTime": 0.1754355,
+        "segmentationTime": 0.6069663,
+        "gradingTime": 0.5286484999996901,
+        "gradCAMTime": 0.5286484999996901,
+        "totalTime": 1.7751437000006263
+      },
+      "quality": {
+        "id": "iqa-c9046cf5",
+        "image_id": "5eb76c6b-340b-4ae1-b2a9-76f0153f161d",
+        "qualityClass": "Usable",
+        "quality_score": 89,
+        "confidence": 0.8895997405052185,
+        "decision": "ACCEPT_FLAG",
+        "sharpness": 0.02,
+        "illumination": 82.35,
+        "fov_coverage": 75.36,
+        "artifact_area": 0,
+        "artifact_type": "No Major Artifact",
+        "status": "accepted",
+        "quality_gate": "good",
+        "quality_flags": [
+          "EyeQ Quality Classification: Usable (89.0%)",
+          "FOV Retinal Coverage: 75.4%",
+          "Artifact Area: 0.0% (No Major Artifact)"
+        ],
+        "rejection_reason": "Image is usable for screening but has reduced image-quality margin. Review the quality flag with the result.",
+        "created_at": "2026-09-29T12:14:54.314Z"
+      },
+      "enhancement": {
+        "id": "enh-c9046cf5",
+        "image_id": "5eb76c6b-340b-4ae1-b2a9-76f0153f161d",
+        "enhanced_image_url": "/uploads/enhanced_c9046cf5.png",
+        "method": "Adaptive CLAHE with Green-Channel Luminance Normalization",
+        "originalContrast": 0.10054137202884357,
+        "enhancedContrast": 0.08776795004265857,
+        "contrastGain": 0.87,
+        "fovCoverage": 75.31384402452416,
+        "processing_time_ms": 175,
+        "created_at": "2026-09-29T12:14:54.314Z"
+      },
+      "classification": {
+        "id": "clf-c9046cf5",
+        "screening_id": "c9046cf5-439c-41ad-8f71-6ef4f4b3d81f",
+        "predicted_grade": 0,
+        "grade_label": "No Diabetic Retinopathy",
+        "predictedClass": "Grade 0 - No DR",
+        "raw_probability": 0.12259595101567189,
+        "calibrated_confidence": 20.55,
+        "classProbabilities": [
+          0.7883217930793762,
+          0.1260119080543518,
+          0.06198214367032051,
+          0.012139984406530857,
+          0.011544110253453255
+        ],
+        "grade_probabilities": [
+          0.7883217930793762,
+          0.1260119080543518,
+          0.06198214367032051,
+          0.012139984406530857,
+          0.011544110253453255
+        ],
+        "confidence_method": "Platt Scaling (Temperature T*=1.4555)",
+        "confidence_threshold": 0.2993,
+        "threshold": 0.2993,
+        "temperature": 1.4555,
+        "g2plus_probability_raw": 0.12259595101567189,
+        "g2plus_probability_calibrated": 0.20551693235901564,
+        "referable": false,
+        "decision": "SCREEN",
+        "model_name": "Swin V2 Tiny (Torchvision swin_v2_t)",
+        "model_version": "v1.0-frozen",
+        "dataset_benchmark": "IDRiD / APTOS / EyePACS Multi-Domain Frozen Benchmark",
+        "processing_time_ms": 529,
+        "created_at": "2026-09-29T12:14:54.314Z"
+      },
+      "segmentation": {
+        "id": "seg-c9046cf5",
+        "image_id": "5eb76c6b-340b-4ae1-b2a9-76f0153f161d",
+        "vessel_coverage": 16.34,
+        "vesselCoverage": 16.34,
+        "vessel_pixels": 86068,
+        "vesselPixelCount": 86068,
+        "vessel_density": 0.12306117313323572,
+        "vesselDensity": 0.12306117313323572,
+        "vessel_metrics": {
+          "coveragePercent": 16.34,
+          "pixelCount": 86068,
+          "density": 0.1231,
+          "branchingComplexity": 386,
+          "junctionClusters": 386,
+          "vesselEndpoints": 366,
+          "skeletonLength": 8684,
+          "meanCaliber": 6.62,
+          "connectivity": 68,
+          "topologyScale": "800x600 (native matched filter)",
+          "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+        },
+        "vesselMetrics": {
+          "coveragePercent": 16.34,
+          "pixelCount": 86068,
+          "density": 0.1231,
+          "branchingComplexity": 386,
+          "junctionClusters": 386,
+          "vesselEndpoints": 366,
+          "skeletonLength": 8684,
+          "meanCaliber": 6.62,
+          "connectivity": 68,
+          "topologyScale": "800x600 (native matched filter)",
+          "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+        },
+        "lesion_coverage": 1.03,
+        "lesionCoverage": 1.03,
+        "candidate_count": 603,
+        "candidateCount": 603,
+        "totalCandidates": 603,
+        "bright_lesion_count": 89,
+        "brightCandidates": 89,
+        "dark_lesion_count": 514,
+        "darkCandidates": 514,
+        "candidateBreakdown": {
+          "microaneurysmCandidates": 514,
+          "hemorrhageCandidates": 0,
+          "quadrantDistribution": [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "hardExudateCandidates": 82,
+          "macularProximityExudates": 1,
+          "csmeRiskCandidateFlag": false,
+          "softExudateCandidates": 7
+        },
+        "candidate_breakdown": {
+          "microaneurysmCandidates": 514,
+          "hemorrhageCandidates": 0,
+          "quadrantDistribution": [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "hardExudateCandidates": 82,
+          "macularProximityExudates": 1,
+          "csmeRiskCandidateFlag": false,
+          "softExudateCandidates": 7
+        },
+        "neovascularization": {
+          "status": "unavailable",
+          "confidence": null,
+          "regions": [],
+          "artifact": null,
+          "method": "No dedicated validated NV detector available",
+          "candidateEvidence": "NV CANDIDATE EVIDENCE — NOT A CONFIRMED FINDING: No validated pixel-level detector in repository"
+        },
+        "vessel_mask_url": "/uploads/vessels_c9046cf5.png",
+        "lesion_mask_url": "/uploads/lesions_c9046cf5.png",
+        "evidence_overlay_url": "/uploads/retinal_evidence_c9046cf5.png",
+        "retinal_evidence_url": "/uploads/retinal_evidence_c9046cf5.png",
+        "lesion_candidates_url": "/uploads/lesion_candidates_c9046cf5.json",
+        "evidence_json_url": "/uploads/retinal_evidence_c9046cf5.json",
+        "evidenceJsonUrl": "/uploads/retinal_evidence_c9046cf5.json",
+        "gradcam_lesion_iou": 0.0085,
+        "gradcamLesionIoU": 0.0085,
+        "disclaimer": "Candidate regions segmented by MATLAB Module 3 represent morphological patterns for clinician review and do not constitute independent diagnostic proof.",
+        "processing_time_ms": 607,
+        "created_at": "2026-09-29T12:14:54.314Z"
+      },
+      "explainability": {
+        "id": "xai-c9046cf5",
+        "screening_id": "c9046cf5-439c-41ad-8f71-6ef4f4b3d81f",
+        "gradcam_url": "/uploads/gradcam_overlay_c9046cf5.png",
+        "status": "SUCCESS",
+        "featureLayer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+        "executionEnvironment": "PyTorch AMP FP16",
+        "evidence_summary": "Swin V2 Tiny Grad-CAM visualizes spatial attention over salient retinal features for Non-Referable screening.",
+        "evidence_regions": [],
+        "attention_focus": "Layer backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM) activation concentrated across salient retinal regions.",
+        "created_at": "2026-09-29T12:14:54.314Z"
+      },
+      "referral": {
+        "id": "ref-c9046cf5",
+        "screening_id": "c9046cf5-439c-41ad-8f71-6ef4f4b3d81f",
+        "status": "Routine Screening Complete",
+        "priority": "none",
+        "reason": "No referable Diabetic Retinopathy detected (Grade 0, Calibrated P(G2+) = 0.2055 < 0.2993). Routine annual screening recommended.",
+        "action_taken": "referral_pending",
+        "recommended_action": "Annual Tele-Screening Review",
+        "created_at": "2026-09-29T12:14:54.314Z"
+      },
+      "image": {
+        "id": "5eb76c6b-340b-4ae1-b2a9-76f0153f161d",
+        "screening_id": "c9046cf5-439c-41ad-8f71-6ef4f4b3d81f",
+        "storage_url": "/uploads/fundus_upload_e4c5f8b3-ccb5-4118-a340-32edb096eaeb.jpeg",
+        "original_filename": "fundus_upload_e4c5f8b3-ccb5-4118-a340-32edb096eaeb.jpeg",
+        "eye": "right",
+        "device_id": "",
+        "captured_at": "2026-09-29T12:14:54.314Z",
+        "width": 512,
+        "height": 512,
+        "format": "jpeg"
+      }
+    },
+    {
+      "id": "cacd07ee-8828-4216-af55-f743cffdade0",
+      "patient_id": "patient-001",
+      "facility_id": "aaed8c1e-b695-4ba4-b9a5-a0497af544b5",
+      "status": "completed",
+      "eye": "right",
+      "notes": "",
+      "created_at": "2026-09-29T13:31:02.645Z",
+      "processing_time_ms": 1694,
+      "completed_at": "2026-09-29T13:31:04.863Z",
+      "quality": {
+        "id": "iqa-cacd07ee",
+        "qualityClass": "Usable",
+        "confidence": 0.8895997405052185,
+        "quality_score": 89,
+        "decision": "ACCEPT_FLAG",
+        "status": "accepted",
+        "quality_gate": "usable",
+        "sharpness": 0.02,
+        "illumination": 82.35,
+        "fov_coverage": 75.36,
+        "fovCoverage": 75.36,
+        "artifact_area": 0,
+        "artifactArea": 0,
+        "artifact_type": "No Major Artifact",
+        "artifactType": "No Major Artifact",
+        "explanation": "Image is usable for screening but has reduced image-quality margin. Review the quality flag with the result.",
+        "quality_flags": [
+          "EyeQ Quality Classification: Usable (89.0%)",
+          "FOV Retinal Coverage: 75.4%",
+          "Artifact Area: 0.0% (No Major Artifact)"
+        ],
+        "image_id": "83a342d1-397d-496a-80c8-69881cb3d024"
+      },
+      "enhancement": {
+        "id": "enh-cacd07ee",
+        "enhanced_image_url": "/uploads/enhanced_cacd07ee.png",
+        "originalContrast": 0.10054137202884357,
+        "enhancedContrast": 0.08776795004265857,
+        "contrastGain": 0.87,
+        "fovCoverage": 75.31384402452416,
+        "method": "Adaptive CLAHE with Green-Channel Luminance Normalization",
+        "processingTimeSec": 0.1297974,
+        "image_id": "83a342d1-397d-496a-80c8-69881cb3d024"
+      },
+      "segmentation": {
+        "id": "seg-cacd07ee",
+        "vessel_coverage": 16.34,
+        "vesselCoverage": 16.34,
+        "vessel_pixels": 86068,
+        "vesselPixelCount": 86068,
+        "vessel_density": 0.12306117313323572,
+        "vesselDensity": 0.12306117313323572,
+        "vessel_metrics": {
+          "coveragePercent": 16.34,
+          "pixelCount": 86068,
+          "density": 0.1231,
+          "branchingComplexity": 386,
+          "junctionClusters": 386,
+          "vesselEndpoints": 366,
+          "skeletonLength": 8684,
+          "meanCaliber": 6.62,
+          "connectivity": 68,
+          "topologyScale": "800x600 (native matched filter)",
+          "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+        },
+        "vesselMetrics": {
+          "coveragePercent": 16.34,
+          "pixelCount": 86068,
+          "density": 0.1231,
+          "branchingComplexity": 386,
+          "junctionClusters": 386,
+          "vesselEndpoints": 366,
+          "skeletonLength": 8684,
+          "meanCaliber": 6.62,
+          "connectivity": 68,
+          "topologyScale": "800x600 (native matched filter)",
+          "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+        },
+        "lesion_coverage": 1.03,
+        "lesionCoverage": 1.03,
+        "candidate_count": 603,
+        "candidateCount": 603,
+        "totalCandidates": 603,
+        "bright_lesion_count": 89,
+        "brightCandidates": 89,
+        "dark_lesion_count": 514,
+        "darkCandidates": 514,
+        "candidateBreakdown": {
+          "microaneurysmCandidates": 514,
+          "hemorrhageCandidates": 0,
+          "quadrantDistribution": [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "hardExudateCandidates": 82,
+          "macularProximityExudates": 1,
+          "csmeRiskCandidateFlag": false,
+          "softExudateCandidates": 7
+        },
+        "candidate_breakdown": {
+          "microaneurysmCandidates": 514,
+          "hemorrhageCandidates": 0,
+          "quadrantDistribution": [
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "hardExudateCandidates": 82,
+          "macularProximityExudates": 1,
+          "csmeRiskCandidateFlag": false,
+          "softExudateCandidates": 7
+        },
+        "neovascularization": {
+          "status": "unavailable",
+          "confidence": null,
+          "regions": [],
+          "artifact": null,
+          "method": "No dedicated validated NV detector available",
+          "candidateEvidence": "NV CANDIDATE EVIDENCE — NOT A CONFIRMED FINDING: No validated pixel-level detector in repository"
+        },
+        "vessel_mask_url": "/uploads/vessels_cacd07ee.png",
+        "lesion_mask_url": "/uploads/lesions_cacd07ee.png",
+        "evidence_overlay_url": "/uploads/retinal_evidence_cacd07ee.png",
+        "retinal_evidence_url": "/uploads/retinal_evidence_cacd07ee.png",
+        "lesion_candidates_url": "/uploads/lesion_candidates_cacd07ee.json",
+        "disclaimer": "Candidate regions segmented by MATLAB Module 3 represent morphological patterns for clinician review and do not constitute independent diagnostic proof.",
+        "processingTimeSec": 0.5196004,
+        "gradcam_lesion_iou": 0.0085,
+        "gradcamLesionIoU": 0.0085,
+        "evidence_json_url": "/uploads/retinal_evidence_cacd07ee.json",
+        "evidenceJsonUrl": "/uploads/retinal_evidence_cacd07ee.json",
+        "image_id": "83a342d1-397d-496a-80c8-69881cb3d024"
+      },
+      "classification": {
+        "id": "clf-cacd07ee",
+        "predicted_grade": 0,
+        "grade_label": "No Diabetic Retinopathy",
+        "predictedClass": "Grade 0 - No DR",
+        "confidence": 0,
+        "raw_probability": 0.12259595101567189,
+        "calibrated_confidence": 20.55,
+        "g2plus_probability_raw": 0.12259595101567189,
+        "temperature": 1.4555,
+        "g2plus_probability_calibrated": 0.20551693235901564,
+        "threshold": 0.2993,
+        "referable": false,
+        "decision": "SCREEN",
+        "classProbabilities": [
+          0.7883217930793762,
+          0.1260119080543518,
+          0.06198214367032051,
+          0.012139984406530857,
+          0.011544110253453255
+        ],
+        "grade_probabilities": [
+          0.7883217930793762,
+          0.1260119080543518,
+          0.06198214367032051,
+          0.012139984406530857,
+          0.011544110253453255
+        ],
+        "input_resolution": [
+          512,
+          512,
+          3
+        ],
+        "model_name": "Swin V2 Tiny (Torchvision swin_v2_t)",
+        "model_version": "v1.0-frozen",
+        "dataset_benchmark": "IDRiD / APTOS / EyePACS Multi-Domain Frozen Benchmark",
+        "processingTimeSec": 0.4865374000000884,
+        "inference_time": 0.4865374000000884,
+        "execution_method": "IN_PROCESS_PERSISTENT_GPU",
+        "screening_id": "cacd07ee-8828-4216-af55-f743cffdade0"
+      },
+      "explainability": {
+        "id": "xai-cacd07ee",
+        "gradcam_url": "/uploads/gradcam_overlay_cacd07ee.png",
+        "overlay_url": "/uploads/gradcam_overlay_cacd07ee.png",
+        "raw_url": "/uploads/gradcam_raw_cacd07ee.png",
+        "mat_url": "/uploads/attribution_matrix_cacd07ee.mat",
+        "status": "SUCCESS",
+        "feature_layer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+        "featureLayer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+        "execution_environment": "PyTorch AMP FP16",
+        "executionEnvironment": "PyTorch AMP FP16",
+        "evidence_summary": "Swin V2 Tiny Grad-CAM visualizes spatial attention over salient retinal features for Non-Referable screening.",
+        "attention_focus": "Layer backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM) activation concentrated across salient retinal regions.",
+        "gradcam_lesion_iou": 0.0085,
+        "gradcamLesionIoU": 0.0085,
+        "processingTimeSec": 0.4865374000000884,
+        "screening_id": "cacd07ee-8828-4216-af55-f743cffdade0"
+      },
+      "referral": {
+        "id": "ref-cacd07ee",
+        "status": "Routine Screening Complete",
+        "priority": "none",
+        "recommended_action": "Annual Tele-Screening Review",
+        "action": "routine_screening",
+        "recommendedTimeframeDays": 365,
+        "reason": "No referable Diabetic Retinopathy detected (Grade 0, Calibrated P(G2+) = 0.2055 < 0.2993). Routine annual screening recommended.",
+        "screening_id": "cacd07ee-8828-4216-af55-f743cffdade0"
+      },
+      "final_decision": "SCREEN"
+    },
+    {
+      "id": "55380422-e07c-466a-bf7c-b9503b2b59f5",
+      "patient_id": "bfe2b186-d3e1-463d-9a1d-f29195dc69ef",
+      "facility_id": "48931743-f3fc-4eee-9467-fdeb984b8129",
+      "status": "completed",
+      "final_decision": "REFER",
+      "eye": "right",
+      "created_at": "2026-09-29T13:40:32.864Z",
+      "completed_at": "2026-09-29T13:40:32.864Z",
+      "processing_time_ms": 4633,
+      "patient": {
+        "id": "bfe2b186-d3e1-463d-9a1d-f29195dc69ef",
+        "patient_code": "DR-MH-2026-0007",
+        "name": "hemanth",
+        "age": 20,
+        "gender": "male",
+        "phone": "88768",
+        "location": "076763",
+        "diabetes_duration_years": 9,
+        "facility_id": "48931743-f3fc-4eee-9467-fdeb984b8129",
+        "created_at": "2026-09-29T11:51:52.479Z",
+        "updated_at": "2026-09-29T11:51:52.479Z"
+      },
+      "facility": {
+        "id": "48931743-f3fc-4eee-9467-fdeb984b8129",
+        "name": "Primary Health Centre",
+        "district": "District-Central",
+        "state": "Maharashtra",
+        "type": "Primary Health Centre",
+        "latitude": 19.1383,
+        "longitude": 77.321,
+        "active_cameras": 2,
+        "contact_phone": "+91 2462 234891",
+        "created_at": "2026-01-10T08:00:00.000Z",
+        "updated_at": "2026-01-10T08:00:00.000Z"
+      },
+      "timings": {
+        "iqaTime": 0,
+        "enhancementTime": 0.5500211,
+        "segmentationTime": 1.6607514,
+        "gradingTime": 0.8744151999999303,
+        "gradCAMTime": 0.8744151999999303,
+        "totalTime": 4.633363500000996
+      },
+      "quality": {
+        "id": "iqa-55380422",
+        "image_id": "d9f78bc8-f892-4b8c-9370-c759b890e9e4",
+        "qualityClass": "Good",
+        "quality_score": 100,
+        "confidence": 1,
+        "decision": "ACCEPT",
+        "sharpness": 0.04,
+        "illumination": 82.99,
+        "fov_coverage": 47.49,
+        "artifact_area": 0,
+        "artifact_type": "No Major Artifact",
+        "status": "accepted",
+        "quality_gate": "good",
+        "quality_flags": [
+          "EyeQ Quality Classification: Good (100.0%)",
+          "FOV Retinal Coverage: 47.5%",
+          "Artifact Area: 0.0% (No Major Artifact)"
+        ],
+        "rejection_reason": "Image quality is suitable for automated DR analysis.",
+        "created_at": "2026-09-29T13:40:32.864Z"
+      },
+      "enhancement": {
+        "id": "enh-55380422",
+        "image_id": "d9f78bc8-f892-4b8c-9370-c759b890e9e4",
+        "enhanced_image_url": "/uploads/enhanced_55380422.png",
+        "method": "Adaptive CLAHE with Green-Channel Luminance Normalization",
+        "originalContrast": 0.07352022864743056,
+        "enhancedContrast": 0.09808651151227,
+        "contrastGain": 1.33,
+        "fovCoverage": 47.49096357979502,
+        "processing_time_ms": 550,
+        "created_at": "2026-09-29T13:40:32.864Z"
+      },
+      "classification": {
+        "id": "clf-55380422",
+        "screening_id": "55380422-e07c-466a-bf7c-b9503b2b59f5",
+        "predicted_grade": 3,
+        "grade_label": "Severe Non-Proliferative DR",
+        "predictedClass": "Grade 0 - No DR",
+        "raw_probability": 0.9999637777064042,
+        "calibrated_confidence": 99.91,
+        "classProbabilities": [
+          0.0021519705187529325,
+          0.0009581573540344834,
+          0.14403460919857025,
+          0.7583951354026794,
+          0.09446007013320923
+        ],
+        "grade_probabilities": [
+          0.0021519705187529325,
+          0.0009581573540344834,
+          0.14403460919857025,
+          0.7583951354026794,
+          0.09446007013320923
+        ],
+        "confidence_method": "Platt Scaling (Temperature T*=1.4555)",
+        "confidence_threshold": 0.2993,
+        "threshold": 0.2993,
+        "temperature": 1.4555,
+        "g2plus_probability_raw": 0.9999637777064042,
+        "g2plus_probability_calibrated": 0.9991119788929296,
+        "referable": true,
+        "decision": "REFER",
+        "model_name": "Swin V2 Tiny (Torchvision swin_v2_t)",
+        "model_version": "v1.0-frozen",
+        "dataset_benchmark": "IDRiD / APTOS / EyePACS Multi-Domain Frozen Benchmark",
+        "processing_time_ms": 874,
+        "created_at": "2026-09-29T13:40:32.864Z"
+      },
+      "segmentation": {
+        "id": "seg-55380422",
+        "image_id": "d9f78bc8-f892-4b8c-9370-c759b890e9e4",
+        "vessel_coverage": 14.88,
+        "vesselCoverage": 14.88,
+        "vessel_pixels": 49427,
+        "vesselPixelCount": 49427,
+        "vessel_density": 0.07067138314421668,
+        "vesselDensity": 0.07067138314421668,
+        "vessel_metrics": {
+          "coveragePercent": 14.88,
+          "pixelCount": 49427,
+          "density": 0.0707,
+          "branchingComplexity": 249,
+          "junctionClusters": 249,
+          "vesselEndpoints": 302,
+          "skeletonLength": 5387,
+          "meanCaliber": 5.91,
+          "connectivity": 63,
+          "topologyScale": "800x600 (native matched filter)",
+          "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+        },
+        "vesselMetrics": {
+          "coveragePercent": 14.88,
+          "pixelCount": 49427,
+          "density": 0.0707,
+          "branchingComplexity": 249,
+          "junctionClusters": 249,
+          "vesselEndpoints": 302,
+          "skeletonLength": 5387,
+          "meanCaliber": 5.91,
+          "connectivity": 63,
+          "topologyScale": "800x600 (native matched filter)",
+          "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+        },
+        "lesion_coverage": 0.52,
+        "lesionCoverage": 0.52,
+        "candidate_count": 330,
+        "candidateCount": 330,
+        "totalCandidates": 330,
+        "bright_lesion_count": 94,
+        "brightCandidates": 94,
+        "dark_lesion_count": 236,
+        "darkCandidates": 236,
+        "candidateBreakdown": {
+          "microaneurysmCandidates": 235,
+          "hemorrhageCandidates": 1,
+          "quadrantDistribution": [
+            [
+              0,
+              0,
+              1,
+              0
+            ]
+          ],
+          "hardExudateCandidates": 89,
+          "macularProximityExudates": 9,
+          "csmeRiskCandidateFlag": true,
+          "softExudateCandidates": 5
+        },
+        "candidate_breakdown": {
+          "microaneurysmCandidates": 235,
+          "hemorrhageCandidates": 1,
+          "quadrantDistribution": [
+            [
+              0,
+              0,
+              1,
+              0
+            ]
+          ],
+          "hardExudateCandidates": 89,
+          "macularProximityExudates": 9,
+          "csmeRiskCandidateFlag": true,
+          "softExudateCandidates": 5
+        },
+        "neovascularization": {
+          "status": "unavailable",
+          "confidence": null,
+          "regions": [],
+          "artifact": null,
+          "method": "No dedicated validated NV detector available",
+          "candidateEvidence": "NV CANDIDATE EVIDENCE — NOT A CONFIRMED FINDING: No validated pixel-level detector in repository"
+        },
+        "vessel_mask_url": "/uploads/vessels_55380422.png",
+        "lesion_mask_url": "/uploads/lesions_55380422.png",
+        "evidence_overlay_url": "/uploads/retinal_evidence_55380422.png",
+        "retinal_evidence_url": "/uploads/retinal_evidence_55380422.png",
+        "lesion_candidates_url": "/uploads/lesion_candidates_55380422.json",
+        "evidence_json_url": "/uploads/retinal_evidence_55380422.json",
+        "evidenceJsonUrl": "/uploads/retinal_evidence_55380422.json",
+        "gradcam_lesion_iou": 0.0088,
+        "gradcamLesionIoU": 0.0088,
+        "disclaimer": "Candidate regions segmented by MATLAB Module 3 represent morphological patterns for clinician review and do not constitute independent diagnostic proof.",
+        "processing_time_ms": 1661,
+        "created_at": "2026-09-29T13:40:32.864Z"
+      },
+      "explainability": {
+        "id": "xai-55380422",
+        "screening_id": "55380422-e07c-466a-bf7c-b9503b2b59f5",
+        "gradcam_url": "/uploads/gradcam_overlay_55380422.png",
+        "status": "SUCCESS",
+        "featureLayer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+        "executionEnvironment": "PyTorch AMP FP16",
+        "evidence_summary": "Swin V2 Tiny Grad-CAM visualizes spatial attention over salient retinal features for Referable DR.",
+        "evidence_regions": [],
+        "attention_focus": "Layer backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM) activation concentrated across salient retinal regions.",
+        "created_at": "2026-09-29T13:40:32.864Z"
+      },
+      "referral": {
+        "id": "ref-55380422",
+        "screening_id": "55380422-e07c-466a-bf7c-b9503b2b59f5",
+        "status": "Referral Recommended",
+        "priority": "priority",
+        "reason": "Referable Diabetic Retinopathy detected (Grade 3, Calibrated P(G2+) = 0.9991 >= 0.2993). Priority clinical referral recommended.",
+        "action_taken": "referral_pending",
+        "recommended_action": "Ophthalmologist Evaluation within 2-4 weeks",
+        "created_at": "2026-09-29T13:40:32.864Z"
+      },
+      "image": {
+        "id": "d9f78bc8-f892-4b8c-9370-c759b890e9e4",
+        "screening_id": "55380422-e07c-466a-bf7c-b9503b2b59f5",
+        "storage_url": "/uploads/fundus_upload_a8903042-0378-41a3-be1c-cb4c7e598aca.jpeg",
+        "original_filename": "1008_right.jpeg",
+        "eye": "right",
+        "device_id": "",
+        "captured_at": "2026-09-29T13:40:32.864Z",
+        "width": 512,
+        "height": 512,
+        "format": "jpeg"
+      }
+    },
+    {
+      "id": "13d97670-3142-4796-8fac-32a0a7dd8bea",
+      "patient_id": "bfe2b186-d3e1-463d-9a1d-f29195dc69ef",
+      "facility_id": "48931743-f3fc-4eee-9467-fdeb984b8129",
+      "status": "completed",
+      "eye": "right",
+      "notes": "Real ASHA smoke test execution",
+      "created_at": "2026-09-29T15:49:02.877Z",
+      "processing_time_ms": 9945,
+      "completed_at": "2026-09-29T15:49:14.368Z",
+      "quality": {
+        "id": "iqa-13d97670",
+        "qualityClass": "Good",
+        "confidence": 0.6141839623451233,
+        "quality_score": 61.4,
+        "decision": "ACCEPT",
+        "status": "accepted",
+        "quality_gate": "good",
+        "sharpness": 0.02,
+        "illumination": 88.45,
+        "fov_coverage": 74.62,
+        "fovCoverage": 74.62,
+        "artifact_area": 0,
+        "artifactArea": 0,
+        "artifact_type": "No Major Artifact",
+        "artifactType": "No Major Artifact",
+        "explanation": "Image quality is suitable for automated DR analysis.",
+        "quality_flags": [
+          "EyeQ Quality Classification: Good (61.4%)",
+          "FOV Retinal Coverage: 74.6%",
+          "Artifact Area: 0.0% (No Major Artifact)"
+        ],
+        "image_id": "9cc9a7b8-eeab-4924-ba30-91efbc25b2f1"
+      },
+      "enhancement": {
+        "id": "enh-13d97670",
+        "enhanced_image_url": "/uploads/enhanced_13d97670.png",
+        "originalContrast": 0.03545366422703811,
+        "enhancedContrast": 0.07721510423669511,
+        "contrastGain": 2.18,
+        "fovCoverage": 74.62014590992646,
+        "method": "Adaptive CLAHE with Green-Channel Luminance Normalization",
+        "processingTimeSec": 0.3088533,
+        "image_id": "9cc9a7b8-eeab-4924-ba30-91efbc25b2f1"
+      },
+      "segmentation": {
+        "id": "seg-13d97670",
+        "vessel_coverage": 16.32,
+        "vesselCoverage": 16.32,
+        "vessel_pixels": 84775,
+        "vesselPixelCount": 84775,
+        "vessel_density": 0.12174718520220588,
+        "vesselDensity": 0.12174718520220588,
+        "vessel_metrics": {
+          "coveragePercent": 16.32,
+          "pixelCount": 84775,
+          "density": 0.1217,
+          "branchingComplexity": 309,
+          "junctionClusters": 309,
+          "vesselEndpoints": 421,
+          "skeletonLength": 7114,
+          "meanCaliber": 7.34,
+          "connectivity": 110,
+          "topologyScale": "800x600 (native matched filter)",
+          "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+        },
+        "vesselMetrics": {
+          "coveragePercent": 16.32,
+          "pixelCount": 84775,
+          "density": 0.1217,
+          "branchingComplexity": 309,
+          "junctionClusters": 309,
+          "vesselEndpoints": 421,
+          "skeletonLength": 7114,
+          "meanCaliber": 7.34,
+          "connectivity": 110,
+          "topologyScale": "800x600 (native matched filter)",
+          "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+        },
+        "lesion_coverage": 0.97,
+        "lesionCoverage": 0.97,
+        "candidate_count": 698,
+        "candidateCount": 698,
+        "totalCandidates": 698,
+        "bright_lesion_count": 147,
+        "brightCandidates": 147,
+        "dark_lesion_count": 551,
+        "darkCandidates": 551,
+        "candidateBreakdown": {
+          "microaneurysmCandidates": 550,
+          "hemorrhageCandidates": 1,
+          "quadrantDistribution": [
+            [
+              1,
+              0,
+              0,
+              0
+            ]
+          ],
+          "hardExudateCandidates": 142,
+          "macularProximityExudates": 4,
+          "csmeRiskCandidateFlag": false,
+          "softExudateCandidates": 5
+        },
+        "candidate_breakdown": {
+          "microaneurysmCandidates": 550,
+          "hemorrhageCandidates": 1,
+          "quadrantDistribution": [
+            [
+              1,
+              0,
+              0,
+              0
+            ]
+          ],
+          "hardExudateCandidates": 142,
+          "macularProximityExudates": 4,
+          "csmeRiskCandidateFlag": false,
+          "softExudateCandidates": 5
+        },
+        "neovascularization": {
+          "status": "unavailable",
+          "confidence": null,
+          "regions": [],
+          "artifact": null,
+          "method": "No dedicated validated NV detector available",
+          "candidateEvidence": "NV CANDIDATE EVIDENCE — NOT A CONFIRMED FINDING: No validated pixel-level detector in repository"
+        },
+        "vessel_mask_url": "/uploads/vessels_13d97670.png",
+        "lesion_mask_url": "/uploads/lesions_13d97670.png",
+        "evidence_overlay_url": "/uploads/retinal_evidence_13d97670.png",
+        "retinal_evidence_url": "/uploads/retinal_evidence_13d97670.png",
+        "lesion_candidates_url": "/uploads/lesion_candidates_13d97670.json",
+        "disclaimer": "Candidate regions segmented by MATLAB Module 3 represent morphological patterns for clinician review and do not constitute independent diagnostic proof.",
+        "processingTimeSec": 3.3632578,
+        "gradcam_lesion_iou": 0.0119,
+        "gradcamLesionIoU": 0.0119,
+        "evidence_json_url": "/uploads/retinal_evidence_13d97670.json",
+        "evidenceJsonUrl": "/uploads/retinal_evidence_13d97670.json",
+        "image_id": "9cc9a7b8-eeab-4924-ba30-91efbc25b2f1"
+      },
+      "classification": {
+        "id": "clf-13d97670",
+        "predicted_grade": 4,
+        "grade_label": "Proliferative Diabetic Retinopathy",
+        "predictedClass": "Grade 0 - No DR",
+        "confidence": 0,
+        "raw_probability": 0.999986840654045,
+        "calibrated_confidence": 99.96,
+        "g2plus_probability_raw": 0.999986840654045,
+        "temperature": 1.4555,
+        "g2plus_probability_calibrated": 0.9995569164164132,
+        "threshold": 0.2993,
+        "referable": true,
+        "decision": "REFER",
+        "classProbabilities": [
+          0.0010579131776466966,
+          0.0001345662458334118,
+          0.006791665218770504,
+          0.171990767121315,
+          0.8200250864028931
+        ],
+        "grade_probabilities": [
+          0.0010579131776466966,
+          0.0001345662458334118,
+          0.006791665218770504,
+          0.171990767121315,
+          0.8200250864028931
+        ],
+        "input_resolution": [
+          512,
+          512,
+          3
+        ],
+        "model_name": "Swin V2 Tiny (Torchvision swin_v2_t)",
+        "model_version": "v1.0-frozen",
+        "dataset_benchmark": "IDRiD / APTOS / EyePACS Multi-Domain Frozen Benchmark",
+        "processingTimeSec": 3.597910000004049,
+        "inference_time": 3.597910000004049,
+        "execution_method": "IN_PROCESS_PERSISTENT_GPU",
+        "screening_id": "13d97670-3142-4796-8fac-32a0a7dd8bea"
+      },
+      "explainability": {
+        "id": "xai-13d97670",
+        "gradcam_url": "/uploads/gradcam_overlay_13d97670.png",
+        "overlay_url": "/uploads/gradcam_overlay_13d97670.png",
+        "raw_url": "/uploads/gradcam_raw_13d97670.png",
+        "mat_url": "/uploads/attribution_matrix_13d97670.mat",
+        "status": "SUCCESS",
+        "feature_layer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+        "featureLayer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+        "execution_environment": "PyTorch AMP FP16",
+        "executionEnvironment": "PyTorch AMP FP16",
+        "evidence_summary": "Swin V2 Tiny Grad-CAM visualizes spatial attention over salient retinal features for Referable DR.",
+        "attention_focus": "Layer backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM) activation concentrated across salient retinal regions.",
+        "gradcam_lesion_iou": 0.0119,
+        "gradcamLesionIoU": 0.0119,
+        "processingTimeSec": 3.597910000004049,
+        "screening_id": "13d97670-3142-4796-8fac-32a0a7dd8bea"
+      },
+      "referral": {
+        "id": "ref-13d97670",
+        "status": "Referral Recommended",
+        "priority": "priority",
+        "recommended_action": "Ophthalmologist Evaluation within 2-4 weeks",
+        "action": "urgent_referral",
+        "recommendedTimeframeDays": 14,
+        "reason": "Referable Diabetic Retinopathy detected (Grade 4, Calibrated P(G2+) = 0.9996 >= 0.2993). Priority clinical referral recommended.",
+        "screening_id": "13d97670-3142-4796-8fac-32a0a7dd8bea"
+      },
+      "final_decision": "REFER"
+    }
+  ],
+  "images": [
+    {
+      "id": "e7b2992f-cba7-4d4e-a19b-58c70cd71d64",
+      "screening_id": "ba04ce94-65aa-4477-b0c9-93d160108def",
+      "storage_url": "/uploads/fundus_upload_e4c5f8b3-ccb5-4118-a340-32edb096eaeb.jpeg",
+      "original_filename": "fundus_upload_e4c5f8b3-ccb5-4118-a340-32edb096eaeb.jpeg",
+      "eye": "right",
+      "device_id": "",
+      "captured_at": "2026-09-29T12:14:38.951Z",
+      "width": 512,
+      "height": 512,
+      "format": "jpeg"
+    },
+    {
+      "id": "5eb76c6b-340b-4ae1-b2a9-76f0153f161d",
+      "screening_id": "c9046cf5-439c-41ad-8f71-6ef4f4b3d81f",
+      "storage_url": "/uploads/fundus_upload_e4c5f8b3-ccb5-4118-a340-32edb096eaeb.jpeg",
+      "original_filename": "fundus_upload_e4c5f8b3-ccb5-4118-a340-32edb096eaeb.jpeg",
+      "eye": "right",
+      "device_id": "",
+      "captured_at": "2026-09-29T12:14:54.314Z",
+      "width": 512,
+      "height": 512,
+      "format": "jpeg"
+    },
+    {
+      "id": "83a342d1-397d-496a-80c8-69881cb3d024",
+      "screening_id": "cacd07ee-8828-4216-af55-f743cffdade0",
+      "storage_url": "/uploads/fundus_upload_e4c5f8b3-ccb5-4118-a340-32edb096eaeb.jpeg",
+      "original_filename": "fundus_test_capture.jpeg",
+      "eye": "right",
+      "device_id": "",
+      "captured_at": "2026-09-29T13:31:02.645Z",
+      "width": 2048,
+      "height": 1536,
+      "format": "image/jpeg"
+    },
+    {
+      "id": "d9f78bc8-f892-4b8c-9370-c759b890e9e4",
+      "screening_id": "55380422-e07c-466a-bf7c-b9503b2b59f5",
+      "storage_url": "/uploads/fundus_upload_a8903042-0378-41a3-be1c-cb4c7e598aca.jpeg",
+      "original_filename": "1008_right.jpeg",
+      "eye": "right",
+      "device_id": "",
+      "captured_at": "2026-09-29T13:40:32.864Z",
+      "width": 512,
+      "height": 512,
+      "format": "jpeg"
+    },
+    {
+      "id": "9cc9a7b8-eeab-4924-ba30-91efbc25b2f1",
+      "screening_id": "13d97670-3142-4796-8fac-32a0a7dd8bea",
+      "storage_url": "/uploads/fundus_upload_51d4030f-65da-480c-807c-33068b365db1.png",
+      "original_filename": "001639a390f0.png",
+      "eye": "right",
+      "device_id": "TOPCON-NW400",
+      "captured_at": "2026-09-29T15:49:02.877Z",
+      "width": 2048,
+      "height": 1536,
+      "format": "image/jpeg"
+    }
+  ],
+  "imageQuality": [
+    {
+      "id": "iqa-ba04ce94",
+      "image_id": "e7b2992f-cba7-4d4e-a19b-58c70cd71d64",
+      "qualityClass": "Usable",
+      "quality_score": 89,
+      "confidence": 0.8895997405052185,
+      "decision": "ACCEPT_FLAG",
+      "sharpness": 0.02,
+      "illumination": 82.35,
+      "fov_coverage": 75.36,
+      "artifact_area": 0,
+      "artifact_type": "No Major Artifact",
+      "status": "accepted",
+      "quality_gate": "good",
+      "quality_flags": [
+        "EyeQ Quality Classification: Usable (89.0%)",
+        "FOV Retinal Coverage: 75.4%",
+        "Artifact Area: 0.0% (No Major Artifact)"
+      ],
+      "rejection_reason": "Image is usable for screening but has reduced image-quality margin. Review the quality flag with the result.",
+      "created_at": "2026-09-29T12:14:38.950Z"
+    },
+    {
+      "id": "iqa-c9046cf5",
+      "image_id": "5eb76c6b-340b-4ae1-b2a9-76f0153f161d",
+      "qualityClass": "Usable",
+      "quality_score": 89,
+      "confidence": 0.8895997405052185,
+      "decision": "ACCEPT_FLAG",
+      "sharpness": 0.02,
+      "illumination": 82.35,
+      "fov_coverage": 75.36,
+      "artifact_area": 0,
+      "artifact_type": "No Major Artifact",
+      "status": "accepted",
+      "quality_gate": "good",
+      "quality_flags": [
+        "EyeQ Quality Classification: Usable (89.0%)",
+        "FOV Retinal Coverage: 75.4%",
+        "Artifact Area: 0.0% (No Major Artifact)"
+      ],
+      "rejection_reason": "Image is usable for screening but has reduced image-quality margin. Review the quality flag with the result.",
+      "created_at": "2026-09-29T12:14:54.314Z"
+    },
+    {
+      "id": "iqa-cacd07ee",
+      "qualityClass": "Usable",
+      "confidence": 0.8895997405052185,
+      "quality_score": 89,
+      "decision": "ACCEPT_FLAG",
+      "status": "accepted",
+      "quality_gate": "usable",
+      "sharpness": 0.02,
+      "illumination": 82.35,
+      "fov_coverage": 75.36,
+      "fovCoverage": 75.36,
+      "artifact_area": 0,
+      "artifactArea": 0,
+      "artifact_type": "No Major Artifact",
+      "artifactType": "No Major Artifact",
+      "explanation": "Image is usable for screening but has reduced image-quality margin. Review the quality flag with the result.",
+      "quality_flags": [
+        "EyeQ Quality Classification: Usable (89.0%)",
+        "FOV Retinal Coverage: 75.4%",
+        "Artifact Area: 0.0% (No Major Artifact)"
+      ],
+      "image_id": "83a342d1-397d-496a-80c8-69881cb3d024"
+    },
+    {
+      "id": "iqa-55380422",
+      "image_id": "d9f78bc8-f892-4b8c-9370-c759b890e9e4",
+      "qualityClass": "Good",
+      "quality_score": 100,
+      "confidence": 1,
+      "decision": "ACCEPT",
+      "sharpness": 0.04,
+      "illumination": 82.99,
+      "fov_coverage": 47.49,
+      "artifact_area": 0,
+      "artifact_type": "No Major Artifact",
+      "status": "accepted",
+      "quality_gate": "good",
+      "quality_flags": [
+        "EyeQ Quality Classification: Good (100.0%)",
+        "FOV Retinal Coverage: 47.5%",
+        "Artifact Area: 0.0% (No Major Artifact)"
+      ],
+      "rejection_reason": "Image quality is suitable for automated DR analysis.",
+      "created_at": "2026-09-29T13:40:32.864Z"
+    },
+    {
+      "id": "iqa-13d97670",
+      "qualityClass": "Good",
+      "confidence": 0.6141839623451233,
+      "quality_score": 61.4,
+      "decision": "ACCEPT",
+      "status": "accepted",
+      "quality_gate": "good",
+      "sharpness": 0.02,
+      "illumination": 88.45,
+      "fov_coverage": 74.62,
+      "fovCoverage": 74.62,
+      "artifact_area": 0,
+      "artifactArea": 0,
+      "artifact_type": "No Major Artifact",
+      "artifactType": "No Major Artifact",
+      "explanation": "Image quality is suitable for automated DR analysis.",
+      "quality_flags": [
+        "EyeQ Quality Classification: Good (61.4%)",
+        "FOV Retinal Coverage: 74.6%",
+        "Artifact Area: 0.0% (No Major Artifact)"
+      ],
+      "image_id": "9cc9a7b8-eeab-4924-ba30-91efbc25b2f1"
+    }
+  ],
+  "enhancements": [
+    {
+      "id": "enh-ba04ce94",
+      "image_id": "e7b2992f-cba7-4d4e-a19b-58c70cd71d64",
+      "enhanced_image_url": "/uploads/enhanced_ba04ce94.png",
+      "method": "Adaptive CLAHE with Green-Channel Luminance Normalization",
+      "originalContrast": 0.10054137202884357,
+      "enhancedContrast": 0.08776795004265857,
+      "contrastGain": 0.87,
+      "fovCoverage": 75.31384402452416,
+      "processing_time_ms": 497,
+      "created_at": "2026-09-29T12:14:38.950Z"
+    },
+    {
+      "id": "enh-c9046cf5",
+      "image_id": "5eb76c6b-340b-4ae1-b2a9-76f0153f161d",
+      "enhanced_image_url": "/uploads/enhanced_c9046cf5.png",
+      "method": "Adaptive CLAHE with Green-Channel Luminance Normalization",
+      "originalContrast": 0.10054137202884357,
+      "enhancedContrast": 0.08776795004265857,
+      "contrastGain": 0.87,
+      "fovCoverage": 75.31384402452416,
+      "processing_time_ms": 175,
+      "created_at": "2026-09-29T12:14:54.314Z"
+    },
+    {
+      "id": "enh-cacd07ee",
+      "enhanced_image_url": "/uploads/enhanced_cacd07ee.png",
+      "originalContrast": 0.10054137202884357,
+      "enhancedContrast": 0.08776795004265857,
+      "contrastGain": 0.87,
+      "fovCoverage": 75.31384402452416,
+      "method": "Adaptive CLAHE with Green-Channel Luminance Normalization",
+      "processingTimeSec": 0.1297974,
+      "image_id": "83a342d1-397d-496a-80c8-69881cb3d024"
+    },
+    {
+      "id": "enh-55380422",
+      "image_id": "d9f78bc8-f892-4b8c-9370-c759b890e9e4",
+      "enhanced_image_url": "/uploads/enhanced_55380422.png",
+      "method": "Adaptive CLAHE with Green-Channel Luminance Normalization",
+      "originalContrast": 0.07352022864743056,
+      "enhancedContrast": 0.09808651151227,
+      "contrastGain": 1.33,
+      "fovCoverage": 47.49096357979502,
+      "processing_time_ms": 550,
+      "created_at": "2026-09-29T13:40:32.864Z"
+    },
+    {
+      "id": "enh-13d97670",
+      "enhanced_image_url": "/uploads/enhanced_13d97670.png",
+      "originalContrast": 0.03545366422703811,
+      "enhancedContrast": 0.07721510423669511,
+      "contrastGain": 2.18,
+      "fovCoverage": 74.62014590992646,
+      "method": "Adaptive CLAHE with Green-Channel Luminance Normalization",
+      "processingTimeSec": 0.3088533,
+      "image_id": "9cc9a7b8-eeab-4924-ba30-91efbc25b2f1"
+    }
+  ],
+  "segmentations": [
+    {
+      "id": "seg-ba04ce94",
+      "image_id": "e7b2992f-cba7-4d4e-a19b-58c70cd71d64",
+      "vessel_coverage": 16.34,
+      "vesselCoverage": 16.34,
+      "vessel_pixels": 86068,
+      "vesselPixelCount": 86068,
+      "vessel_density": 0.12306117313323572,
+      "vesselDensity": 0.12306117313323572,
+      "vessel_metrics": {
+        "coveragePercent": 16.34,
+        "pixelCount": 86068,
+        "density": 0.1231,
+        "branchingComplexity": 386,
+        "junctionClusters": 386,
+        "vesselEndpoints": 366,
+        "skeletonLength": 8684,
+        "meanCaliber": 6.62,
+        "connectivity": 68,
+        "topologyScale": "800x600 (native matched filter)",
+        "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+      },
+      "vesselMetrics": {
+        "coveragePercent": 16.34,
+        "pixelCount": 86068,
+        "density": 0.1231,
+        "branchingComplexity": 386,
+        "junctionClusters": 386,
+        "vesselEndpoints": 366,
+        "skeletonLength": 8684,
+        "meanCaliber": 6.62,
+        "connectivity": 68,
+        "topologyScale": "800x600 (native matched filter)",
+        "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+      },
+      "lesion_coverage": 1.03,
+      "lesionCoverage": 1.03,
+      "candidate_count": 603,
+      "candidateCount": 603,
+      "totalCandidates": 603,
+      "bright_lesion_count": 89,
+      "brightCandidates": 89,
+      "dark_lesion_count": 514,
+      "darkCandidates": 514,
+      "candidateBreakdown": {
+        "microaneurysmCandidates": 514,
+        "hemorrhageCandidates": 0,
+        "quadrantDistribution": [
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "hardExudateCandidates": 82,
+        "macularProximityExudates": 1,
+        "csmeRiskCandidateFlag": false,
+        "softExudateCandidates": 7
+      },
+      "candidate_breakdown": {
+        "microaneurysmCandidates": 514,
+        "hemorrhageCandidates": 0,
+        "quadrantDistribution": [
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "hardExudateCandidates": 82,
+        "macularProximityExudates": 1,
+        "csmeRiskCandidateFlag": false,
+        "softExudateCandidates": 7
+      },
+      "neovascularization": {
+        "status": "unavailable",
+        "confidence": null,
+        "regions": [],
+        "artifact": null,
+        "method": "No dedicated validated NV detector available",
+        "candidateEvidence": "NV CANDIDATE EVIDENCE — NOT A CONFIRMED FINDING: No validated pixel-level detector in repository"
+      },
+      "vessel_mask_url": "/uploads/vessels_ba04ce94.png",
+      "lesion_mask_url": "/uploads/lesions_ba04ce94.png",
+      "evidence_overlay_url": "/uploads/retinal_evidence_ba04ce94.png",
+      "retinal_evidence_url": "/uploads/retinal_evidence_ba04ce94.png",
+      "lesion_candidates_url": "/uploads/lesion_candidates_ba04ce94.json",
+      "evidence_json_url": "/uploads/retinal_evidence_ba04ce94.json",
+      "evidenceJsonUrl": "/uploads/retinal_evidence_ba04ce94.json",
+      "gradcam_lesion_iou": 0.0085,
+      "gradcamLesionIoU": 0.0085,
+      "disclaimer": "Candidate regions segmented by MATLAB Module 3 represent morphological patterns for clinician review and do not constitute independent diagnostic proof.",
+      "processing_time_ms": 1726,
+      "created_at": "2026-09-29T12:14:38.951Z"
+    },
+    {
+      "id": "seg-c9046cf5",
+      "image_id": "5eb76c6b-340b-4ae1-b2a9-76f0153f161d",
+      "vessel_coverage": 16.34,
+      "vesselCoverage": 16.34,
+      "vessel_pixels": 86068,
+      "vesselPixelCount": 86068,
+      "vessel_density": 0.12306117313323572,
+      "vesselDensity": 0.12306117313323572,
+      "vessel_metrics": {
+        "coveragePercent": 16.34,
+        "pixelCount": 86068,
+        "density": 0.1231,
+        "branchingComplexity": 386,
+        "junctionClusters": 386,
+        "vesselEndpoints": 366,
+        "skeletonLength": 8684,
+        "meanCaliber": 6.62,
+        "connectivity": 68,
+        "topologyScale": "800x600 (native matched filter)",
+        "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+      },
+      "vesselMetrics": {
+        "coveragePercent": 16.34,
+        "pixelCount": 86068,
+        "density": 0.1231,
+        "branchingComplexity": 386,
+        "junctionClusters": 386,
+        "vesselEndpoints": 366,
+        "skeletonLength": 8684,
+        "meanCaliber": 6.62,
+        "connectivity": 68,
+        "topologyScale": "800x600 (native matched filter)",
+        "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+      },
+      "lesion_coverage": 1.03,
+      "lesionCoverage": 1.03,
+      "candidate_count": 603,
+      "candidateCount": 603,
+      "totalCandidates": 603,
+      "bright_lesion_count": 89,
+      "brightCandidates": 89,
+      "dark_lesion_count": 514,
+      "darkCandidates": 514,
+      "candidateBreakdown": {
+        "microaneurysmCandidates": 514,
+        "hemorrhageCandidates": 0,
+        "quadrantDistribution": [
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "hardExudateCandidates": 82,
+        "macularProximityExudates": 1,
+        "csmeRiskCandidateFlag": false,
+        "softExudateCandidates": 7
+      },
+      "candidate_breakdown": {
+        "microaneurysmCandidates": 514,
+        "hemorrhageCandidates": 0,
+        "quadrantDistribution": [
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "hardExudateCandidates": 82,
+        "macularProximityExudates": 1,
+        "csmeRiskCandidateFlag": false,
+        "softExudateCandidates": 7
+      },
+      "neovascularization": {
+        "status": "unavailable",
+        "confidence": null,
+        "regions": [],
+        "artifact": null,
+        "method": "No dedicated validated NV detector available",
+        "candidateEvidence": "NV CANDIDATE EVIDENCE — NOT A CONFIRMED FINDING: No validated pixel-level detector in repository"
+      },
+      "vessel_mask_url": "/uploads/vessels_c9046cf5.png",
+      "lesion_mask_url": "/uploads/lesions_c9046cf5.png",
+      "evidence_overlay_url": "/uploads/retinal_evidence_c9046cf5.png",
+      "retinal_evidence_url": "/uploads/retinal_evidence_c9046cf5.png",
+      "lesion_candidates_url": "/uploads/lesion_candidates_c9046cf5.json",
+      "evidence_json_url": "/uploads/retinal_evidence_c9046cf5.json",
+      "evidenceJsonUrl": "/uploads/retinal_evidence_c9046cf5.json",
+      "gradcam_lesion_iou": 0.0085,
+      "gradcamLesionIoU": 0.0085,
+      "disclaimer": "Candidate regions segmented by MATLAB Module 3 represent morphological patterns for clinician review and do not constitute independent diagnostic proof.",
+      "processing_time_ms": 607,
+      "created_at": "2026-09-29T12:14:54.314Z"
+    },
+    {
+      "id": "seg-cacd07ee",
+      "vessel_coverage": 16.34,
+      "vesselCoverage": 16.34,
+      "vessel_pixels": 86068,
+      "vesselPixelCount": 86068,
+      "vessel_density": 0.12306117313323572,
+      "vesselDensity": 0.12306117313323572,
+      "vessel_metrics": {
+        "coveragePercent": 16.34,
+        "pixelCount": 86068,
+        "density": 0.1231,
+        "branchingComplexity": 386,
+        "junctionClusters": 386,
+        "vesselEndpoints": 366,
+        "skeletonLength": 8684,
+        "meanCaliber": 6.62,
+        "connectivity": 68,
+        "topologyScale": "800x600 (native matched filter)",
+        "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+      },
+      "vesselMetrics": {
+        "coveragePercent": 16.34,
+        "pixelCount": 86068,
+        "density": 0.1231,
+        "branchingComplexity": 386,
+        "junctionClusters": 386,
+        "vesselEndpoints": 366,
+        "skeletonLength": 8684,
+        "meanCaliber": 6.62,
+        "connectivity": 68,
+        "topologyScale": "800x600 (native matched filter)",
+        "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+      },
+      "lesion_coverage": 1.03,
+      "lesionCoverage": 1.03,
+      "candidate_count": 603,
+      "candidateCount": 603,
+      "totalCandidates": 603,
+      "bright_lesion_count": 89,
+      "brightCandidates": 89,
+      "dark_lesion_count": 514,
+      "darkCandidates": 514,
+      "candidateBreakdown": {
+        "microaneurysmCandidates": 514,
+        "hemorrhageCandidates": 0,
+        "quadrantDistribution": [
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "hardExudateCandidates": 82,
+        "macularProximityExudates": 1,
+        "csmeRiskCandidateFlag": false,
+        "softExudateCandidates": 7
+      },
+      "candidate_breakdown": {
+        "microaneurysmCandidates": 514,
+        "hemorrhageCandidates": 0,
+        "quadrantDistribution": [
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "hardExudateCandidates": 82,
+        "macularProximityExudates": 1,
+        "csmeRiskCandidateFlag": false,
+        "softExudateCandidates": 7
+      },
+      "neovascularization": {
+        "status": "unavailable",
+        "confidence": null,
+        "regions": [],
+        "artifact": null,
+        "method": "No dedicated validated NV detector available",
+        "candidateEvidence": "NV CANDIDATE EVIDENCE — NOT A CONFIRMED FINDING: No validated pixel-level detector in repository"
+      },
+      "vessel_mask_url": "/uploads/vessels_cacd07ee.png",
+      "lesion_mask_url": "/uploads/lesions_cacd07ee.png",
+      "evidence_overlay_url": "/uploads/retinal_evidence_cacd07ee.png",
+      "retinal_evidence_url": "/uploads/retinal_evidence_cacd07ee.png",
+      "lesion_candidates_url": "/uploads/lesion_candidates_cacd07ee.json",
+      "disclaimer": "Candidate regions segmented by MATLAB Module 3 represent morphological patterns for clinician review and do not constitute independent diagnostic proof.",
+      "processingTimeSec": 0.5196004,
+      "gradcam_lesion_iou": 0.0085,
+      "gradcamLesionIoU": 0.0085,
+      "evidence_json_url": "/uploads/retinal_evidence_cacd07ee.json",
+      "evidenceJsonUrl": "/uploads/retinal_evidence_cacd07ee.json",
+      "image_id": "83a342d1-397d-496a-80c8-69881cb3d024"
+    },
+    {
+      "id": "seg-55380422",
+      "image_id": "d9f78bc8-f892-4b8c-9370-c759b890e9e4",
+      "vessel_coverage": 14.88,
+      "vesselCoverage": 14.88,
+      "vessel_pixels": 49427,
+      "vesselPixelCount": 49427,
+      "vessel_density": 0.07067138314421668,
+      "vesselDensity": 0.07067138314421668,
+      "vessel_metrics": {
+        "coveragePercent": 14.88,
+        "pixelCount": 49427,
+        "density": 0.0707,
+        "branchingComplexity": 249,
+        "junctionClusters": 249,
+        "vesselEndpoints": 302,
+        "skeletonLength": 5387,
+        "meanCaliber": 5.91,
+        "connectivity": 63,
+        "topologyScale": "800x600 (native matched filter)",
+        "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+      },
+      "vesselMetrics": {
+        "coveragePercent": 14.88,
+        "pixelCount": 49427,
+        "density": 0.0707,
+        "branchingComplexity": 249,
+        "junctionClusters": 249,
+        "vesselEndpoints": 302,
+        "skeletonLength": 5387,
+        "meanCaliber": 5.91,
+        "connectivity": 63,
+        "topologyScale": "800x600 (native matched filter)",
+        "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+      },
+      "lesion_coverage": 0.52,
+      "lesionCoverage": 0.52,
+      "candidate_count": 330,
+      "candidateCount": 330,
+      "totalCandidates": 330,
+      "bright_lesion_count": 94,
+      "brightCandidates": 94,
+      "dark_lesion_count": 236,
+      "darkCandidates": 236,
+      "candidateBreakdown": {
+        "microaneurysmCandidates": 235,
+        "hemorrhageCandidates": 1,
+        "quadrantDistribution": [
+          [
+            0,
+            0,
+            1,
+            0
+          ]
+        ],
+        "hardExudateCandidates": 89,
+        "macularProximityExudates": 9,
+        "csmeRiskCandidateFlag": true,
+        "softExudateCandidates": 5
+      },
+      "candidate_breakdown": {
+        "microaneurysmCandidates": 235,
+        "hemorrhageCandidates": 1,
+        "quadrantDistribution": [
+          [
+            0,
+            0,
+            1,
+            0
+          ]
+        ],
+        "hardExudateCandidates": 89,
+        "macularProximityExudates": 9,
+        "csmeRiskCandidateFlag": true,
+        "softExudateCandidates": 5
+      },
+      "neovascularization": {
+        "status": "unavailable",
+        "confidence": null,
+        "regions": [],
+        "artifact": null,
+        "method": "No dedicated validated NV detector available",
+        "candidateEvidence": "NV CANDIDATE EVIDENCE — NOT A CONFIRMED FINDING: No validated pixel-level detector in repository"
+      },
+      "vessel_mask_url": "/uploads/vessels_55380422.png",
+      "lesion_mask_url": "/uploads/lesions_55380422.png",
+      "evidence_overlay_url": "/uploads/retinal_evidence_55380422.png",
+      "retinal_evidence_url": "/uploads/retinal_evidence_55380422.png",
+      "lesion_candidates_url": "/uploads/lesion_candidates_55380422.json",
+      "evidence_json_url": "/uploads/retinal_evidence_55380422.json",
+      "evidenceJsonUrl": "/uploads/retinal_evidence_55380422.json",
+      "gradcam_lesion_iou": 0.0088,
+      "gradcamLesionIoU": 0.0088,
+      "disclaimer": "Candidate regions segmented by MATLAB Module 3 represent morphological patterns for clinician review and do not constitute independent diagnostic proof.",
+      "processing_time_ms": 1661,
+      "created_at": "2026-09-29T13:40:32.864Z"
+    },
+    {
+      "id": "seg-13d97670",
+      "vessel_coverage": 16.32,
+      "vesselCoverage": 16.32,
+      "vessel_pixels": 84775,
+      "vesselPixelCount": 84775,
+      "vessel_density": 0.12174718520220588,
+      "vesselDensity": 0.12174718520220588,
+      "vessel_metrics": {
+        "coveragePercent": 16.32,
+        "pixelCount": 84775,
+        "density": 0.1217,
+        "branchingComplexity": 309,
+        "junctionClusters": 309,
+        "vesselEndpoints": 421,
+        "skeletonLength": 7114,
+        "meanCaliber": 7.34,
+        "connectivity": 110,
+        "topologyScale": "800x600 (native matched filter)",
+        "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+      },
+      "vesselMetrics": {
+        "coveragePercent": 16.32,
+        "pixelCount": 84775,
+        "density": 0.1217,
+        "branchingComplexity": 309,
+        "junctionClusters": 309,
+        "vesselEndpoints": 421,
+        "skeletonLength": 7114,
+        "meanCaliber": 7.34,
+        "connectivity": 110,
+        "topologyScale": "800x600 (native matched filter)",
+        "topologyMethod": "Native-scale 3px spur-pruned junction clusters"
+      },
+      "lesion_coverage": 0.97,
+      "lesionCoverage": 0.97,
+      "candidate_count": 698,
+      "candidateCount": 698,
+      "totalCandidates": 698,
+      "bright_lesion_count": 147,
+      "brightCandidates": 147,
+      "dark_lesion_count": 551,
+      "darkCandidates": 551,
+      "candidateBreakdown": {
+        "microaneurysmCandidates": 550,
+        "hemorrhageCandidates": 1,
+        "quadrantDistribution": [
+          [
+            1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "hardExudateCandidates": 142,
+        "macularProximityExudates": 4,
+        "csmeRiskCandidateFlag": false,
+        "softExudateCandidates": 5
+      },
+      "candidate_breakdown": {
+        "microaneurysmCandidates": 550,
+        "hemorrhageCandidates": 1,
+        "quadrantDistribution": [
+          [
+            1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "hardExudateCandidates": 142,
+        "macularProximityExudates": 4,
+        "csmeRiskCandidateFlag": false,
+        "softExudateCandidates": 5
+      },
+      "neovascularization": {
+        "status": "unavailable",
+        "confidence": null,
+        "regions": [],
+        "artifact": null,
+        "method": "No dedicated validated NV detector available",
+        "candidateEvidence": "NV CANDIDATE EVIDENCE — NOT A CONFIRMED FINDING: No validated pixel-level detector in repository"
+      },
+      "vessel_mask_url": "/uploads/vessels_13d97670.png",
+      "lesion_mask_url": "/uploads/lesions_13d97670.png",
+      "evidence_overlay_url": "/uploads/retinal_evidence_13d97670.png",
+      "retinal_evidence_url": "/uploads/retinal_evidence_13d97670.png",
+      "lesion_candidates_url": "/uploads/lesion_candidates_13d97670.json",
+      "disclaimer": "Candidate regions segmented by MATLAB Module 3 represent morphological patterns for clinician review and do not constitute independent diagnostic proof.",
+      "processingTimeSec": 3.3632578,
+      "gradcam_lesion_iou": 0.0119,
+      "gradcamLesionIoU": 0.0119,
+      "evidence_json_url": "/uploads/retinal_evidence_13d97670.json",
+      "evidenceJsonUrl": "/uploads/retinal_evidence_13d97670.json",
+      "image_id": "9cc9a7b8-eeab-4924-ba30-91efbc25b2f1"
+    }
+  ],
+  "classifications": [
+    {
+      "id": "clf-ba04ce94",
+      "screening_id": "ba04ce94-65aa-4477-b0c9-93d160108def",
+      "predicted_grade": 0,
+      "grade_label": "No Diabetic Retinopathy",
+      "predictedClass": "Grade 0 - No DR",
+      "raw_probability": 0.12259595101567189,
+      "calibrated_confidence": 20.55,
+      "classProbabilities": [
+        0.7883217930793762,
+        0.1260119080543518,
+        0.06198214367032051,
+        0.012139984406530857,
+        0.011544110253453255
+      ],
+      "grade_probabilities": [
+        0.7883217930793762,
+        0.1260119080543518,
+        0.06198214367032051,
+        0.012139984406530857,
+        0.011544110253453255
+      ],
+      "confidence_method": "Platt Scaling (Temperature T*=1.4555)",
+      "confidence_threshold": 0.2993,
+      "threshold": 0.2993,
+      "temperature": 1.4555,
+      "g2plus_probability_raw": 0.12259595101567189,
+      "g2plus_probability_calibrated": 0.20551693235901564,
+      "referable": false,
+      "decision": "SCREEN",
+      "model_name": "Swin V2 Tiny (Torchvision swin_v2_t)",
+      "model_version": "v1.0-frozen",
+      "dataset_benchmark": "IDRiD / APTOS / EyePACS Multi-Domain Frozen Benchmark",
+      "processing_time_ms": 595,
+      "created_at": "2026-09-29T12:14:38.950Z"
+    },
+    {
+      "id": "clf-c9046cf5",
+      "screening_id": "c9046cf5-439c-41ad-8f71-6ef4f4b3d81f",
+      "predicted_grade": 0,
+      "grade_label": "No Diabetic Retinopathy",
+      "predictedClass": "Grade 0 - No DR",
+      "raw_probability": 0.12259595101567189,
+      "calibrated_confidence": 20.55,
+      "classProbabilities": [
+        0.7883217930793762,
+        0.1260119080543518,
+        0.06198214367032051,
+        0.012139984406530857,
+        0.011544110253453255
+      ],
+      "grade_probabilities": [
+        0.7883217930793762,
+        0.1260119080543518,
+        0.06198214367032051,
+        0.012139984406530857,
+        0.011544110253453255
+      ],
+      "confidence_method": "Platt Scaling (Temperature T*=1.4555)",
+      "confidence_threshold": 0.2993,
+      "threshold": 0.2993,
+      "temperature": 1.4555,
+      "g2plus_probability_raw": 0.12259595101567189,
+      "g2plus_probability_calibrated": 0.20551693235901564,
+      "referable": false,
+      "decision": "SCREEN",
+      "model_name": "Swin V2 Tiny (Torchvision swin_v2_t)",
+      "model_version": "v1.0-frozen",
+      "dataset_benchmark": "IDRiD / APTOS / EyePACS Multi-Domain Frozen Benchmark",
+      "processing_time_ms": 529,
+      "created_at": "2026-09-29T12:14:54.314Z"
+    },
+    {
+      "id": "clf-cacd07ee",
+      "predicted_grade": 0,
+      "grade_label": "No Diabetic Retinopathy",
+      "predictedClass": "Grade 0 - No DR",
+      "confidence": 0,
+      "raw_probability": 0.12259595101567189,
+      "calibrated_confidence": 20.55,
+      "g2plus_probability_raw": 0.12259595101567189,
+      "temperature": 1.4555,
+      "g2plus_probability_calibrated": 0.20551693235901564,
+      "threshold": 0.2993,
+      "referable": false,
+      "decision": "SCREEN",
+      "classProbabilities": [
+        0.7883217930793762,
+        0.1260119080543518,
+        0.06198214367032051,
+        0.012139984406530857,
+        0.011544110253453255
+      ],
+      "grade_probabilities": [
+        0.7883217930793762,
+        0.1260119080543518,
+        0.06198214367032051,
+        0.012139984406530857,
+        0.011544110253453255
+      ],
+      "input_resolution": [
+        512,
+        512,
+        3
+      ],
+      "model_name": "Swin V2 Tiny (Torchvision swin_v2_t)",
+      "model_version": "v1.0-frozen",
+      "dataset_benchmark": "IDRiD / APTOS / EyePACS Multi-Domain Frozen Benchmark",
+      "processingTimeSec": 0.4865374000000884,
+      "inference_time": 0.4865374000000884,
+      "execution_method": "IN_PROCESS_PERSISTENT_GPU",
+      "screening_id": "cacd07ee-8828-4216-af55-f743cffdade0"
+    },
+    {
+      "id": "clf-55380422",
+      "screening_id": "55380422-e07c-466a-bf7c-b9503b2b59f5",
+      "predicted_grade": 3,
+      "grade_label": "Severe Non-Proliferative DR",
+      "predictedClass": "Grade 0 - No DR",
+      "raw_probability": 0.9999637777064042,
+      "calibrated_confidence": 99.91,
+      "classProbabilities": [
+        0.0021519705187529325,
+        0.0009581573540344834,
+        0.14403460919857025,
+        0.7583951354026794,
+        0.09446007013320923
+      ],
+      "grade_probabilities": [
+        0.0021519705187529325,
+        0.0009581573540344834,
+        0.14403460919857025,
+        0.7583951354026794,
+        0.09446007013320923
+      ],
+      "confidence_method": "Platt Scaling (Temperature T*=1.4555)",
+      "confidence_threshold": 0.2993,
+      "threshold": 0.2993,
+      "temperature": 1.4555,
+      "g2plus_probability_raw": 0.9999637777064042,
+      "g2plus_probability_calibrated": 0.9991119788929296,
+      "referable": true,
+      "decision": "REFER",
+      "model_name": "Swin V2 Tiny (Torchvision swin_v2_t)",
+      "model_version": "v1.0-frozen",
+      "dataset_benchmark": "IDRiD / APTOS / EyePACS Multi-Domain Frozen Benchmark",
+      "processing_time_ms": 874,
+      "created_at": "2026-09-29T13:40:32.864Z"
+    },
+    {
+      "id": "clf-13d97670",
+      "predicted_grade": 4,
+      "grade_label": "Proliferative Diabetic Retinopathy",
+      "predictedClass": "Grade 0 - No DR",
+      "confidence": 0,
+      "raw_probability": 0.999986840654045,
+      "calibrated_confidence": 99.96,
+      "g2plus_probability_raw": 0.999986840654045,
+      "temperature": 1.4555,
+      "g2plus_probability_calibrated": 0.9995569164164132,
+      "threshold": 0.2993,
+      "referable": true,
+      "decision": "REFER",
+      "classProbabilities": [
+        0.0010579131776466966,
+        0.0001345662458334118,
+        0.006791665218770504,
+        0.171990767121315,
+        0.8200250864028931
+      ],
+      "grade_probabilities": [
+        0.0010579131776466966,
+        0.0001345662458334118,
+        0.006791665218770504,
+        0.171990767121315,
+        0.8200250864028931
+      ],
+      "input_resolution": [
+        512,
+        512,
+        3
+      ],
+      "model_name": "Swin V2 Tiny (Torchvision swin_v2_t)",
+      "model_version": "v1.0-frozen",
+      "dataset_benchmark": "IDRiD / APTOS / EyePACS Multi-Domain Frozen Benchmark",
+      "processingTimeSec": 3.597910000004049,
+      "inference_time": 3.597910000004049,
+      "execution_method": "IN_PROCESS_PERSISTENT_GPU",
+      "screening_id": "13d97670-3142-4796-8fac-32a0a7dd8bea"
+    }
+  ],
+  "explainability": [
+    {
+      "id": "xai-ba04ce94",
+      "screening_id": "ba04ce94-65aa-4477-b0c9-93d160108def",
+      "gradcam_url": "/uploads/gradcam_overlay_ba04ce94.png",
+      "status": "SUCCESS",
+      "featureLayer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+      "executionEnvironment": "PyTorch AMP FP16",
+      "evidence_summary": "Swin V2 Tiny Grad-CAM visualizes spatial attention over salient retinal features for Non-Referable screening.",
+      "evidence_regions": [],
+      "attention_focus": "Layer backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM) activation concentrated across salient retinal regions.",
+      "created_at": "2026-09-29T12:14:38.951Z"
+    },
+    {
+      "id": "xai-c9046cf5",
+      "screening_id": "c9046cf5-439c-41ad-8f71-6ef4f4b3d81f",
+      "gradcam_url": "/uploads/gradcam_overlay_c9046cf5.png",
+      "status": "SUCCESS",
+      "featureLayer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+      "executionEnvironment": "PyTorch AMP FP16",
+      "evidence_summary": "Swin V2 Tiny Grad-CAM visualizes spatial attention over salient retinal features for Non-Referable screening.",
+      "evidence_regions": [],
+      "attention_focus": "Layer backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM) activation concentrated across salient retinal regions.",
+      "created_at": "2026-09-29T12:14:54.314Z"
+    },
+    {
+      "id": "xai-cacd07ee",
+      "gradcam_url": "/uploads/gradcam_overlay_cacd07ee.png",
+      "overlay_url": "/uploads/gradcam_overlay_cacd07ee.png",
+      "raw_url": "/uploads/gradcam_raw_cacd07ee.png",
+      "mat_url": "/uploads/attribution_matrix_cacd07ee.mat",
+      "status": "SUCCESS",
+      "feature_layer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+      "featureLayer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+      "execution_environment": "PyTorch AMP FP16",
+      "executionEnvironment": "PyTorch AMP FP16",
+      "evidence_summary": "Swin V2 Tiny Grad-CAM visualizes spatial attention over salient retinal features for Non-Referable screening.",
+      "attention_focus": "Layer backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM) activation concentrated across salient retinal regions.",
+      "gradcam_lesion_iou": 0.0085,
+      "gradcamLesionIoU": 0.0085,
+      "processingTimeSec": 0.4865374000000884,
+      "screening_id": "cacd07ee-8828-4216-af55-f743cffdade0"
+    },
+    {
+      "id": "xai-55380422",
+      "screening_id": "55380422-e07c-466a-bf7c-b9503b2b59f5",
+      "gradcam_url": "/uploads/gradcam_overlay_55380422.png",
+      "status": "SUCCESS",
+      "featureLayer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+      "executionEnvironment": "PyTorch AMP FP16",
+      "evidence_summary": "Swin V2 Tiny Grad-CAM visualizes spatial attention over salient retinal features for Referable DR.",
+      "evidence_regions": [],
+      "attention_focus": "Layer backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM) activation concentrated across salient retinal regions.",
+      "created_at": "2026-09-29T13:40:32.864Z"
+    },
+    {
+      "id": "xai-13d97670",
+      "gradcam_url": "/uploads/gradcam_overlay_13d97670.png",
+      "overlay_url": "/uploads/gradcam_overlay_13d97670.png",
+      "raw_url": "/uploads/gradcam_raw_13d97670.png",
+      "mat_url": "/uploads/attribution_matrix_13d97670.mat",
+      "status": "SUCCESS",
+      "feature_layer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+      "featureLayer": "backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM)",
+      "execution_environment": "PyTorch AMP FP16",
+      "executionEnvironment": "PyTorch AMP FP16",
+      "evidence_summary": "Swin V2 Tiny Grad-CAM visualizes spatial attention over salient retinal features for Referable DR.",
+      "attention_focus": "Layer backbone.features[5]+[7] (Multi-Scale Spatial Grad-CAM) activation concentrated across salient retinal regions.",
+      "gradcam_lesion_iou": 0.0119,
+      "gradcamLesionIoU": 0.0119,
+      "processingTimeSec": 3.597910000004049,
+      "screening_id": "13d97670-3142-4796-8fac-32a0a7dd8bea"
+    }
+  ],
+  "referrals": [
+    {
+      "id": "ref_scr_demo_002",
+      "screening_id": "scr_demo_002",
+      "status": "pending_evaluation",
+      "priority": "routine",
+      "reason": "Clinical Review Action",
+      "action_taken": "referral_completed",
+      "action_notes": "Ophthalmologist review complete: Confirmed moderate non-proliferative diabetic retinopathy with localized microaneurysms.",
+      "created_at": "2026-09-29T11:48:59.211Z",
+      "completed_at": "2026-09-29T11:48:59.210Z"
+    },
+    {
+      "id": "ref-ba04ce94",
+      "screening_id": "ba04ce94-65aa-4477-b0c9-93d160108def",
+      "status": "Routine Screening Complete",
+      "priority": "none",
+      "reason": "No referable Diabetic Retinopathy detected (Grade 0, Calibrated P(G2+) = 0.2055 < 0.2993). Routine annual screening recommended.",
+      "action_taken": "referral_pending",
+      "recommended_action": "Annual Tele-Screening Review",
+      "created_at": "2026-09-29T12:14:38.951Z"
+    },
+    {
+      "id": "ref-c9046cf5",
+      "screening_id": "c9046cf5-439c-41ad-8f71-6ef4f4b3d81f",
+      "status": "Routine Screening Complete",
+      "priority": "none",
+      "reason": "No referable Diabetic Retinopathy detected (Grade 0, Calibrated P(G2+) = 0.2055 < 0.2993). Routine annual screening recommended.",
+      "action_taken": "referral_pending",
+      "recommended_action": "Annual Tele-Screening Review",
+      "created_at": "2026-09-29T12:14:54.314Z"
+    },
+    {
+      "id": "ref-cacd07ee",
+      "status": "Routine Screening Complete",
+      "priority": "none",
+      "recommended_action": "Annual Tele-Screening Review",
+      "action": "routine_screening",
+      "recommendedTimeframeDays": 365,
+      "reason": "No referable Diabetic Retinopathy detected (Grade 0, Calibrated P(G2+) = 0.2055 < 0.2993). Routine annual screening recommended.",
+      "screening_id": "cacd07ee-8828-4216-af55-f743cffdade0"
+    },
+    {
+      "id": "ref-55380422",
+      "screening_id": "55380422-e07c-466a-bf7c-b9503b2b59f5",
+      "status": "Referral Recommended",
+      "priority": "priority",
+      "reason": "Referable Diabetic Retinopathy detected (Grade 3, Calibrated P(G2+) = 0.9991 >= 0.2993). Priority clinical referral recommended.",
+      "action_taken": "referral_pending",
+      "recommended_action": "Ophthalmologist Evaluation within 2-4 weeks",
+      "created_at": "2026-09-29T13:40:32.864Z"
+    },
+    {
+      "id": "ref-13d97670",
+      "status": "Referral Recommended",
+      "priority": "priority",
+      "recommended_action": "Ophthalmologist Evaluation within 2-4 weeks",
+      "action": "urgent_referral",
+      "recommendedTimeframeDays": 14,
+      "reason": "Referable Diabetic Retinopathy detected (Grade 4, Calibrated P(G2+) = 0.9996 >= 0.2993). Priority clinical referral recommended.",
+      "screening_id": "13d97670-3142-4796-8fac-32a0a7dd8bea"
+    }
+  ],
+  "screeningEvents": [
+    {
+      "id": "483f7d3c-66e8-4187-92dc-9ffb50a889b7",
+      "screening_id": "scr_demo_002",
+      "event_type": "Referral Action Recorded (referral completed)",
+      "status": "completed",
+      "user_id": "usr_health_doctor",
+      "user_name": "Dr. Demo Reviewing Ophthalmologist",
+      "timestamp": "2026-09-29T11:48:59.211Z",
+      "metadata": {
+        "action_taken": "referral_completed",
+        "notes": "Ophthalmologist review complete: Confirmed moderate non-proliferative diabetic retinopathy with localized microaneurysms."
+      }
+    },
+    {
+      "id": "7b4df907-8058-4bb9-8f64-8ed624d8e43d",
+      "screening_id": "cacd07ee-8828-4216-af55-f743cffdade0",
+      "event_type": "Screening Session Initialized",
+      "status": "completed",
+      "user_id": "44930d59-0a1c-4868-aa1e-27021ebf490e",
+      "user_name": "District Reviewing Ophthalmologist",
+      "timestamp": "2026-09-29T13:31:02.645Z",
+      "metadata": {
+        "eye": "right"
+      }
+    },
+    {
+      "id": "759cd368-3419-4d54-9351-8b82111b95b7",
+      "screening_id": "cacd07ee-8828-4216-af55-f743cffdade0",
+      "event_type": "Fundus Image Acquired & Registered",
+      "status": "completed",
+      "user_id": "44930d59-0a1c-4868-aa1e-27021ebf490e",
+      "user_name": "District Reviewing Ophthalmologist",
+      "timestamp": "2026-09-29T13:31:02.649Z",
+      "metadata": {
+        "image_id": "83a342d1-397d-496a-80c8-69881cb3d024",
+        "device_id": ""
+      }
+    },
+    {
+      "id": "f4850910-57fe-48e4-8305-f5707b8f7b2a",
+      "screening_id": "cacd07ee-8828-4216-af55-f743cffdade0",
+      "event_type": "AI Inference Pipeline Triggered",
+      "status": "processing",
+      "user_id": "44930d59-0a1c-4868-aa1e-27021ebf490e",
+      "user_name": "District Reviewing Ophthalmologist",
+      "timestamp": "2026-09-29T13:31:02.656Z"
+    },
+    {
+      "id": "283d2891-b3e8-40d2-91bb-d85914097da9",
+      "screening_id": "cacd07ee-8828-4216-af55-f743cffdade0",
+      "event_type": "AI Multi-Stage Analysis Complete (SCREEN)",
+      "status": "completed",
+      "user_name": "MATLAB AI Engine (Swin V2 Tiny)",
+      "timestamp": "2026-09-29T13:31:04.863Z",
+      "metadata": {
+        "decision": "SCREEN",
+        "grade": 0,
+        "calibrated_confidence": 20.55,
+        "g2plus_probability_calibrated": 0.20551693235901564,
+        "threshold": 0.2993,
+        "referral": "Routine Screening Complete"
+      }
+    },
+    {
+      "id": "4b3d7213-512f-439c-bb19-fde5914e3978",
+      "screening_id": "13d97670-3142-4796-8fac-32a0a7dd8bea",
+      "event_type": "Screening Session Initialized",
+      "status": "completed",
+      "user_id": "c82f26f5-0f77-451b-af9b-4bd85f22250e",
+      "user_name": "Primary Health Screener / ASHA",
+      "timestamp": "2026-09-29T15:49:02.877Z",
+      "metadata": {
+        "eye": "right"
+      }
+    },
+    {
+      "id": "df016671-a9b3-4fc8-ac9d-fcdc09d810d2",
+      "screening_id": "13d97670-3142-4796-8fac-32a0a7dd8bea",
+      "event_type": "Fundus Image Acquired & Registered",
+      "status": "completed",
+      "user_id": "c82f26f5-0f77-451b-af9b-4bd85f22250e",
+      "user_name": "Primary Health Screener / ASHA",
+      "timestamp": "2026-09-29T15:49:02.883Z",
+      "metadata": {
+        "image_id": "9cc9a7b8-eeab-4924-ba30-91efbc25b2f1",
+        "device_id": "TOPCON-NW400"
+      }
+    },
+    {
+      "id": "5f5383db-628e-4bed-ad97-cb89bc1de617",
+      "screening_id": "13d97670-3142-4796-8fac-32a0a7dd8bea",
+      "event_type": "AI Inference Pipeline Triggered",
+      "status": "processing",
+      "user_id": "c82f26f5-0f77-451b-af9b-4bd85f22250e",
+      "user_name": "Primary Health Screener / ASHA",
+      "timestamp": "2026-09-29T15:49:02.894Z"
+    },
+    {
+      "id": "5e1c8db1-c01c-452f-ac98-d48194c2593b",
+      "screening_id": "13d97670-3142-4796-8fac-32a0a7dd8bea",
+      "event_type": "AI Multi-Stage Analysis Complete (REFER)",
+      "status": "completed",
+      "user_name": "MATLAB AI Engine (Swin V2 Tiny)",
+      "timestamp": "2026-09-29T15:49:14.368Z",
+      "metadata": {
+        "decision": "REFER",
+        "grade": 4,
+        "calibrated_confidence": 99.96,
+        "g2plus_probability_calibrated": 0.9995569164164132,
+        "threshold": 0.2993,
+        "referral": "Referral Recommended"
+      }
+    }
+  ],
+  "simulationRuns": [
+    {
+      "id": "c2d340d5-83bf-444a-bd6c-ba15f73509aa",
+      "facility_id": "48931743-f3fc-4eee-9467-fdeb984b8129",
+      "title": "District Operational Capacity Benchmark",
+      "parameters": {
+        "title": "District Operational Capacity Benchmark",
+        "facilityId": "48931743-f3fc-4eee-9467-fdeb984b8129",
+        "patientArrivalRate": 120,
+        "cameras": 2,
+        "imageAcquisitionTime": 3,
+        "qualityRejectionRate": 0.22,
+        "aiProcessingTime": 1.5,
+        "aiResources": 1,
+        "doctorReviewTime": 6,
+        "doctors": 2,
+        "workingHours": 8,
+        "simulationDuration": 30,
+        "connectivityBandwidthMbps": 4
+      },
+      "status": "completed",
+      "created_by": "5238b522-6767-4ed3-9815-174283297fdb",
+      "created_at": "2026-02-10T10:00:00.000Z",
+      "completed_at": "2026-02-10T10:00:05.000Z",
+      "result": {
+        "id": "8c6ba06a-372e-4472-bd06-e4c3999e2699",
+        "simulationRunId": "c2d340d5-83bf-444a-bd6c-ba15f73509aa",
+        "totalPatients": 3600,
+        "patientsProcessed": 3340,
+        "patientsWaiting": 260,
+        "throughput": 111.3,
+        "averageWaitingTime": 28.5,
+        "maxWaitingTime": 64,
+        "cameraUtilization": 78.4,
+        "aiUtilization": 34.2,
+        "doctorUtilization": 89.6,
+        "rejectedImages": 792,
+        "referralLoad": 1135,
+        "bottleneck": "Doctor Review",
+        "additionalResources": {
+          "recommendedCameras": 0,
+          "recommendedAiWorkers": 0,
+          "recommendedDoctors": 1,
+          "bandwidthSuggestionMbps": 4,
+          "notes": "Doctor review queue reaches 89.6% capacity during peak hours. Adding 1 visiting ophthalmologist will reduce patient waiting time to under 12 min."
+        },
+        "dailyThroughputSeries": [
+          {
+            "day": 1,
+            "arrived": 113,
+            "screened": 105,
+            "referred": 35,
+            "avgWaitMin": 30
+          },
+          {
+            "day": 2,
+            "arrived": 123,
+            "screened": 118,
+            "referred": 36,
+            "avgWaitMin": 30
+          },
+          {
+            "day": 3,
+            "arrived": 125,
+            "screened": 115,
+            "referred": 39,
+            "avgWaitMin": 25
+          },
+          {
+            "day": 4,
+            "arrived": 117,
+            "screened": 111,
+            "referred": 36,
+            "avgWaitMin": 31
+          },
+          {
+            "day": 5,
+            "arrived": 101,
+            "screened": 96,
+            "referred": 35,
+            "avgWaitMin": 32
+          },
+          {
+            "day": 6,
+            "arrived": 102,
+            "screened": 96,
+            "referred": 36,
+            "avgWaitMin": 24
+          },
+          {
+            "day": 7,
+            "arrived": 111,
+            "screened": 101,
+            "referred": 38,
+            "avgWaitMin": 29
+          },
+          {
+            "day": 8,
+            "arrived": 122,
+            "screened": 114,
+            "referred": 41,
+            "avgWaitMin": 30
+          },
+          {
+            "day": 9,
+            "arrived": 127,
+            "screened": 117,
+            "referred": 37,
+            "avgWaitMin": 24
+          },
+          {
+            "day": 10,
+            "arrived": 121,
+            "screened": 111,
+            "referred": 40,
+            "avgWaitMin": 26
+          },
+          {
+            "day": 11,
+            "arrived": 107,
+            "screened": 99,
+            "referred": 37,
+            "avgWaitMin": 25
+          },
+          {
+            "day": 12,
+            "arrived": 99,
+            "screened": 96,
+            "referred": 36,
+            "avgWaitMin": 29
+          },
+          {
+            "day": 13,
+            "arrived": 102,
+            "screened": 102,
+            "referred": 37,
+            "avgWaitMin": 26
+          },
+          {
+            "day": 14,
+            "arrived": 120,
+            "screened": 113,
+            "referred": 37,
+            "avgWaitMin": 27
+          },
+          {
+            "day": 15,
+            "arrived": 126,
+            "screened": 117,
+            "referred": 42,
+            "avgWaitMin": 26
+          },
+          {
+            "day": 16,
+            "arrived": 121,
+            "screened": 116,
+            "referred": 35,
+            "avgWaitMin": 25
+          },
+          {
+            "day": 17,
+            "arrived": 108,
+            "screened": 103,
+            "referred": 35,
+            "avgWaitMin": 24
+          },
+          {
+            "day": 18,
+            "arrived": 101,
+            "screened": 97,
+            "referred": 39,
+            "avgWaitMin": 24
+          },
+          {
+            "day": 19,
+            "arrived": 98,
+            "screened": 95,
+            "referred": 35,
+            "avgWaitMin": 27
+          },
+          {
+            "day": 20,
+            "arrived": 117,
+            "screened": 111,
+            "referred": 41,
+            "avgWaitMin": 28
+          },
+          {
+            "day": 21,
+            "arrived": 127,
+            "screened": 119,
+            "referred": 37,
+            "avgWaitMin": 24
+          },
+          {
+            "day": 22,
+            "arrived": 124,
+            "screened": 120,
+            "referred": 38,
+            "avgWaitMin": 30
+          },
+          {
+            "day": 23,
+            "arrived": 109,
+            "screened": 108,
+            "referred": 40,
+            "avgWaitMin": 28
+          },
+          {
+            "day": 24,
+            "arrived": 101,
+            "screened": 96,
+            "referred": 39,
+            "avgWaitMin": 30
+          },
+          {
+            "day": 25,
+            "arrived": 101,
+            "screened": 98,
+            "referred": 42,
+            "avgWaitMin": 28
+          },
+          {
+            "day": 26,
+            "arrived": 114,
+            "screened": 104,
+            "referred": 37,
+            "avgWaitMin": 29
+          },
+          {
+            "day": 27,
+            "arrived": 122,
+            "screened": 118,
+            "referred": 37,
+            "avgWaitMin": 29
+          },
+          {
+            "day": 28,
+            "arrived": 130,
+            "screened": 116,
+            "referred": 36,
+            "avgWaitMin": 25
+          },
+          {
+            "day": 29,
+            "arrived": 121,
+            "screened": 111,
+            "referred": 40,
+            "avgWaitMin": 25
+          },
+          {
+            "day": 30,
+            "arrived": 104,
+            "screened": 102,
+            "referred": 41,
+            "avgWaitMin": 24
+          }
+        ],
+        "queueDepthSeries": [
+          {
+            "timeHour": 9,
+            "cameraQueue": 3,
+            "aiQueue": 1,
+            "doctorQueue": 2
+          },
+          {
+            "timeHour": 10,
+            "cameraQueue": 7,
+            "aiQueue": 2,
+            "doctorQueue": 8
+          },
+          {
+            "timeHour": 11,
+            "cameraQueue": 12,
+            "aiQueue": 3,
+            "doctorQueue": 16
+          },
+          {
+            "timeHour": 12,
+            "cameraQueue": 9,
+            "aiQueue": 2,
+            "doctorQueue": 18
+          },
+          {
+            "timeHour": 13,
+            "cameraQueue": 4,
+            "aiQueue": 1,
+            "doctorQueue": 12
+          },
+          {
+            "timeHour": 14,
+            "cameraQueue": 6,
+            "aiQueue": 2,
+            "doctorQueue": 10
+          },
+          {
+            "timeHour": 15,
+            "cameraQueue": 8,
+            "aiQueue": 2,
+            "doctorQueue": 9
+          },
+          {
+            "timeHour": 16,
+            "cameraQueue": 2,
+            "aiQueue": 0,
+            "doctorQueue": 3
+          }
+        ]
+      }
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "9d8c1d1d-b000-40ef-8a55-fed28642343e",
+      "timestamp": "2026-09-29T10:37:26.128Z",
+      "user_id": "c82f26f5-0f77-451b-af9b-4bd85f22250e",
+      "action": "USER_LOGIN",
+      "entity": "User",
+      "entity_id": "c82f26f5-0f77-451b-af9b-4bd85f22250e",
+      "metadata": {
+        "role": "healthcare_worker"
+      }
+    },
+    {
+      "id": "e976da74-93b6-4e69-8518-69caf5eb103f",
+      "timestamp": "2026-09-29T10:38:02.899Z",
+      "user_id": "c82f26f5-0f77-451b-af9b-4bd85f22250e",
+      "action": "USER_LOGIN",
+      "entity": "User",
+      "entity_id": "c82f26f5-0f77-451b-af9b-4bd85f22250e",
+      "metadata": {
+        "role": "healthcare_worker"
+      }
+    },
+    {
+      "id": "0d3c8121-e60a-4012-baae-09d6d51fbd3a",
+      "timestamp": "2026-09-29T10:38:17.603Z",
+      "user_id": "c82f26f5-0f77-451b-af9b-4bd85f22250e",
+      "action": "PATIENT_REGISTERED",
+      "entity": "Patient",
+      "entity_id": "8a679449-21b2-4f06-8b1f-226ebff4b62c",
+      "metadata": {
+        "patient_code": "DR-MH-2026-0001",
+        "name": "hemanth"
+      }
+    },
+    {
+      "id": "4f87b5eb-4e21-4990-8f6a-d6b43fbe4935",
+      "timestamp": "2026-09-29T11:51:52.480Z",
+      "user_id": "c82f26f5-0f77-451b-af9b-4bd85f22250e",
+      "action": "PATIENT_REGISTERED",
+      "entity": "Patient",
+      "entity_id": "bfe2b186-d3e1-463d-9a1d-f29195dc69ef",
+      "metadata": {
+        "patient_code": "DR-MH-2026-0007",
+        "name": "hemanth"
+      }
+    },
+    {
+      "id": "6550471a-a550-44ea-9d1c-021e5d1839a4",
+      "timestamp": "2026-09-29T13:31:02.635Z",
+      "user_id": "44930d59-0a1c-4868-aa1e-27021ebf490e",
+      "action": "USER_LOGIN",
+      "entity": "User",
+      "entity_id": "44930d59-0a1c-4868-aa1e-27021ebf490e",
+      "metadata": {
+        "role": "doctor"
+      }
+    },
+    {
+      "id": "af479624-05a4-4d91-a5a9-bd9aafdb93fe",
+      "timestamp": "2026-09-29T13:31:45.664Z",
+      "user_id": "44930d59-0a1c-4868-aa1e-27021ebf490e",
+      "action": "USER_LOGIN",
+      "entity": "User",
+      "entity_id": "44930d59-0a1c-4868-aa1e-27021ebf490e",
+      "metadata": {
+        "role": "doctor"
+      }
+    },
+    {
+      "id": "6ae5e9e2-b5b2-46f4-b9be-b4ae1d665760",
+      "timestamp": "2026-09-29T15:49:02.694Z",
+      "user_id": "c82f26f5-0f77-451b-af9b-4bd85f22250e",
+      "action": "USER_LOGIN",
+      "entity": "User",
+      "entity_id": "c82f26f5-0f77-451b-af9b-4bd85f22250e",
+      "metadata": {
+        "role": "healthcare_worker"
+      }
+    }
+  ],
+  "organizations": [
+    {
+      "organization_id": "org_retinova_health",
+      "organization_name": "RETINOVA Healthcare Demo",
+      "organization_type": "HEALTHCARE",
+      "subscription_plan": "PRO",
+      "status": "ACTIVE",
+      "isDemo": true,
+      "created_at": "2026-01-01T00:00:00.000Z",
+      "updated_at": "2026-09-29T15:52:35.157Z",
+      "contact_email": "healthcare.demo@retinova.ai",
+      "contact_phone": "+91 20 4012 3456",
+      "country": "India",
+      "amc_expiry": "2027-06-30T23:59:59Z",
+      "configuration": {
+        "enabledWorkflows": [
+          "retinal_dr_swinv2"
+        ],
+        "confidenceThreshold": 0.75,
+        "severityEscalationRules": {
+          "notifySNSOnHigh": true,
+          "notifySNSOnCritical": true,
+          "requireReviewForHigh": true
+        },
+        "evidenceRetentionDays": 365,
+        "branding": {
+          "companyName": "RETINOVA Healthcare Demo",
+          "dashboardTitle": "Diabetic Retinopathy Screening Workspace",
+          "primaryColor": "#0D5E5E"
+        },
+        "limits": {
+          "maxDevices": 25,
+          "maxUsers": 50,
+          "maxMonthlyEvents": 10000,
+          "storageLimitGb": 50
+        }
+      }
+    },
+    {
+      "organization_id": "org_apex_insurance",
+      "organization_name": "RETINOVA Insurance Demo",
+      "organization_type": "INSURANCE",
+      "subscription_plan": "ENTERPRISE",
+      "status": "ACTIVE",
+      "isDemo": true,
+      "created_at": "2026-02-15T00:00:00.000Z",
+      "updated_at": "2026-09-29T15:52:35.157Z",
+      "contact_email": "insurance.demo@retinova.ai",
+      "contact_phone": "+91 22 6789 0123",
+      "country": "India",
+      "amc_expiry": "2027-08-31T23:59:59Z",
+      "configuration": {
+        "enabledWorkflows": [
+          "asset_damage_v1"
+        ],
+        "confidenceThreshold": 0.8,
+        "severityEscalationRules": {
+          "notifySNSOnHigh": true,
+          "notifySNSOnCritical": true,
+          "requireReviewForHigh": true
+        },
+        "evidenceRetentionDays": 730,
+        "branding": {
+          "companyName": "RETINOVA Insurance Demo",
+          "dashboardTitle": "Asset Damage Assessment Workspace",
+          "primaryColor": "#152845"
+        },
+        "limits": {
+          "maxDevices": 50,
+          "maxUsers": 100,
+          "maxMonthlyEvents": 25000,
+          "storageLimitGb": 150
+        }
+      }
+    }
+  ],
+  "platformUsers": [
+    {
+      "id": "usr_platform_superadmin",
+      "email": "superadmin@retinova.ai",
+      "password_hash": "$2a$10$wT80W3b4n7p5a7Z4l2o5EuB4s1Wp8Y0y0X/M9Z4r0v1Wp8Y0y0X/M",
+      "full_name": "Platform Chief Technical Architect",
+      "organization_id": "org_retinova_health",
+      "role": "PLATFORM_ADMIN",
+      "is_active": true,
+      "created_at": "2026-01-01T00:00:00.000Z",
+      "updated_at": "2026-09-29T15:52:35.157Z"
+    },
+    {
+      "id": "usr_health_admin",
+      "email": "health.admin@nhm.gov.in",
+      "password_hash": "$2a$10$wT80W3b4n7p5a7Z4l2o5EuB4s1Wp8Y0y0X/M9Z4r0v1Wp8Y0y0X/M",
+      "full_name": "Dr. Ananya Rao (State Nodal Officer)",
+      "organization_id": "org_retinova_health",
+      "role": "ORG_ADMIN",
+      "is_active": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-09-29T15:52:35.157Z"
+    },
+    {
+      "id": "usr_health_operator",
+      "email": "screener@nhm.gov.in",
+      "password_hash": "$2a$10$wT80W3b4n7p5a7Z4l2o5EuB4s1Wp8Y0y0X/M9Z4r0v1Wp8Y0y0X/M",
+      "full_name": "Kavitha R. (Lead Screener)",
+      "organization_id": "org_retinova_health",
+      "role": "OPERATOR",
+      "is_active": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-09-29T15:52:35.157Z"
+    },
+    {
+      "id": "usr_insurance_admin",
+      "email": "admin@apexinsurance.com",
+      "password_hash": "$2a$10$wT80W3b4n7p5a7Z4l2o5EuB4s1Wp8Y0y0X/M9Z4r0v1Wp8Y0y0X/M",
+      "full_name": "Marcus Vance (VP Claims)",
+      "organization_id": "org_apex_insurance",
+      "role": "ORG_ADMIN",
+      "is_active": true,
+      "created_at": "2026-02-15T00:00:00.000Z",
+      "updated_at": "2026-09-29T15:52:35.157Z"
+    },
+    {
+      "id": "usr_gov_admin",
+      "email": "admin@pwd.gov.in",
+      "password_hash": "$2a$10$wT80W3b4n7p5a7Z4l2o5EuB4s1Wp8Y0y0X/M9Z4r0v1Wp8Y0y0X/M",
+      "full_name": "Er. Ramesh Kulkarni (Chief Engineer)",
+      "organization_id": "org_state_infrastructure",
+      "role": "ORG_ADMIN",
+      "is_active": true,
+      "created_at": "2026-03-01T00:00:00.000Z",
+      "updated_at": "2026-09-29T15:52:35.157Z"
+    },
+    {
+      "id": "usr_security_admin",
+      "email": "admin@shieldguard.com",
+      "password_hash": "$2a$10$wT80W3b4n7p5a7Z4l2o5EuB4s1Wp8Y0y0X/M9Z4r0v1Wp8Y0y0X/M",
+      "full_name": "Col. Vikram Mehta (Retd.)",
+      "organization_id": "org_shield_security",
+      "role": "ORG_ADMIN",
+      "is_active": true,
+      "created_at": "2026-03-10T00:00:00.000Z",
+      "updated_at": "2026-09-29T15:52:35.157Z"
+    }
+  ],
+  "registeredDevices": [
+    {
+      "device_id": "DEV-EDGE-001",
+      "organization_id": "org_retinova_health",
+      "device_name": "PHC North Field Terminal 01",
+      "device_type": "ANDROID_PHONE",
+      "app_version": "2.4.0",
+      "model_version": "swinv2-tiny-edge-v1.0.4",
+      "assigned_workflow_id": "retinal_dr_swinv2",
+      "last_seen": "2026-09-29T15:52:35.157Z",
+      "connectivity_status": "ONLINE",
+      "status": "ACTIVE",
+      "registered_at": "2026-01-15T08:00:00.000Z",
+      "location": {
+        "name": "PHC North Clinic",
+        "latitude": 13.0827,
+        "longitude": 80.2707
+      },
+      "battery_level": 89,
+      "storage_free_mb": 18450,
+      "total_detections": 142,
+      "pending_sync_count": 0
+    },
+    {
+      "device_id": "DEV-EDGE-002",
+      "organization_id": "org_retinova_health",
+      "device_name": "Sub-District Mobile Eye Van",
+      "device_type": "RUGGED_TABLET",
+      "app_version": "2.4.0",
+      "model_version": "swinv2-tiny-edge-v1.0.4",
+      "assigned_workflow_id": "retinal_dr_swinv2",
+      "last_seen": "2026-09-29T15:47:35.157Z",
+      "connectivity_status": "ONLINE",
+      "status": "ACTIVE",
+      "registered_at": "2026-01-20T08:00:00.000Z",
+      "location": {
+        "name": "Gadag Rural Camp",
+        "latitude": 12.9716,
+        "longitude": 77.5946
+      },
+      "battery_level": 64,
+      "storage_free_mb": 32100,
+      "total_detections": 98,
+      "pending_sync_count": 2
+    },
+    {
+      "device_id": "DEV-EDGE-003",
+      "organization_id": "org_apex_insurance",
+      "device_name": "Claims Inspection Unit 01",
+      "device_type": "ANDROID_PHONE",
+      "app_version": "2.4.0",
+      "model_version": "asset-damage-edge-v1.2.0",
+      "assigned_workflow_id": "asset_damage_v1",
+      "last_seen": "2026-09-29T15:40:35.157Z",
+      "connectivity_status": "ONLINE",
+      "status": "ACTIVE",
+      "registered_at": "2026-02-18T08:00:00.000Z",
+      "location": {
+        "name": "Mumbai Metro Claims Hub",
+        "latitude": 19.076,
+        "longitude": 72.8777
+      },
+      "battery_level": 78,
+      "storage_free_mb": 22400,
+      "total_detections": 76,
+      "pending_sync_count": 0
+    },
+    {
+      "device_id": "DEV-EDGE-004",
+      "organization_id": "org_state_infrastructure",
+      "device_name": "Highway Survey Rig 04",
+      "device_type": "EDGE_GATEWAY",
+      "app_version": "2.3.8",
+      "model_version": "field-infra-edge-v1.0.1",
+      "assigned_workflow_id": "field_infrastructure_v1",
+      "last_seen": "2026-09-29T15:04:35.157Z",
+      "connectivity_status": "OFFLINE",
+      "status": "ACTIVE",
+      "registered_at": "2026-03-05T08:00:00.000Z",
+      "location": {
+        "name": "NH-48 Sector 12",
+        "latitude": 18.5204,
+        "longitude": 73.8567
+      },
+      "battery_level": 42,
+      "storage_free_mb": 8500,
+      "total_detections": 215,
+      "pending_sync_count": 7
+    },
+    {
+      "device_id": "DEV-EDGE-005",
+      "organization_id": "org_shield_security",
+      "device_name": "Perimeter Perimeter Camera Node 09",
+      "device_type": "JETSON_NODE",
+      "app_version": "2.4.0",
+      "model_version": "perimeter-security-edge-v1.1.0",
+      "assigned_workflow_id": "perimeter_security_v1",
+      "last_seen": "2026-09-29T15:51:35.157Z",
+      "connectivity_status": "ONLINE",
+      "status": "ACTIVE",
+      "registered_at": "2026-03-12T08:00:00.000Z",
+      "location": {
+        "name": "West Perimeter Watchtower",
+        "latitude": 28.6139,
+        "longitude": 77.209
+      },
+      "battery_level": 95,
+      "storage_free_mb": 58000,
+      "total_detections": 320,
+      "pending_sync_count": 0
+    }
+  ],
+  "aiWorkflows": [
+    {
+      "workflow_id": "retinal_dr_swinv2",
+      "vertical": "HEALTHCARE",
+      "name": "Diabetic Retinopathy Screening & Triage",
+      "description": "Swin Transformer V2 Tiny classification with CLAHE enhancement and Grad-CAM spatial attribution.",
+      "version": "2.4.0",
+      "model_id": "model_swinv2_tiny_dr",
+      "input_type": "FUNDUS_IMAGE",
+      "output_classes": [
+        "Normal (No DR)",
+        "Mild NPDR",
+        "Moderate NPDR",
+        "Severe NPDR",
+        "Proliferative DR"
+      ],
+      "confidence_threshold": 0.75,
+      "severity_mapping": {
+        "Normal (No DR)": "LOW",
+        "Mild NPDR": "MEDIUM",
+        "Moderate NPDR": "HIGH",
+        "Severe NPDR": "CRITICAL",
+        "Proliferative DR": "CRITICAL"
+      },
+      "evidence_requirements": [
+        "gradcam_heatmap",
+        "vessel_density",
+        "lesion_mask"
+      ],
+      "reporting_format": "CLINICAL_DOSSIER",
+      "is_active": true
+    },
+    {
+      "workflow_id": "asset_damage_v1",
+      "vertical": "INSURANCE",
+      "name": "Property & Vehicle Asset Damage Assessment",
+      "description": "Multi-point defect and impact crack detection for automated field underwriting and claims adjustment.",
+      "version": "1.2.0",
+      "model_id": "model_asset_damage_v1",
+      "input_type": "RGB_IMAGE",
+      "output_classes": [
+        "Undamaged Surface",
+        "Minor Cosmetic Scratch",
+        "Moderate Structural Crack",
+        "Severe Component Fracture",
+        "Total Loss Rupture"
+      ],
+      "confidence_threshold": 0.8,
+      "severity_mapping": {
+        "Undamaged Surface": "LOW",
+        "Minor Cosmetic Scratch": "LOW",
+        "Moderate Structural Crack": "MEDIUM",
+        "Severe Component Fracture": "HIGH",
+        "Total Loss Rupture": "CRITICAL"
+      },
+      "evidence_requirements": [
+        "crack_dimension_overlay",
+        "surface_texture_map"
+      ],
+      "reporting_format": "CLAIMS_REPORT",
+      "is_active": true
+    },
+    {
+      "workflow_id": "field_infrastructure_v1",
+      "vertical": "GOVERNMENT",
+      "name": "Public Works & Civil Infrastructure Inspection",
+      "description": "Automated road distress, pavement degradation, and culvert structural integrity classification.",
+      "version": "1.0.1",
+      "model_id": "model_field_infra_v1",
+      "input_type": "RGB_IMAGE",
+      "output_classes": [
+        "Pavement Sound",
+        "Pothole Hazard",
+        "Culvert Blockage",
+        "Bridge Joint Spall",
+        "Critical Scour"
+      ],
+      "confidence_threshold": 0.7,
+      "severity_mapping": {
+        "Pavement Sound": "LOW",
+        "Pothole Hazard": "MEDIUM",
+        "Culvert Blockage": "HIGH",
+        "Bridge Joint Spall": "HIGH",
+        "Critical Scour": "CRITICAL"
+      },
+      "evidence_requirements": [
+        "gps_gis_stamp",
+        "defect_bounding_polygon"
+      ],
+      "reporting_format": "INFRASTRUCTURE_AUDIT",
+      "is_active": true
+    },
+    {
+      "workflow_id": "perimeter_security_v1",
+      "vertical": "SECURITY",
+      "name": "Critical Perimeter Intrusion & Anomaly Surveillance",
+      "description": "Real-time edge surveillance detecting perimeter breaching, unattended objects, and trespassers.",
+      "version": "1.1.0",
+      "model_id": "model_perimeter_v1",
+      "input_type": "RGB_IMAGE",
+      "output_classes": [
+        "Perimeter Clear",
+        "Vehicle Loitering",
+        "Unattended Object",
+        "Perimeter Fence Breach",
+        "Hostile Intrusion"
+      ],
+      "confidence_threshold": 0.85,
+      "severity_mapping": {
+        "Perimeter Clear": "LOW",
+        "Vehicle Loitering": "MEDIUM",
+        "Unattended Object": "HIGH",
+        "Perimeter Fence Breach": "CRITICAL",
+        "Hostile Intrusion": "CRITICAL"
+      },
+      "evidence_requirements": [
+        "intrusion_bounding_box",
+        "optical_flow_vector"
+      ],
+      "reporting_format": "SURVEILLANCE_DISPATCH",
+      "is_active": true
+    }
+  ],
+  "modelRegistry": [
+    {
+      "model_id": "model_swinv2_tiny_dr",
+      "workflow_id": "retinal_dr_swinv2",
+      "version": "2.4.0",
+      "name": "Swin Transformer V2 Tiny (RetinaScreen)",
+      "format": "PYTORCH_PT",
+      "size_bytes": 331729506,
+      "checksum_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "download_url": "/api/platform/models/download/model_swinv2_tiny_dr",
+      "status": "ACTIVE",
+      "min_app_version": "2.3.0",
+      "release_notes": "Swin V2 Tiny backbone with dual head (binary G2+ referable + 5-grade ICDR severity). Optimized with temperature calibration (T=1.341).",
+      "created_at": "2026-01-10T00:00:00.000Z"
+    },
+    {
+      "model_id": "model_swinv2_tiny_dr_v25",
+      "workflow_id": "retinal_dr_swinv2",
+      "version": "2.5.0-beta",
+      "name": "Swin Transformer V2 Tiny (Vessel-Coupled)",
+      "format": "PYTORCH_PT",
+      "size_bytes": 332100000,
+      "checksum_sha256": "f4c1d2e3b4a598fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852",
+      "download_url": "/api/platform/models/download/model_swinv2_tiny_dr_v25",
+      "status": "STAGING",
+      "min_app_version": "2.4.0",
+      "release_notes": "Staged update candidate incorporating tortuosity feature concatenation for higher sensitivity on early microaneurysms.",
+      "created_at": "2026-03-20T00:00:00.000Z"
+    },
+    {
+      "model_id": "model_asset_damage_v1",
+      "workflow_id": "asset_damage_v1",
+      "version": "1.2.0",
+      "name": "Apex Damage Inspector V1",
+      "format": "ONNX",
+      "size_bytes": 48500000,
+      "checksum_sha256": "a1b2c3d4e5f698fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852",
+      "download_url": "/api/platform/models/download/model_asset_damage_v1",
+      "status": "ACTIVE",
+      "min_app_version": "2.4.0",
+      "release_notes": "Quantized ONNX model optimized for mobile inspections.",
+      "created_at": "2026-02-18T00:00:00.000Z"
+    }
+  ],
+  "subscriptionPlans": [
+    {
+      "plan_id": "BASIC",
+      "name": "Starter Edge Tier",
+      "price_monthly_inr": 499,
+      "billing_period": "MONTHLY",
+      "max_devices": 2,
+      "max_users": 5,
+      "storage_limit_mb": 2048,
+      "event_limit_monthly": 1000,
+      "features": [
+        "Offline Edge AI",
+        "Local Room Database",
+        "Standard Dashboard",
+        "Community Support"
+      ],
+      "support_level": "COMMUNITY"
+    },
+    {
+      "plan_id": "PRO",
+      "name": "Professional Fleet Tier",
+      "price_monthly_inr": 1499,
+      "billing_period": "MONTHLY",
+      "max_devices": 20,
+      "max_users": 50,
+      "storage_limit_mb": 25600,
+      "event_limit_monthly": 10000,
+      "features": [
+        "Offline Edge AI",
+        "Priority AWS Cloud Sync",
+        "S3 Evidence Vault",
+        "Real-Time SNS Alerts",
+        "Business Hours Support"
+      ],
+      "support_level": "STANDARD_BUSINESS"
+    },
+    {
+      "plan_id": "ENTERPRISE",
+      "name": "Institutional Enterprise Tier",
+      "price_monthly_inr": 4999,
+      "billing_period": "ANNUAL",
+      "max_devices": 250,
+      "max_users": 500,
+      "storage_limit_mb": 204800,
+      "event_limit_monthly": 100000,
+      "features": [
+        "Unlimited Edge AI Fleet",
+        "Dedicated Cloud VPC",
+        "Custom Model Fine-Tuning",
+        "Multi-Tenant RBAC",
+        "24x7 Dedicated SLA",
+        "Air-Gapped On-Prem Hub"
+      ],
+      "support_level": "DEDICATED_24x7"
+    }
+  ],
+  "platformAuditEvents": [
+    {
+      "id": "aud_1790697155157_a4xxp",
+      "timestamp": "2026-09-29T15:52:35.157Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "GLOBAL",
+      "metadata": {
+        "action": "DEMO_DATA_RESET_TRIGGERED"
+      }
+    },
+    {
+      "id": "aud_1790697155150_hl33c",
+      "timestamp": "2026-09-29T15:52:35.150Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_3ph6",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_3ph6",
+      "metadata": {
+        "event": "AMC_CONTRACT_RENEWED",
+        "previous_expiry": "2027-09-29T15:52:35.018Z",
+        "new_expiry": "2028-09-28T15:52:35.018Z",
+        "extension_years": 1
+      }
+    },
+    {
+      "id": "aud_1790697155136_ex0i1",
+      "timestamp": "2026-09-29T15:52:35.136Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_3ph6",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_3ph6",
+      "metadata": {
+        "action": "ONBOARDING_WIZARD_COMPLETED",
+        "plan": "PRO",
+        "device_id": "DEV-HEA-ITSD",
+        "admin_email": "director@testcare.org"
+      }
+    },
+    {
+      "id": "aud_1790697155002_7lmhb",
+      "timestamp": "2026-09-29T15:52:35.002Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_SUCCESSFUL",
+        "newVersion": "2.4.0",
+        "previousVersion": "swinv2-tiny-edge-v1.0.4",
+        "checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "aud_1790697154995_sn9o9",
+      "timestamp": "2026-09-29T15:52:34.995Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_FAILED_FALLBACK_TRIGGERED",
+        "targetVersion": "2.4.0",
+        "retainedVersion": "swinv2-tiny-edge-v1.0.4",
+        "reason": "Checksum verification failed. Expected: e3b0c44298fc..., Received: CORRUPTED_CH..."
+      }
+    },
+    {
+      "id": "aud_1790697154988_y448e",
+      "timestamp": "2026-09-29T15:52:34.988Z",
+      "actor_id": "usr_insurance_admin",
+      "actor_email": "admin@apexinsurance.com",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_apex_insurance",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_insurance_admin",
+      "metadata": {
+        "ip": "127.0.0.1"
+      }
+    },
+    {
+      "id": "aud_1790697154974_w0tst",
+      "timestamp": "2026-09-29T15:52:34.974Z",
+      "actor_id": "usr_health_operator",
+      "actor_email": "screener@nhm.gov.in",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_operator",
+      "metadata": {
+        "ip": "127.0.0.1"
+      }
+    },
+    {
+      "id": "aud_1790697154960_28hjd",
+      "timestamp": "2026-09-29T15:52:34.960Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_apex_insurance",
+      "metadata": {
+        "violation": "CROSS_TENANT_ACCESS_DENIED",
+        "attempted_org": "org_apex_insurance",
+        "user_org": "org_retinova_health",
+        "path": "/api/platform/organizations/org_apex_insurance",
+        "method": "GET"
+      }
+    },
+    {
+      "id": "aud_1790697154942_kfts2",
+      "timestamp": "2026-09-29T15:52:34.942Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "127.0.0.1"
+      }
+    },
+    {
+      "id": "aud_1790697154926_08hf1",
+      "timestamp": "2026-09-29T15:52:34.926Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_admin",
+      "metadata": {
+        "ip": "127.0.0.1"
+      }
+    },
+    {
+      "id": "aud_1790697127758_y6w6y",
+      "timestamp": "2026-09-29T15:52:07.758Z",
+      "actor_id": "usr_health_operator",
+      "actor_email": "screener@nhm.gov.in",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_operator",
+      "metadata": {
+        "ip": "127.0.0.1"
+      }
+    },
+    {
+      "id": "aud_1790697127748_sd5ql",
+      "timestamp": "2026-09-29T15:52:07.748Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_apex_insurance",
+      "metadata": {
+        "violation": "CROSS_TENANT_ACCESS_DENIED",
+        "attempted_org": "org_apex_insurance",
+        "user_org": "org_retinova_health",
+        "path": "/api/platform/organizations/org_apex_insurance",
+        "method": "GET"
+      }
+    },
+    {
+      "id": "aud_1790697127718_ode5r",
+      "timestamp": "2026-09-29T15:52:07.718Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_admin",
+      "metadata": {
+        "ip": "127.0.0.1"
+      }
+    },
+    {
+      "id": "aud_1790696920947_svtwa",
+      "timestamp": "2026-09-29T15:48:40.947Z",
+      "actor_id": "usr_health_operator",
+      "actor_email": "screener@nhm.gov.in",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_operator",
+      "metadata": {
+        "ip": "127.0.0.1"
+      }
+    },
+    {
+      "id": "aud_1790696920939_bz9p3",
+      "timestamp": "2026-09-29T15:48:40.939Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_apex_insurance",
+      "metadata": {
+        "violation": "CROSS_TENANT_ACCESS_DENIED",
+        "attempted_org": "org_apex_insurance",
+        "user_org": "org_retinova_health",
+        "path": "/api/platform/organizations/org_apex_insurance",
+        "method": "GET"
+      }
+    },
+    {
+      "id": "aud_1790696920901_7urqb",
+      "timestamp": "2026-09-29T15:48:40.901Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_admin",
+      "metadata": {
+        "ip": "127.0.0.1"
+      }
+    },
+    {
+      "id": "aud_1790696891017_273je",
+      "timestamp": "2026-09-29T15:48:11.017Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "GLOBAL",
+      "metadata": {
+        "action": "DEMO_DATA_RESET_TRIGGERED"
+      }
+    },
+    {
+      "id": "aud_1790696891009_s7hc8",
+      "timestamp": "2026-09-29T15:48:11.009Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_46xq",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_46xq",
+      "metadata": {
+        "event": "AMC_CONTRACT_RENEWED",
+        "previous_expiry": "2027-09-29T15:48:10.884Z",
+        "new_expiry": "2028-09-28T15:48:10.884Z",
+        "extension_years": 1
+      }
+    },
+    {
+      "id": "aud_1790696890994_7lzav",
+      "timestamp": "2026-09-29T15:48:10.994Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_46xq",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_46xq",
+      "metadata": {
+        "action": "ONBOARDING_WIZARD_COMPLETED",
+        "plan": "PRO",
+        "device_id": "DEV-HEA-9R5O",
+        "admin_email": "director@testcare.org"
+      }
+    },
+    {
+      "id": "aud_1790696890865_ruk4s",
+      "timestamp": "2026-09-29T15:48:10.865Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_SUCCESSFUL",
+        "newVersion": "2.4.0",
+        "previousVersion": "swinv2-tiny-edge-v1.0.4",
+        "checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "aud_1790696890858_5a298",
+      "timestamp": "2026-09-29T15:48:10.858Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_FAILED_FALLBACK_TRIGGERED",
+        "targetVersion": "2.4.0",
+        "retainedVersion": "swinv2-tiny-edge-v1.0.4",
+        "reason": "Checksum verification failed. Expected: e3b0c44298fc..., Received: CORRUPTED_CH..."
+      }
+    },
+    {
+      "id": "aud_1790696890846_ftwp8",
+      "timestamp": "2026-09-29T15:48:10.846Z",
+      "actor_id": "usr_insurance_admin",
+      "actor_email": "admin@apexinsurance.com",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_apex_insurance",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_insurance_admin",
+      "metadata": {
+        "ip": "127.0.0.1"
+      }
+    },
+    {
+      "id": "aud_1790696890828_lyjlz",
+      "timestamp": "2026-09-29T15:48:10.828Z",
+      "actor_id": "usr_health_operator",
+      "actor_email": "screener@nhm.gov.in",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_operator",
+      "metadata": {
+        "ip": "127.0.0.1"
+      }
+    },
+    {
+      "id": "aud_1790696890815_4bigm",
+      "timestamp": "2026-09-29T15:48:10.815Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_apex_insurance",
+      "metadata": {
+        "violation": "CROSS_TENANT_ACCESS_DENIED",
+        "attempted_org": "org_apex_insurance",
+        "user_org": "org_retinova_health",
+        "path": "/api/platform/organizations/org_apex_insurance",
+        "method": "GET"
+      }
+    },
+    {
+      "id": "aud_1790696890807_mmb61",
+      "timestamp": "2026-09-29T15:48:10.807Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "127.0.0.1"
+      }
+    },
+    {
+      "id": "aud_1790696890799_r632l",
+      "timestamp": "2026-09-29T15:48:10.799Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_admin",
+      "metadata": {
+        "ip": "127.0.0.1"
+      }
+    },
+    {
+      "id": "aud_1790689448093_ddk52",
+      "timestamp": "2026-09-29T13:44:08.093Z",
+      "actor_id": "usr_health_doctor",
+      "actor_email": "doctor@netra-ai.org",
+      "actor_role": "REVIEWER",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_doctor",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790689356506_abzdf",
+      "timestamp": "2026-09-29T13:42:36.506Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790689331129_ub1z0",
+      "timestamp": "2026-09-29T13:42:11.129Z",
+      "actor_id": "usr_health_doctor",
+      "actor_email": "doctor@netra-ai.org",
+      "actor_role": "REVIEWER",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_doctor",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790689321005_4grye",
+      "timestamp": "2026-09-29T13:42:01.006Z",
+      "actor_id": "usr_health_operator",
+      "actor_email": "screener@nhm.gov.in",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_operator",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790689299263_8w80l",
+      "timestamp": "2026-09-29T13:41:39.264Z",
+      "actor_id": "usr_health_operator",
+      "actor_email": "screener@nhm.gov.in",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_operator",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790684535161_c4jlf",
+      "timestamp": "2026-09-29T12:22:15.161Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "GLOBAL",
+      "metadata": {
+        "action": "DEMO_DATA_RESET_TRIGGERED"
+      }
+    },
+    {
+      "id": "aud_1790684535156_ul3sr",
+      "timestamp": "2026-09-29T12:22:15.156Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_jj64",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_jj64",
+      "metadata": {
+        "event": "AMC_CONTRACT_RENEWED",
+        "previous_expiry": "2027-09-29T12:22:15.084Z",
+        "new_expiry": "2028-09-28T12:22:15.084Z",
+        "extension_years": 1
+      }
+    },
+    {
+      "id": "aud_1790684535148_3u3kv",
+      "timestamp": "2026-09-29T12:22:15.148Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_jj64",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_jj64",
+      "metadata": {
+        "action": "ONBOARDING_WIZARD_COMPLETED",
+        "plan": "PRO",
+        "device_id": "DEV-HEA-XABU",
+        "admin_email": "director@testcare.org"
+      }
+    },
+    {
+      "id": "aud_1790684535075_3m2xp",
+      "timestamp": "2026-09-29T12:22:15.075Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_SUCCESSFUL",
+        "newVersion": "2.4.0",
+        "previousVersion": "swinv2-tiny-edge-v1.0.4",
+        "checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "aud_1790684535071_phet8",
+      "timestamp": "2026-09-29T12:22:15.071Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_FAILED_FALLBACK_TRIGGERED",
+        "targetVersion": "2.4.0",
+        "retainedVersion": "swinv2-tiny-edge-v1.0.4",
+        "reason": "Checksum verification failed. Expected: e3b0c44298fc..., Received: CORRUPTED_CH..."
+      }
+    },
+    {
+      "id": "aud_1790684535065_z1blf",
+      "timestamp": "2026-09-29T12:22:15.065Z",
+      "actor_id": "usr_insurance_admin",
+      "actor_email": "admin@apexinsurance.com",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_apex_insurance",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_insurance_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790684535054_an23a",
+      "timestamp": "2026-09-29T12:22:15.054Z",
+      "actor_id": "usr_health_operator",
+      "actor_email": "screener@nhm.gov.in",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_operator",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790684535046_8qh8r",
+      "timestamp": "2026-09-29T12:22:15.046Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_apex_insurance",
+      "metadata": {
+        "violation": "CROSS_TENANT_ACCESS_DENIED",
+        "attempted_org": "org_apex_insurance",
+        "user_org": "org_retinova_health",
+        "path": "/api/platform/organizations/org_apex_insurance",
+        "method": "GET"
+      }
+    },
+    {
+      "id": "aud_1790684535041_pbilw",
+      "timestamp": "2026-09-29T12:22:15.041Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790684535036_wta3i",
+      "timestamp": "2026-09-29T12:22:15.036Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682742992_47kof",
+      "timestamp": "2026-09-29T11:52:22.992Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682656724_eucvn",
+      "timestamp": "2026-09-29T11:50:56.724Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::ffff:10.63.162.244"
+      }
+    },
+    {
+      "id": "aud_1790682574485_2pnl6",
+      "timestamp": "2026-09-29T11:49:34.485Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "GLOBAL",
+      "metadata": {
+        "action": "DEMO_DATA_RESET_TRIGGERED"
+      }
+    },
+    {
+      "id": "aud_1790682574481_lkhdp",
+      "timestamp": "2026-09-29T11:49:34.481Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_2tmg",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_2tmg",
+      "metadata": {
+        "event": "AMC_CONTRACT_RENEWED",
+        "previous_expiry": "2027-09-29T11:49:34.408Z",
+        "new_expiry": "2028-09-28T11:49:34.408Z",
+        "extension_years": 1
+      }
+    },
+    {
+      "id": "aud_1790682574472_nimgx",
+      "timestamp": "2026-09-29T11:49:34.472Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_2tmg",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_2tmg",
+      "metadata": {
+        "action": "ONBOARDING_WIZARD_COMPLETED",
+        "plan": "PRO",
+        "device_id": "DEV-HEA-2BAN",
+        "admin_email": "director@testcare.org"
+      }
+    },
+    {
+      "id": "aud_1790682574400_xuu65",
+      "timestamp": "2026-09-29T11:49:34.400Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_SUCCESSFUL",
+        "newVersion": "2.4.0",
+        "previousVersion": "swinv2-tiny-edge-v1.0.4",
+        "checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "aud_1790682574398_50t2b",
+      "timestamp": "2026-09-29T11:49:34.398Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_FAILED_FALLBACK_TRIGGERED",
+        "targetVersion": "2.4.0",
+        "retainedVersion": "swinv2-tiny-edge-v1.0.4",
+        "reason": "Checksum verification failed. Expected: e3b0c44298fc..., Received: CORRUPTED_CH..."
+      }
+    },
+    {
+      "id": "aud_1790682574393_dzuw7",
+      "timestamp": "2026-09-29T11:49:34.393Z",
+      "actor_id": "usr_insurance_admin",
+      "actor_email": "admin@apexinsurance.com",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_apex_insurance",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_insurance_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682574382_qmhwp",
+      "timestamp": "2026-09-29T11:49:34.382Z",
+      "actor_id": "usr_health_operator",
+      "actor_email": "screener@nhm.gov.in",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_operator",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682574363_nqinh",
+      "timestamp": "2026-09-29T11:49:34.363Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_apex_insurance",
+      "metadata": {
+        "violation": "CROSS_TENANT_ACCESS_DENIED",
+        "attempted_org": "org_apex_insurance",
+        "user_org": "org_retinova_health",
+        "path": "/api/platform/organizations/org_apex_insurance",
+        "method": "GET"
+      }
+    },
+    {
+      "id": "aud_1790682574359_bbn6o",
+      "timestamp": "2026-09-29T11:49:34.359Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682574353_zcivj",
+      "timestamp": "2026-09-29T11:49:34.353Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682539200_nrt2q",
+      "timestamp": "2026-09-29T11:48:59.200Z",
+      "actor_id": "usr_health_doctor",
+      "actor_email": "doctor@netra-ai.org",
+      "actor_role": "REVIEWER",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_doctor",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682433862_3tstc",
+      "timestamp": "2026-09-29T11:47:13.862Z",
+      "actor_id": "usr_health_doctor",
+      "actor_email": "doctor@netra-ai.org",
+      "actor_role": "REVIEWER",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_doctor",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682353507_vsb42",
+      "timestamp": "2026-09-29T11:45:53.507Z",
+      "actor_id": "usr_health_doctor",
+      "actor_email": "doctor@netra-ai.org",
+      "actor_role": "REVIEWER",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_doctor",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682269473_bidu9",
+      "timestamp": "2026-09-29T11:44:29.473Z",
+      "actor_id": "usr_insurance_admin",
+      "actor_email": "admin@apexinsurance.com",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_apex_insurance",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_insurance_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682269466_b6fng",
+      "timestamp": "2026-09-29T11:44:29.466Z",
+      "actor_id": "usr_health_doctor",
+      "actor_email": "doctor@netra-ai.org",
+      "actor_role": "REVIEWER",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_doctor",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682269445_n4vr1",
+      "timestamp": "2026-09-29T11:44:29.445Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682193421_oanen",
+      "timestamp": "2026-09-29T11:43:13.421Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682186266_9zohp",
+      "timestamp": "2026-09-29T11:43:06.266Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682105090_580bf",
+      "timestamp": "2026-09-29T11:41:45.090Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682096212_msqs4",
+      "timestamp": "2026-09-29T11:41:36.212Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682088004_ng5o6",
+      "timestamp": "2026-09-29T11:41:28.004Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682057495_14o93",
+      "timestamp": "2026-09-29T11:40:57.495Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790682047340_xfjgs",
+      "timestamp": "2026-09-29T11:40:47.340Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790681833085_n0ul8",
+      "timestamp": "2026-09-29T11:37:13.085Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "GLOBAL",
+      "metadata": {
+        "action": "DEMO_DATA_RESET_TRIGGERED"
+      }
+    },
+    {
+      "id": "aud_1790681833081_zkokp",
+      "timestamp": "2026-09-29T11:37:13.081Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_7q5v",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_7q5v",
+      "metadata": {
+        "event": "AMC_CONTRACT_RENEWED",
+        "previous_expiry": "2027-09-29T11:37:13.004Z",
+        "new_expiry": "2028-09-28T11:37:13.004Z",
+        "extension_years": 1
+      }
+    },
+    {
+      "id": "aud_1790681833073_8nxhg",
+      "timestamp": "2026-09-29T11:37:13.073Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_7q5v",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_7q5v",
+      "metadata": {
+        "action": "ONBOARDING_WIZARD_COMPLETED",
+        "plan": "PRO",
+        "device_id": "DEV-HEA-ZTFJ",
+        "admin_email": "director@testcare.org"
+      }
+    },
+    {
+      "id": "aud_1790681832996_ygsko",
+      "timestamp": "2026-09-29T11:37:12.996Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_SUCCESSFUL",
+        "newVersion": "2.4.0",
+        "previousVersion": "swinv2-tiny-edge-v1.0.4",
+        "checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "aud_1790681832994_5a3zk",
+      "timestamp": "2026-09-29T11:37:12.994Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_FAILED_FALLBACK_TRIGGERED",
+        "targetVersion": "2.4.0",
+        "retainedVersion": "swinv2-tiny-edge-v1.0.4",
+        "reason": "Checksum verification failed. Expected: e3b0c44298fc..., Received: CORRUPTED_CH..."
+      }
+    },
+    {
+      "id": "aud_1790681832989_bls3o",
+      "timestamp": "2026-09-29T11:37:12.989Z",
+      "actor_id": "usr_insurance_admin",
+      "actor_email": "admin@apexinsurance.com",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_apex_insurance",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_insurance_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790681832978_0ft3f",
+      "timestamp": "2026-09-29T11:37:12.978Z",
+      "actor_id": "usr_health_operator",
+      "actor_email": "screener@nhm.gov.in",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_operator",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790681832970_ba0vx",
+      "timestamp": "2026-09-29T11:37:12.970Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_apex_insurance",
+      "metadata": {
+        "violation": "CROSS_TENANT_ACCESS_DENIED",
+        "attempted_org": "org_apex_insurance",
+        "user_org": "org_retinova_health",
+        "path": "/api/platform/organizations/org_apex_insurance",
+        "method": "GET"
+      }
+    },
+    {
+      "id": "aud_1790681832967_ztkbh",
+      "timestamp": "2026-09-29T11:37:12.967Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790681832963_lpl17",
+      "timestamp": "2026-09-29T11:37:12.963Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790674849039_wvf08",
+      "timestamp": "2026-09-29T09:40:49.039Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "GLOBAL",
+      "metadata": {
+        "action": "DEMO_DATA_RESET_TRIGGERED"
+      }
+    },
+    {
+      "id": "aud_1790674849035_3cf6b",
+      "timestamp": "2026-09-29T09:40:49.035Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_gd9m",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_gd9m",
+      "metadata": {
+        "event": "AMC_CONTRACT_RENEWED",
+        "previous_expiry": "2027-09-29T09:40:48.965Z",
+        "new_expiry": "2028-09-28T09:40:48.965Z",
+        "extension_years": 1
+      }
+    },
+    {
+      "id": "aud_1790674849028_144z1",
+      "timestamp": "2026-09-29T09:40:49.028Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_gd9m",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_gd9m",
+      "metadata": {
+        "action": "ONBOARDING_WIZARD_COMPLETED",
+        "plan": "PRO",
+        "device_id": "DEV-HEA-N0RL",
+        "admin_email": "director@testcare.org"
+      }
+    },
+    {
+      "id": "aud_1790674848958_u348u",
+      "timestamp": "2026-09-29T09:40:48.958Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_SUCCESSFUL",
+        "newVersion": "2.4.0",
+        "previousVersion": "swinv2-tiny-edge-v1.0.4",
+        "checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "aud_1790674848956_4v313",
+      "timestamp": "2026-09-29T09:40:48.956Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_FAILED_FALLBACK_TRIGGERED",
+        "targetVersion": "2.4.0",
+        "retainedVersion": "swinv2-tiny-edge-v1.0.4",
+        "reason": "Checksum verification failed. Expected: e3b0c44298fc..., Received: CORRUPTED_CH..."
+      }
+    },
+    {
+      "id": "aud_1790674848952_3yfo4",
+      "timestamp": "2026-09-29T09:40:48.952Z",
+      "actor_id": "usr_insurance_admin",
+      "actor_email": "admin@apexinsurance.com",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_apex_insurance",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_insurance_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790674848943_mbqbb",
+      "timestamp": "2026-09-29T09:40:48.943Z",
+      "actor_id": "usr_health_operator",
+      "actor_email": "screener@nhm.gov.in",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_operator",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790674848925_5ujwb",
+      "timestamp": "2026-09-29T09:40:48.925Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_apex_insurance",
+      "metadata": {
+        "violation": "CROSS_TENANT_ACCESS_DENIED",
+        "attempted_org": "org_apex_insurance",
+        "user_org": "org_retinova_health",
+        "path": "/api/platform/organizations/org_apex_insurance",
+        "method": "GET"
+      }
+    },
+    {
+      "id": "aud_1790674848922_ux7xd",
+      "timestamp": "2026-09-29T09:40:48.922Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790674848917_abrxq",
+      "timestamp": "2026-09-29T09:40:48.917Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790674742267_5q4qi",
+      "timestamp": "2026-09-29T09:39:02.267Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "GLOBAL",
+      "metadata": {
+        "action": "DEMO_DATA_RESET_TRIGGERED"
+      }
+    },
+    {
+      "id": "aud_1790674742263_4arct",
+      "timestamp": "2026-09-29T09:39:02.263Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_4pzk",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_4pzk",
+      "metadata": {
+        "event": "AMC_CONTRACT_RENEWED",
+        "previous_expiry": "2027-09-29T09:39:02.185Z",
+        "new_expiry": "2028-09-28T09:39:02.185Z",
+        "extension_years": 1
+      }
+    },
+    {
+      "id": "aud_1790674742255_smu02",
+      "timestamp": "2026-09-29T09:39:02.255Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_test_regional_care_4pzk",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_test_regional_care_4pzk",
+      "metadata": {
+        "action": "ONBOARDING_WIZARD_COMPLETED",
+        "plan": "PRO",
+        "device_id": "DEV-HEA-J4D4",
+        "admin_email": "director@testcare.org"
+      }
+    },
+    {
+      "id": "aud_1790674742177_gnr97",
+      "timestamp": "2026-09-29T09:39:02.177Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_SUCCESSFUL",
+        "newVersion": "2.4.0",
+        "previousVersion": "2.4.0",
+        "checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "aud_1790674742174_7hgmr",
+      "timestamp": "2026-09-29T09:39:02.174Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_FAILED_FALLBACK_TRIGGERED",
+        "targetVersion": "2.4.0",
+        "retainedVersion": "2.4.0",
+        "reason": "Checksum verification failed. Expected: e3b0c44298fc..., Received: CORRUPTED_CH..."
+      }
+    },
+    {
+      "id": "aud_1790674742169_p9red",
+      "timestamp": "2026-09-29T09:39:02.169Z",
+      "actor_id": "usr_insurance_admin",
+      "actor_email": "admin@apexinsurance.com",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_apex_insurance",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_insurance_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790674742161_hjfo9",
+      "timestamp": "2026-09-29T09:39:02.161Z",
+      "actor_id": "usr_health_operator",
+      "actor_email": "screener@nhm.gov.in",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_operator",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790674742154_453vy",
+      "timestamp": "2026-09-29T09:39:02.154Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_apex_insurance",
+      "metadata": {
+        "violation": "CROSS_TENANT_ACCESS_DENIED",
+        "attempted_org": "org_apex_insurance",
+        "user_org": "org_retinova_health",
+        "path": "/api/platform/organizations/org_apex_insurance",
+        "method": "GET"
+      }
+    },
+    {
+      "id": "aud_1790674742150_7hib7",
+      "timestamp": "2026-09-29T09:39:02.150Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790674742140_uafvw",
+      "timestamp": "2026-09-29T09:39:02.140Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790673554887_yzos6",
+      "timestamp": "2026-09-29T09:19:14.887Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_SUCCESSFUL",
+        "newVersion": "2.4.0",
+        "previousVersion": "swinv2-tiny-edge-v1.0.4",
+        "checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "id": "aud_1790673554883_s1fv4",
+      "timestamp": "2026-09-29T09:19:14.883Z",
+      "actor_id": "DEV-EDGE-001",
+      "actor_email": "device.agent@edge.retinova.ai",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "MODEL_UPDATED",
+      "target_type": "DEVICE",
+      "target_id": "DEV-EDGE-001",
+      "metadata": {
+        "status": "UPDATE_FAILED_FALLBACK_TRIGGERED",
+        "targetVersion": "2.4.0",
+        "retainedVersion": "swinv2-tiny-edge-v1.0.4",
+        "reason": "Checksum verification failed. Expected: e3b0c44298fc..., Received: CORRUPTED_CH..."
+      }
+    },
+    {
+      "id": "aud_1790673554878_6wnr9",
+      "timestamp": "2026-09-29T09:19:14.878Z",
+      "actor_id": "usr_insurance_admin",
+      "actor_email": "admin@apexinsurance.com",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_apex_insurance",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_insurance_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790673554867_8i09x",
+      "timestamp": "2026-09-29T09:19:14.867Z",
+      "actor_id": "usr_health_operator",
+      "actor_email": "screener@nhm.gov.in",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_operator",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790673554844_wnjt0",
+      "timestamp": "2026-09-29T09:19:14.844Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_apex_insurance",
+      "metadata": {
+        "violation": "CROSS_TENANT_ACCESS_DENIED",
+        "attempted_org": "org_apex_insurance",
+        "user_org": "org_retinova_health",
+        "path": "/api/platform/organizations/org_apex_insurance",
+        "method": "GET"
+      }
+    },
+    {
+      "id": "aud_1790673554840_vjjup",
+      "timestamp": "2026-09-29T09:19:14.840Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790673554835_baf66",
+      "timestamp": "2026-09-29T09:19:14.835Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790673509814_cwmrd",
+      "timestamp": "2026-09-29T09:18:29.814Z",
+      "actor_id": "usr_insurance_admin",
+      "actor_email": "admin@apexinsurance.com",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_apex_insurance",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_insurance_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790673509800_j8cwy",
+      "timestamp": "2026-09-29T09:18:29.800Z",
+      "actor_id": "usr_health_operator",
+      "actor_email": "screener@nhm.gov.in",
+      "actor_role": "OPERATOR",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_operator",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790673509790_vbu9t",
+      "timestamp": "2026-09-29T09:18:29.790Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORG_CONFIG_UPDATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_apex_insurance",
+      "metadata": {
+        "violation": "CROSS_TENANT_ACCESS_DENIED",
+        "attempted_org": "org_apex_insurance",
+        "user_org": "org_retinova_health",
+        "path": "/api/platform/organizations/org_apex_insurance",
+        "method": "GET"
+      }
+    },
+    {
+      "id": "aud_1790673509785_tbh1z",
+      "timestamp": "2026-09-29T09:18:29.785Z",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_platform_superadmin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_1790673509779_4l40x",
+      "timestamp": "2026-09-29T09:18:29.779Z",
+      "actor_id": "usr_health_admin",
+      "actor_email": "health.admin@nhm.gov.in",
+      "actor_role": "ORG_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "LOGIN",
+      "target_type": "USER",
+      "target_id": "usr_health_admin",
+      "metadata": {
+        "ip": "::1"
+      }
+    },
+    {
+      "id": "aud_seed_001",
+      "actor_id": "usr_platform_superadmin",
+      "actor_email": "superadmin@retinova.ai",
+      "actor_role": "PLATFORM_ADMIN",
+      "organization_id": "org_retinova_health",
+      "action": "ORGANIZATION_CREATED",
+      "target_type": "ORGANIZATION",
+      "target_id": "org_retinova_health",
+      "timestamp": "2026-01-01T00:00:00.000Z",
+      "metadata": {
+        "plan": "PRO",
+        "vertical": "HEALTHCARE"
+      }
+    }
+  ]
+}
