@@ -5,9 +5,9 @@
 
 import { Platform } from "react-native";
 
-// API base URL - configured via Settings screen or .env
+// API base URL - configured via Settings screen, .env, or production Render default
 export const API_BASE_URL: string =
-  (process.env.EXPO_PUBLIC_API_BASE_URL as string) || "";
+  (process.env.EXPO_PUBLIC_API_BASE_URL as string) || "https://retinova-backend-0c11.onrender.com";
 
 // ---- Typography Families (Figma Design System) ----
 export const FONT_FAMILY = {

@@ -78,7 +78,7 @@ export default function LoginScreen() {
   const [offlineLoading, setOfflineLoading] = useState(false);
 
   // Runtime Server Configuration State
-  const defaultApiUrl = getApiBaseUrl() || (process.env.EXPO_PUBLIC_API_BASE_URL && process.env.EXPO_PUBLIC_API_BASE_URL.startsWith('http') ? process.env.EXPO_PUBLIC_API_BASE_URL : 'https://retinova-backend.onrender.com');
+  const defaultApiUrl = getApiBaseUrl() || (process.env.EXPO_PUBLIC_API_BASE_URL && process.env.EXPO_PUBLIC_API_BASE_URL.startsWith('http') ? process.env.EXPO_PUBLIC_API_BASE_URL : 'https://retinova-backend-0c11.onrender.com');
   const [showServerConfig, setShowServerConfig] = useState(false);
   const [serverUrlInput, setServerUrlInput] = useState(defaultApiUrl);
   const [pingStatus, setPingStatus] = useState<'idle' | 'testing' | 'success' | 'failed'>('idle');
@@ -86,12 +86,24 @@ export default function LoginScreen() {
 
   useEffect(() => {
     storage.getItem(STORAGE_KEYS.API_BASE_URL).then((stored) => {
-      if (stored && stored.startsWith('http')) {
+      // Reject stale local/private development IP addresses from previous debug runs
+      const isPrivateDevIp = stored && (
+        stored.includes('10.99.') ||
+        stored.includes('10.63.') ||
+        stored.includes('192.168.') ||
+        stored.includes('localhost') ||
+        stored.includes('127.0.0.1')
+      );
+      if (stored && stored.startsWith('http') && !isPrivateDevIp) {
         setServerUrlInput(stored);
       } else {
         const current = getApiBaseUrl();
-        if (current && current.startsWith('http')) {
+        if (current && current.startsWith('http') && !isPrivateDevIp) {
           setServerUrlInput(current);
+        } else {
+          const prodUrl = 'https://retinova-backend-0c11.onrender.com';
+          setServerUrlInput(prodUrl);
+          storage.setItem(STORAGE_KEYS.API_BASE_URL, prodUrl);
         }
       }
     });
@@ -316,7 +328,7 @@ export default function LoginScreen() {
                 <View style={styles.quickPresetRow}>
                   <TouchableOpacity
                     style={styles.presetChip}
-                    onPress={() => setServerUrlInput(process.env.EXPO_PUBLIC_API_BASE_URL || 'https://retinova-backend.onrender.com')}
+                    onPress={() => setServerUrlInput(process.env.EXPO_PUBLIC_API_BASE_URL || 'https://retinova-backend-0c11.onrender.com')}
                   >
                     <Text style={styles.presetChipText}>Cloud (Render Hosted)</Text>
                   </TouchableOpacity>

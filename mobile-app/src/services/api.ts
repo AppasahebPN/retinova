@@ -32,7 +32,7 @@ function resolveInitialApiBaseUrl(): string {
     const port = window.location.port;
     const isCloudHost = host.includes('.onrender.com') || host.includes('herokuapp.com') || host.includes('.railway.app');
 
-    // Hosted on Render or standard ports: use current origin directly (e.g. https://retinova-backend.onrender.com)
+    // Hosted on Render or standard ports: use current origin directly (e.g. https://retinova-backend-0c11.onrender.com)
     if (isCloudHost || port === '' || port === '443' || port === '80' || port === '5000') {
       const derived = window.location.origin;
       if (__DEV__) {
@@ -50,7 +50,7 @@ function resolveInitialApiBaseUrl(): string {
     return derived;
   }
 
-  return "";
+  return "https://retinova-backend-0c11.onrender.com";
 }
 
 let _apiBaseUrl: string = resolveInitialApiBaseUrl();
@@ -62,16 +62,18 @@ export function setApiBaseUrl(url: string) {
 export function getApiBaseUrl(): string {
   const isNative = Platform.OS === "android" || Platform.OS === "ios";
 
-  // Native execution warning if pointing to localhost
-  if (isNative && (_apiBaseUrl.includes("localhost") || _apiBaseUrl.includes("127.0.0.1"))) {
+  // Native execution warning if pointing to localhost or private IPs
+  if (isNative && (_apiBaseUrl.includes("localhost") || _apiBaseUrl.includes("127.0.0.1") || _apiBaseUrl.includes("10.") || _apiBaseUrl.includes("192.168."))) {
     const envRaw = process.env.EXPO_PUBLIC_API_BASE_URL ?? "";
     const envUrl = envRaw.replace(/\/$/, "").trim();
-    if (envUrl && !envUrl.includes("localhost") && !envUrl.includes("127.0.0.1")) {
+    if (envUrl && !envUrl.includes("localhost") && !envUrl.includes("127.0.0.1") && !envUrl.includes("10.") && !envUrl.includes("192.168.")) {
       _apiBaseUrl = envUrl;
+    } else {
+      _apiBaseUrl = "https://retinova-backend-0c11.onrender.com";
     }
   }
 
-  return _apiBaseUrl;
+  return _apiBaseUrl || "https://retinova-backend-0c11.onrender.com";
 }
 
 export async function loadApiBaseUrl() {
@@ -80,11 +82,13 @@ export async function loadApiBaseUrl() {
     const stored = await storage.getItem(STORAGE_KEYS.API_BASE_URL);
     if (stored) {
       const cleaned = stored.replace(/\/$/, "");
-      // On native: NEVER allow a stored localhost value to override the LAN IP.
-      if (isNative && (cleaned.includes("localhost") || cleaned.includes("127.0.0.1"))) {
+      // On native: NEVER allow a stored localhost or stale private LAN IP to override the production Render URL.
+      if (isNative && (cleaned.includes("localhost") || cleaned.includes("127.0.0.1") || cleaned.includes("10.") || cleaned.includes("192.168."))) {
         if (__DEV__) {
-          console.warn("[RETINOVA NATIVE API] Ignoring stale stored localhost URL:", cleaned);
+          console.warn("[RETINOVA NATIVE API] Clearing stale stored private IP URL:", cleaned);
         }
+        await storage.removeItem(STORAGE_KEYS.API_BASE_URL);
+        _apiBaseUrl = resolveInitialApiBaseUrl();
         return;
       }
       _apiBaseUrl = cleaned;

@@ -42,7 +42,7 @@
       ]
     ],
     "extra": {
-      "apiBaseUrl": {},
+      "apiBaseUrl": "https://retinova-backend-0c11.onrender.com",
       "eas": {
         "projectId": "90e008b7-012f-41f5-b45e-e943c8fe2fde"
       }

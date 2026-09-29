@@ -230,8 +230,9 @@ export async function preprocessBuffer(
   const isPng = mimeType.includes("png") || (u8[0] === 0x89 && u8[1] === 0x50);
 
   if (isPng) {
-    const { PNG } = require("pngjs");
-    const png = PNG.sync.read(Buffer.from(u8.buffer, u8.byteOffset, u8.byteLength));
+    const { PNG } = require("pngjs/browser");
+    const rawInput = typeof Buffer !== "undefined" ? Buffer.from(u8.buffer, u8.byteOffset, u8.byteLength) : u8;
+    const png = PNG.sync.read(rawInput);
     imgWidth = png.width;
     imgHeight = png.height;
     imgData = png.data;
