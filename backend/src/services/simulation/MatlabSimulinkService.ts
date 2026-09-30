@@ -24,7 +24,11 @@ export class MatlabSimulinkService implements ISimulationService {
 
       const response = await fetch(`${this.endpointUrl}/simulate`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'abypass-tunnel-reminder': 'true',
+          'bypass-tunnel-reminder': 'true'
+        },
         body: JSON.stringify(params),
         signal: controller.signal
       });
@@ -51,7 +55,13 @@ export class MatlabSimulinkService implements ISimulationService {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 2000);
-      const res = await fetch(`${this.endpointUrl}/health`, { signal: controller.signal });
+      const res = await fetch(`${this.endpointUrl}/health`, {
+        headers: {
+          'abypass-tunnel-reminder': 'true',
+          'bypass-tunnel-reminder': 'true'
+        },
+        signal: controller.signal
+      });
       clearTimeout(timeoutId);
       if (res.ok) {
         isConnected = true;

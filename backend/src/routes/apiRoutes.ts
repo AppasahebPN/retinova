@@ -38,7 +38,10 @@ router.get('/health', async (_req, res) => {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 3000);
       const bridgeRes = await fetch(`${config.matlabAiServiceUrl}/api/health`, {
-        headers: { 'bypass-tunnel-reminder': 'true' },
+        headers: {
+          'abypass-tunnel-reminder': 'true',
+          'bypass-tunnel-reminder': 'true'
+        },
         signal: controller.signal
       });
       clearTimeout(timeoutId);
@@ -70,7 +73,12 @@ router.get('/resource-planner', async (req, res) => {
   try {
     const query = new URLSearchParams(req.query as any).toString();
     const url = `${config.matlabSimulinkServiceUrl}/api/resource-planner${query ? `?${query}` : ''}`;
-    const bridgeRes = await fetch(url);
+    const bridgeRes = await fetch(url, {
+      headers: {
+        'abypass-tunnel-reminder': 'true',
+        'bypass-tunnel-reminder': 'true'
+      }
+    });
     if (bridgeRes.ok) {
       const data = await bridgeRes.json();
       return res.json(data);
@@ -155,7 +163,10 @@ router.post('/screen', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'f
 
       bridgeRes = await fetch(`${config.matlabAiServiceUrl}/api/screen`, {
         method: 'POST',
-        headers: { 'bypass-tunnel-reminder': 'true' },
+        headers: {
+          'abypass-tunnel-reminder': 'true',
+          'bypass-tunnel-reminder': 'true'
+        },
         body: fd,
         signal: controller.signal
       });
@@ -170,6 +181,7 @@ router.post('/screen', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'f
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'abypass-tunnel-reminder': 'true',
           'bypass-tunnel-reminder': 'true'
         },
         body: JSON.stringify(payload),

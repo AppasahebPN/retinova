@@ -32,7 +32,11 @@ export class MatlabAIService implements IAIInferenceService {
 
       const response = await fetch(`${this.endpointUrl}/analyze`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'abypass-tunnel-reminder': 'true',
+          'bypass-tunnel-reminder': 'true'
+        },
         body: JSON.stringify({
           screeningId: request.screeningId,
           imageId: request.imageId,
@@ -102,7 +106,13 @@ export class MatlabAIService implements IAIInferenceService {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 2500);
-      const res = await fetch(`${this.endpointUrl}/health`, { signal: controller.signal });
+      const res = await fetch(`${this.endpointUrl}/health`, {
+        headers: {
+          'abypass-tunnel-reminder': 'true',
+          'bypass-tunnel-reminder': 'true'
+        },
+        signal: controller.signal
+      });
       clearTimeout(timeoutId);
       if (res.ok) {
         isConnected = true;
