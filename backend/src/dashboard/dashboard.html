@@ -1181,10 +1181,10 @@
     function selectPresetFundus(type) {
       const presetInput = document.getElementById('selectedPresetPath');
       if (type === 'sample_refer') {
-        presetInput.value = 'C:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\backend\\uploads\\fundus_upload_fc1e2d49-b7fb-4d89-a31c-a8e1869bbc99.jpeg';
+        presetInput.value = '/uploads/fundus_upload_fc1e2d49-b7fb-4d89-a31c-a8e1869bbc99.jpeg';
         alert('Selected Preset: Severe Non-Proliferative / Proliferative Case (Grade 4)');
       } else {
-        presetInput.value = 'C:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\backend\\uploads\\fundus_upload_e4c5f8b3-ccb5-4118-a340-32edb096eaeb.jpeg';
+        presetInput.value = '/uploads/fundus_upload_e4c5f8b3-ccb5-4118-a340-32edb096eaeb.jpeg';
         alert('Selected Preset: Normal Fundus Image (Grade 0 Normal)');
       }
     }
@@ -1216,7 +1216,7 @@
           });
         } else {
           // Use selected preset or standard test image
-          const chosenPath = presetPath || 'C:\\Users\\Appasaheb\\OneDrive\\Desktop\\app\\backend\\uploads\\fundus_upload_fc1e2d49-b7fb-4d89-a31c-a8e1869bbc99.jpeg';
+          const chosenPath = presetPath || '/uploads/fundus_upload_fc1e2d49-b7fb-4d89-a31c-a8e1869bbc99.jpeg';
           res = await fetch('/api/screen', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -1229,8 +1229,9 @@
         }
 
         if (!res.ok) {
-          const errText = await res.text();
-          throw new Error(errText || 'Inference error');
+          const errData = await res.json().catch(() => ({}));
+          const errMsg = errData.details || errData.error || (await res.text().catch(() => 'Inference error'));
+          throw new Error(errMsg);
         }
 
         const data = await res.json();

@@ -33,28 +33,34 @@ const upload = multer({
 
 // Master Health Check reporting MATLAB Engine status
 router.get('/health', async (_req, res) => {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2000);
-    const bridgeRes = await fetch(`${config.matlabAiServiceUrl}/api/health`, { signal: controller.signal });
-    clearTimeout(timeoutId);
-    if (bridgeRes.ok) {
-      const data = await bridgeRes.json();
-      return res.json({
-        ...data,
-        backend_service: 'NetraAI Express Node.js API',
-        bridge_status: 'online'
+  if (config.matlabAiServiceUrl) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
+      const bridgeRes = await fetch(`${config.matlabAiServiceUrl}/api/health`, {
+        headers: { 'bypass-tunnel-reminder': 'true' },
+        signal: controller.signal
       });
+      clearTimeout(timeoutId);
+      if (bridgeRes.ok) {
+        const data = await bridgeRes.json();
+        return res.json({
+          ...data,
+          backend_service: 'NetraAI Express Node.js API',
+          bridge_status: 'online'
+        });
+      }
+    } catch (_err: any) {
+      // Bridge check failed
     }
-  } catch (err: any) {
-    // Return status if bridge is still warming up
   }
 
   return res.json({
     status: 'healthy',
     timestamp: new Date().toISOString(),
     service: 'Career Crafters SIH26038 DR Screening Engine',
-    matlab_engine: 'initializing',
+    matlab_engine: config.matlabAiServiceUrl ? 'disconnected' : 'unconfigured',
+    matlab_service_configured: Boolean(config.matlabAiServiceUrl),
     version: '1.0.0'
   });
 });
@@ -84,27 +90,93 @@ router.get('/resource-planner', async (req, res) => {
 // Master Direct Screening endpoint (POST /api/screen)
 router.post('/screen', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'file', maxCount: 1 }]), async (req, res) => {
   try {
+    if (!config.matlabAiServiceUrl) {
+      return res.status(503).json({
+        error: 'MATLAB AI Screening Pipeline Unavailable',
+        details: 'The MATLAB/Python GPU Screening Engine (MATLAB_SERVICE_URL) is not configured with an upstream endpoint on Render. Please configure MATLAB_SERVICE_URL in Render environment settings to connect to the secure GPU inference gateway.',
+        status: 'UNAVAILABLE'
+      });
+    }
+
+    if (config.nodeEnv === 'production' && !config.matlabAiServiceUrl.startsWith('https://')) {
+      return res.status(503).json({
+        error: 'MATLAB AI Screening Pipeline Misconfigured',
+        details: 'In production, MATLAB_SERVICE_URL must be a secure HTTPS URL. Insecure loopback or HTTP endpoints are rejected for security.',
+        status: 'MISCONFIGURED'
+      });
+    }
+
     let targetImagePath = req.body?.imagePath || req.body?.imageUrl;
     
     const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
     const uploadedFile = files?.image?.[0] || files?.file?.[0];
+    
+    let imageBuffer: Buffer | null = null;
+    let imageFilename = 'fundus_capture.jpg';
+
     if (uploadedFile) {
       targetImagePath = uploadedFile.path;
+      imageFilename = uploadedFile.originalname || path.basename(uploadedFile.path);
+      if (fs.existsSync(uploadedFile.path)) {
+        imageBuffer = fs.readFileSync(uploadedFile.path);
+      }
+    } else if (targetImagePath) {
+      let resolved = targetImagePath;
+      if (!path.isAbsolute(resolved)) {
+        const cleanRel = resolved.replace(/^\/?uploads\//, '');
+        const inStorage = path.join(config.storagePath, cleanRel);
+        if (fs.existsSync(inStorage)) {
+          resolved = inStorage;
+        } else {
+          const inCwd = path.resolve(process.cwd(), resolved);
+          if (fs.existsSync(inCwd)) {
+            resolved = inCwd;
+          }
+        }
+      }
+      if (fs.existsSync(resolved)) {
+        targetImagePath = resolved;
+        imageFilename = path.basename(resolved);
+        imageBuffer = fs.readFileSync(resolved);
+      }
     }
 
-    const payload: any = {};
-    if (targetImagePath) {
-      payload.imagePath = targetImagePath;
-    }
-    if (req.body?.patientId) payload.patientId = req.body.patientId;
-    if (req.body?.eye) payload.eye = req.body.eye;
-    if (req.body?.facilityId) payload.facilityId = req.body.facilityId;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 120000); // 120s timeout for clinical analysis
 
-    const bridgeRes = await fetch(`${config.matlabAiServiceUrl}/api/screen`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+    let bridgeRes: globalThis.Response;
+    if (imageBuffer) {
+      const blob = new Blob([new Uint8Array(imageBuffer)]);
+      const fd = new FormData();
+      fd.append('image', blob, imageFilename);
+      if (req.body?.patientId) fd.append('patientId', req.body.patientId);
+      if (req.body?.eye) fd.append('eye', req.body.eye);
+      if (req.body?.facilityId) fd.append('facilityId', req.body.facilityId);
+
+      bridgeRes = await fetch(`${config.matlabAiServiceUrl}/api/screen`, {
+        method: 'POST',
+        headers: { 'bypass-tunnel-reminder': 'true' },
+        body: fd,
+        signal: controller.signal
+      });
+    } else {
+      const payload: any = {};
+      if (targetImagePath) payload.imagePath = targetImagePath;
+      if (req.body?.patientId) payload.patientId = req.body.patientId;
+      if (req.body?.eye) payload.eye = req.body.eye;
+      if (req.body?.facilityId) payload.facilityId = req.body.facilityId;
+
+      bridgeRes = await fetch(`${config.matlabAiServiceUrl}/api/screen`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'bypass-tunnel-reminder': 'true'
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+    }
+    clearTimeout(timeoutId);
 
     if (!bridgeRes.ok) {
       const err = await bridgeRes.text();
@@ -313,9 +385,18 @@ router.post('/screen', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'f
       screening_id: screeningId
     });
   } catch (err: any) {
-    return res.status(500).json({
+    const isTimeout = err.name === 'AbortError';
+    const isConnectionError = err.message?.includes('fetch failed') || err.code === 'ECONNREFUSED';
+    const statusCode = isTimeout ? 504 : (isConnectionError ? 503 : 500);
+
+    return res.status(statusCode).json({
       error: 'Failed to execute MATLAB screening pipeline',
-      details: err.message
+      details: isTimeout
+        ? 'Inference request to MATLAB screening pipeline timed out after 120s.'
+        : (isConnectionError
+          ? 'Unable to connect to upstream MATLAB AI inference service. Please verify the GPU bridge is running and reachable at configured MATLAB_SERVICE_URL.'
+          : err.message),
+      status: isTimeout ? 'TIMEOUT' : (isConnectionError ? 'SERVICE_UNAVAILABLE' : 'INTERNAL_ERROR')
     });
   }
 });

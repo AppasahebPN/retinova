@@ -12,6 +12,20 @@ if (nodeEnv === 'production') {
   }
 }
 
+// Upstream MATLAB / Python AI Inference Service URL
+// In development: defaults to local bridge at http://127.0.0.1:8000
+// In production: MUST be an explicit secure HTTPS URL (e.g. secure tunnel or dedicated GPU instance); never defaults to localhost
+const rawMatlabUrl = (process.env.MATLAB_SERVICE_URL || '').trim().replace(/\/+$/, '');
+const rawSimulinkUrl = (process.env.MATLAB_SIMULINK_URL || '').trim().replace(/\/+$/, '');
+
+const matlabAiServiceUrl = rawMatlabUrl
+  ? rawMatlabUrl
+  : (nodeEnv === 'production' ? '' : 'http://127.0.0.1:8000');
+
+const matlabSimulinkServiceUrl = rawSimulinkUrl
+  ? rawSimulinkUrl
+  : (nodeEnv === 'production' ? '' : 'http://127.0.0.1:8000');
+
 export const config = {
   port: parseInt(process.env.PORT || '5000', 10),
   nodeEnv,
@@ -19,9 +33,9 @@ export const config = {
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
   databaseUrl: process.env.DATABASE_URL || '',
   aiServiceType: (process.env.AI_SERVICE_TYPE || 'matlab') as 'mock' | 'matlab',
-  matlabAiServiceUrl: process.env.MATLAB_SERVICE_URL || 'http://127.0.0.1:8000',
+  matlabAiServiceUrl,
   simulationServiceType: (process.env.SIMULATION_SERVICE_TYPE || 'matlab') as 'mock' | 'matlab',
-  matlabSimulinkServiceUrl: process.env.MATLAB_SIMULINK_URL || 'http://127.0.0.1:8000',
+  matlabSimulinkServiceUrl,
   storagePath: process.env.STORAGE_PATH || path.join(process.cwd(), 'uploads'),
   corsOrigin: process.env.CORS_ORIGINS || process.env.CORS_ORIGIN || '*',
   awsRegion: process.env.AWS_REGION || 'ap-south-1',
