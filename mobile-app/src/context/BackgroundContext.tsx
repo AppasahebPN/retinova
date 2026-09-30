@@ -5,6 +5,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { storage } from '../services/storage';
 
+import { Platform } from 'react-native';
+
 export type BackgroundId = 'provided' | 'clinical' | 'healthcare';
 
 export interface BackgroundOption {
@@ -19,19 +21,19 @@ export const BACKGROUND_OPTIONS: Record<BackgroundId, BackgroundOption> = {
     id: 'provided',
     title: 'Misty Mountain Sunrise',
     subtitle: 'Golden sunrise landscape (User Provided)',
-    source: require('../../assets/background.jpg'),
+    source: Platform.OS === 'web' ? require('../../assets/background.jpg') : null,
   },
   clinical: {
     id: 'clinical',
     title: 'Clinical Eye Care',
     subtitle: 'Modern ophthalmology examination (Online)',
-    source: require('../../assets/clinic-bg.jpg'),
+    source: Platform.OS === 'web' ? require('../../assets/clinic-bg.jpg') : null,
   },
   healthcare: {
     id: 'healthcare',
     title: 'Healthcare Specialist',
     subtitle: 'Clinical telemedicine consultation (Online)',
-    source: require('../../assets/healthcare-bg.jpg'),
+    source: Platform.OS === 'web' ? require('../../assets/healthcare-bg.jpg') : null,
   },
 };
 

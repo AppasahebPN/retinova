@@ -1,10 +1,8 @@
-import 'react-native-gesture-handler';
 import { enableScreens } from 'react-native-screens';
 import React, { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Platform, ImageBackground, StyleSheet, View } from "react-native";
 import { AuthContext, useAuthProvider } from "./src/hooks/useAuth";
 import { BackgroundProvider, useBackground } from "./src/context/BackgroundContext";
@@ -28,6 +26,17 @@ const navTheme = {
 
 function MainAppShell() {
   const { currentOption } = useBackground();
+
+  if (Platform.OS !== 'web' || !currentOption?.source) {
+    return (
+      <View style={styles.overlay}>
+        <NavigationContainer theme={navTheme}>
+          <StatusBar style="dark" />
+          <RootNavigator />
+        </NavigationContainer>
+      </View>
+    );
+  }
 
   return (
     <ImageBackground
@@ -105,16 +114,16 @@ export default function App() {
 
   if (auth.isLoading) {
     return (
-      <GestureHandlerRootView style={styles.provider}>
+      <View style={styles.provider}>
         <SafeAreaProvider>
           <LoadingOverlay message="Loading RETINOVA..." />
         </SafeAreaProvider>
-      </GestureHandlerRootView>
+      </View>
     );
   }
 
   return (
-    <GestureHandlerRootView style={styles.provider}>
+    <View style={styles.provider}>
       <SafeAreaProvider style={styles.provider}>
         <AuthContext.Provider value={auth}>
           <BackgroundProvider>
@@ -122,7 +131,7 @@ export default function App() {
           </BackgroundProvider>
         </AuthContext.Provider>
       </SafeAreaProvider>
-    </GestureHandlerRootView>
+    </View>
   );
 }
 
