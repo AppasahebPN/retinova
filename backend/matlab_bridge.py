@@ -462,7 +462,10 @@ def run_simulation_endpoint(params: Dict[str, Any] = Body(...)):
 def resolve_image_path(input_path: str) -> str:
     """Resolves relative upload URLs, filenames, or paths into an absolute filesystem path."""
     if not input_path:
-        return os.path.join(MATLAB_PROJECT_PATH, "data", "EyeQ", "figure", "quality_label.jpg")
+        raise HTTPException(
+            status_code=400,
+            detail={"error": "REAL_AI_INFERENCE_UNAVAILABLE", "stage": "input_validation", "details": "No image path or URL provided."}
+        )
         
     if os.path.isabs(input_path) and os.path.exists(input_path):
         return input_path
@@ -489,7 +492,13 @@ def resolve_image_path(input_path: str) -> str:
         if clean_name in files:
             return os.path.join(root, clean_name)
 
-    return input_path
+    if os.path.exists(input_path):
+        return input_path
+
+    raise HTTPException(
+        status_code=404,
+        detail={"error": "REAL_AI_INFERENCE_UNAVAILABLE", "stage": "file_resolution", "details": f"Target fundus image file not found on server: {input_path}"}
+    )
 
 def execute_matlab_screening(
     resolved_image_path: str,
@@ -518,7 +527,10 @@ def execute_matlab_screening(
         matlab_result = eng.run_NetraAI_SwinV1(working_image_path, True, True, nargout=1)
     except Exception as e:
         print(f"[MATLAB Engine] Execution error: {e}")
-        raise HTTPException(status_code=500, detail=f"MATLAB run_NetraAI_SwinV1 error: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail={"error": "REAL_AI_INFERENCE_UNAVAILABLE", "stage": "matlab_pipeline", "details": f"MATLAB run_NetraAI_SwinV1 error: {str(e)}"}
+        )
     
     matlab_elapsed = time.perf_counter() - t_matlab_start
     run_id = screening_id_override or str(uuid.uuid4())
@@ -938,22 +950,36 @@ def execute_matlab_screening(
     # Module 4 & 5: IN-PROCESS PERSISTENT SWIN V2 TINY PREDICTOR & GRAD-CAM
     # Reuses already initialized GPU singleton, avoiding the cold subprocess spawning overhead
     t_swin_start = time.perf_counter()
-    pred = get_swin_predictor()
+    try:
+        pred = get_swin_predictor()
+        if pred is None:
+            raise RuntimeError("Swin V2 Tiny GPU Predictor could not be initialized.")
+    except Exception as e:
+        raise HTTPException(
+            status_code=503,
+            detail={"error": "REAL_AI_INFERENCE_UNAVAILABLE", "stage": "swin_initialization", "details": str(e)}
+        )
     
-    if enhanced_img_mat is not None:
-        arr_enh = np.array(enhanced_img_mat)
-        if arr_enh.dtype != np.uint8:
-            if np.issubdtype(arr_enh.dtype, np.floating):
-                arr_enh = np.clip(np.round(arr_enh * 255.0), 0, 255).astype(np.uint8)
-            else:
-                arr_enh = arr_enh.astype(np.uint8)
-        swin_res = pred.predict(arr_enh, return_cam=True)
-    else:
-        swin_res = pred.predict(resolved_image_path, return_cam=True)
+    try:
+        if enhanced_img_mat is not None:
+            arr_enh = np.array(enhanced_img_mat)
+            if arr_enh.dtype != np.uint8:
+                if np.issubdtype(arr_enh.dtype, np.floating):
+                    arr_enh = np.clip(np.round(arr_enh * 255.0), 0, 255).astype(np.uint8)
+                else:
+                    arr_enh = arr_enh.astype(np.uint8)
+            swin_res = pred.predict(arr_enh, return_cam=True)
+        else:
+            swin_res = pred.predict(resolved_image_path, return_cam=True)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail={"error": "REAL_AI_INFERENCE_UNAVAILABLE", "stage": "swin_inference", "details": f"PyTorch Swin V2 inference execution failed: {str(e)}"}
+        )
         
     swin_elapsed = time.perf_counter() - t_swin_start
 
-    predicted_class = str(swin_res.get("predictedClass", "Grade 0 - No DR"))
+    predicted_class = str(swin_res.get("predictedClass") or f"Grade {swin_res.get('grade', 0)}")
     grade_int = int(swin_res.get("grade", 0))
     grade_conf = float(swin_res.get("confidence", 0.0))
     grade_conf_clamped = min(1.0, max(0.0, grade_conf))
@@ -968,6 +994,22 @@ def execute_matlab_screening(
     grade_label = grade_names[grade_int] if 0 <= grade_int < len(grade_names) else f"Grade {grade_int}"
     
     class_probs_list = swin_res.get("grade_probabilities")
+    raw_logits_5g = swin_res.get("raw_logits_5grade") or swin_res.get("raw_logits") or []
+    raw_logit_ref = swin_res.get("raw_logits_referable")
+    diagnostic_obj = swin_res.get("diagnostic") or {
+        "model_path": pred.checkpoint_path,
+        "model_exists": os.path.exists(pred.checkpoint_path),
+        "model_file_size": os.path.getsize(pred.checkpoint_path),
+        "model_loaded": True,
+        "model_architecture": pred.model.__class__.__name__,
+        "inference_executed": True,
+        "raw_logits": raw_logits_5g,
+        "raw_logit_referable": raw_logit_ref,
+        "calibrated_probabilities": class_probs_list,
+        "predicted_grade": grade_int,
+        "referable_probability": float(swin_res.get("g2plus_probability_calibrated", 0.0))
+    }
+
     model_name = str(swin_res.get("model_name", "Swin V2 Tiny (Torchvision swin_v2_t)"))
     model_version = "v1.0-frozen"
     p_g2plus_raw = float(swin_res.get("g2plus_probability_raw", 0.0))
@@ -993,6 +1035,9 @@ def execute_matlab_screening(
         "threshold": threshold_val,
         "referable": is_referable,
         "decision": swin_decision,
+        "raw_logits": raw_logits_5g,
+        "raw_logits_5grade": raw_logits_5g,
+        "raw_logit_referable": raw_logit_ref,
         "classProbabilities": class_probs_list,
         "grade_probabilities": class_probs_list,
         "input_resolution": input_resolution,
@@ -1001,7 +1046,8 @@ def execute_matlab_screening(
         "dataset_benchmark": "IDRiD / APTOS / EyePACS Multi-Domain Frozen Benchmark",
         "processingTimeSec": swin_elapsed,
         "inference_time": swin_elapsed,
-        "execution_method": execution_method
+        "execution_method": execution_method,
+        "diagnostic": diagnostic_obj
     }
 
     # Module 5: Explainability (Grad-CAM Multi-Scale Smooth Overlay)
@@ -1278,8 +1324,10 @@ def execute_matlab_screening(
             }
         },
         "classification": grading_response,
+        "grading": grading_response,
         "explainability": explainability_response,
         "referral": referral_response,
+        "diagnostic": diagnostic_obj,
         "totalTime": total_pipeline_time,
         "totalTimeSec": total_pipeline_time,
         "apiResponseTime": round(total_http_time, 4),
@@ -1351,8 +1399,11 @@ async def screen_endpoint(
             except Exception as e:
                 print(f"[MATLAB Bridge] Form parse error: {e}")
 
-    if not target_path:
-        target_path = os.path.join(MATLAB_PROJECT_PATH, "data", "EyeQ", "figure", "quality_label.jpg")
+    if not target_path or not os.path.exists(target_path):
+        raise HTTPException(
+            status_code=400,
+            detail={"error": "REAL_AI_INFERENCE_UNAVAILABLE", "stage": "image_upload", "details": "No valid image file was uploaded or provided."}
+        )
 
     return execute_matlab_screening(
         resolved_image_path=target_path,

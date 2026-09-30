@@ -294,9 +294,29 @@ class SwinV1Predictor:
         pred_grade = int(np.argmax(probs_5g))
         grade_probs_list = [float(p) for p in probs_5g]
         
+        grade_classes = ["Grade 0 - No DR", "Grade 1 - Mild", "Grade 2 - Moderate", "Grade 3 - Severe", "Grade 4 - Proliferative DR"]
+        pred_class_label = grade_classes[pred_grade] if 0 <= pred_grade < len(grade_classes) else f"Grade {pred_grade}"
+
+        raw_logits_list = [float(x) for x in logits_5g]
+        
+        # Task 3 Diagnostic Logging
+        print(f"[DIAGNOSTIC] MODEL_PATH={self.checkpoint_path}")
+        print(f"[DIAGNOSTIC] MODEL_EXISTS={os.path.exists(self.checkpoint_path)}")
+        print(f"[DIAGNOSTIC] MODEL_FILE_SIZE={os.path.getsize(self.checkpoint_path)}")
+        print(f"[DIAGNOSTIC] MODEL_LOADED=True")
+        print(f"[DIAGNOSTIC] MODEL_ARCHITECTURE={self.model.__class__.__name__}")
+        print(f"[DIAGNOSTIC] INFERENCE_EXECUTED=True")
+        print(f"[DIAGNOSTIC] RAW_LOGITS={raw_logits_list}")
+        print(f"[DIAGNOSTIC] CALIBRATED_PROBABILITIES={grade_probs_list}")
+        print(f"[DIAGNOSTIC] PREDICTED_GRADE={pred_grade}")
+        print(f"[DIAGNOSTIC] REFERABLE_PROBABILITY={p_calibrated:.6f}")
+
         result = {
             "model_name": self.model_name,
             "input_resolution": self.input_resolution,
+            "raw_logits_referable": float(logit_ref),
+            "raw_logits_5grade": raw_logits_list,
+            "raw_logits": raw_logits_list,
             "g2plus_probability_raw": float(p_raw),
             "temperature": float(self.temperature),
             "g2plus_probability_calibrated": float(p_calibrated),
@@ -304,10 +324,24 @@ class SwinV1Predictor:
             "referable": is_referable,
             "decision": decision,
             "grade": pred_grade,
+            "predictedClass": pred_class_label,
             "grade_probabilities": grade_probs_list,
             "inference_time": float(inference_time),
             "attribution_available": (gradcam_map is not None),
-            "feature_layer": feature_layer_name
+            "feature_layer": feature_layer_name,
+            "diagnostic": {
+                "model_path": self.checkpoint_path,
+                "model_exists": os.path.exists(self.checkpoint_path),
+                "model_file_size": os.path.getsize(self.checkpoint_path),
+                "model_loaded": True,
+                "model_architecture": self.model.__class__.__name__,
+                "inference_executed": True,
+                "raw_logits": raw_logits_list,
+                "raw_logit_referable": float(logit_ref),
+                "calibrated_probabilities": grade_probs_list,
+                "predicted_grade": pred_grade,
+                "referable_probability": float(p_calibrated)
+            }
         }
         
         if gradcam_map is not None:
